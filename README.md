@@ -12,6 +12,8 @@ demo history, cookie, redirect : https://github.com/nguyenchiccuong/e-commerce-f
 
 phan protected route tui cung co de vao nhung de noi voi mn sau
 
+mn lay css tư template nhơ lây du dung lấy thieu va du nhe
 
+mn nhơ dùng các file torng thu muc constant khi làm nhe, tui co demo trong httphelper cau dau tien
 
-
+mn cung nhơ dung các state trong constant nhe de anh xa cho Available, not available,..

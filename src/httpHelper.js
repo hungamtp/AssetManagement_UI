@@ -1,5 +1,6 @@
 import axios from "axios";
-const endpoint = "http://localhost:9995/my-shop/api/v1";
+import * as URL from './constants/URL';
+const endpoint = URL.EndPoint;
 
 let token = getCookie("user") !== "" ? JSON.parse(getCookie("user")).token : "";
 

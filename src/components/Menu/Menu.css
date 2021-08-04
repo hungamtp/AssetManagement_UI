@@ -274,3 +274,272 @@
   top: 0px;
   overflow: visible;
 }
+
+/* report active */
+#Report_k {
+  position: absolute;
+  width: 262px;
+  height: 60px;
+  left: 0px;
+  top: 310px;
+  overflow: visible;
+}
+#Path_1_la {
+  fill: rgba(207, 35, 56, 1);
+}
+.Path_1_la {
+  overflow: visible;
+  position: absolute;
+  width: 262px;
+  height: 60px;
+  left: 0px;
+  top: 0px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}
+#Report_la {
+  left: 22px;
+  top: 18px;
+  position: absolute;
+  overflow: visible;
+  width: 65px;
+  white-space: nowrap;
+  line-height: 24px;
+  margin-top: -2px;
+  text-align: left;
+  font-family: Segoe UI, Arial;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  color: rgba(250, 252, 252, 1);
+}
+
+/* home inactive */
+#Home {
+  position: absolute;
+  width: 262px;
+  height: 60px;
+  left: 0px;
+  top: 0px;
+  overflow: visible;
+  --web-animation: fadein 0.3s ease-out;
+  --web-action-type: page;
+  --web-action-target: Home.html;
+  cursor: pointer;
+}
+#Path_1_lj {
+  fill: rgba(239, 241, 245, 1);
+}
+.Path_1_lj {
+  overflow: visible;
+  position: absolute;
+  width: 262px;
+  height: 60px;
+  left: 0px;
+  top: 0px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}
+#Home_lk {
+  left: 22px;
+  top: 18px;
+  position: absolute;
+  overflow: visible;
+  width: 58px;
+  white-space: nowrap;
+  line-height: 24px;
+  margin-top: -2px;
+  text-align: left;
+  font-family: Segoe UI, Arial;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  color: rgba(33, 37, 41, 1);
+}
+
+/* Manage assignment active */
+#Manage_Assignment_m {
+  position: absolute;
+  width: 262px;
+  height: 60px;
+  left: 0px;
+  top: 186px;
+  overflow: visible;
+}
+#Path_1_n {
+  fill: rgba(207, 35, 56, 1);
+}
+.Path_1_n {
+  overflow: visible;
+  position: absolute;
+  width: 262px;
+  height: 60px;
+  left: 0px;
+  top: 0px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}
+#Manage_Assignment_o {
+  left: 22px;
+  top: 18px;
+  position: absolute;
+  overflow: visible;
+  width: 193px;
+  white-space: nowrap;
+  line-height: 24px;
+  margin-top: -2px;
+  text-align: left;
+  font-family: Segoe UI, Arial;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  color: rgba(250, 252, 252, 1);
+}
+
+/* request for returning active */
+#Request_for_Returning_cf {
+  position: absolute;
+  width: 262px;
+  height: 60px;
+  left: 0px;
+  top: 248px;
+  overflow: visible;
+}
+#Path_1_cg {
+  fill: rgba(207, 35, 56, 1);
+}
+.Path_1_cg {
+  overflow: visible;
+  position: absolute;
+  width: 262px;
+  height: 60px;
+  left: 0px;
+  top: 0px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}
+#Request_for_Returning_ch {
+  left: 22px;
+  top: 18px;
+  position: absolute;
+  overflow: visible;
+  width: 209px;
+  white-space: nowrap;
+  line-height: 24px;
+  margin-top: -2px;
+  text-align: left;
+  font-family: Segoe UI, Arial;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  color: rgba(250, 252, 252, 1);
+}
+
+/* manage asset active */
+#Manage_Asset_fo {
+  position: absolute;
+  width: 262px;
+  height: 60px;
+  left: 0px;
+  top: 124px;
+  overflow: visible;
+}
+#Path_1_fp {
+  fill: rgba(207, 35, 56, 1);
+}
+.Path_1_fp {
+  overflow: visible;
+  position: absolute;
+  width: 262px;
+  height: 60px;
+  left: 0px;
+  top: 0px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}
+#Manage_Asset_fq {
+  left: 22px;
+  top: 18px;
+  position: absolute;
+  overflow: visible;
+  width: 133px;
+  white-space: nowrap;
+  line-height: 24px;
+  margin-top: -2px;
+  text-align: left;
+  font-family: Segoe UI, Arial;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  color: rgba(250, 252, 252, 1);
+}
+
+#Manage_User_jl {
+  position: absolute;
+  width: 262px;
+  height: 60px;
+  left: 0px;
+  top: 62px;
+  overflow: visible;
+}
+#Path_1_jr {
+  fill: rgba(207, 35, 56, 1);
+}
+.Path_1_jr {
+  overflow: visible;
+  position: absolute;
+  width: 262px;
+  height: 60px;
+  left: 0px;
+  top: 0px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}
+#Manage_User_jm {
+  left: 22px;
+  top: 18px;
+  position: absolute;
+  overflow: visible;
+  width: 125px;
+  white-space: nowrap;
+  line-height: 24px;
+  margin-top: -2px;
+  text-align: left;
+  font-family: Segoe UI, Arial;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  color: rgba(250, 252, 252, 1);
+}
+
+/* manage user active */
+#Manage_User_jl {
+  position: absolute;
+  width: 262px;
+  height: 60px;
+  left: 0px;
+  top: 62px;
+  overflow: visible;
+}
+#Path_1_jr {
+  fill: rgba(207, 35, 56, 1);
+}
+.Path_1_jr {
+  overflow: visible;
+  position: absolute;
+  width: 262px;
+  height: 60px;
+  left: 0px;
+  top: 0px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}
+#Manage_User_jm {
+  left: 22px;
+  top: 18px;
+  position: absolute;
+  overflow: visible;
+  width: 125px;
+  white-space: nowrap;
+  line-height: 24px;
+  margin-top: -2px;
+  text-align: left;
+  font-family: Segoe UI, Arial;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  color: rgba(250, 252, 252, 1);
+}
