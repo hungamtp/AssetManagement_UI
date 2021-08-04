@@ -1,8 +1,10 @@
 #logout {
+    position: absolute;
     font-family: Arial;
     width: 294px;
     height: 194px;
-    margin: 182px auto;
+    top: 182px;
+    left: 880px;
     --web-view-name: Log out;
     --web-view-id: logout;
     --web-scale-to-fit: true;
