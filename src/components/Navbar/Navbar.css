@@ -1,0 +1,183 @@
+#narbav_ecg {
+  position: absolute;
+  width: 1920px;
+  height: 151px;
+  left: 0px;
+  top: 0px;
+  overflow: visible;
+}
+#Rectangle_329_ech {
+  fill: rgba(207, 35, 56, 1);
+  stroke: rgba(112, 112, 112, 1);
+  stroke-width: 1px;
+  stroke-linejoin: miter;
+  stroke-linecap: butt;
+  stroke-miterlimit: 4;
+  shape-rendering: auto;
+}
+.Rectangle_329_ech {
+  position: absolute;
+  overflow: visible;
+  width: 1920px;
+  height: 72px;
+  left: 0px;
+  top: 0px;
+}
+#Manage_Assignment__Create_New__eci {
+  left: 138px;
+  top: 16px;
+  position: absolute;
+  overflow: visible;
+  width: 429px;
+  white-space: nowrap;
+  line-height: 67px;
+  margin-top: -23.5px;
+  text-align: left;
+  font-family: Segoe UI, Arial;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  color: rgba(250, 252, 252, 1);
+}
+#account_ecj {
+  position: absolute;
+  width: 198px;
+  height: 135px;
+  left: 1573px;
+  top: 16px;
+  overflow: visible;
+}
+#account_eck {
+  position: absolute;
+  width: 87px;
+  height: 27px;
+  left: 104px;
+  top: 0px;
+  overflow: visible;
+}
+#icondropdown_arrowdefault_ecl {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  left: 73px;
+  top: 11px;
+  overflow: visible;
+}
+#DropdownButtonCarotDown_backgr_ecm {
+  fill: transparent;
+}
+.DropdownButtonCarotDown_backgr_ecm {
+  position: absolute;
+  overflow: visible;
+  width: 14px;
+  height: 14px;
+  left: 0px;
+  top: 0px;
+}
+#icondropdown_arrow_ecn {
+  fill: rgba(255, 255, 255, 1);
+}
+.icondropdown_arrow_ecn {
+  overflow: visible;
+  position: absolute;
+  width: 12px;
+  height: 6px;
+  left: 1px;
+  top: 4px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}
+#binhnv_eco {
+  left: 0px;
+  top: 0px;
+  position: absolute;
+  overflow: visible;
+  width: 63px;
+  white-space: nowrap;
+  line-height: 67px;
+  margin-top: -23.5px;
+  text-align: left;
+  font-family: Segoe UI, Arial;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  color: rgba(250, 252, 252, 1);
+}
+#log_out_ecp {
+  opacity: 0;
+  position: absolute;
+  width: 198px;
+  height: 40px;
+  left: 0px;
+  top: 95px;
+  overflow: visible;
+}
+#Path_1_ecq {
+  fill: rgba(239, 241, 245, 1);
+}
+.Path_1_ecq {
+  overflow: visible;
+  position: absolute;
+  width: 198px;
+  height: 40px;
+  left: 0px;
+  top: 0px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}
+#Log_out_ecr {
+  left: 15.13px;
+  top: 6.5px;
+  position: absolute;
+  overflow: visible;
+  width: 69px;
+  white-space: nowrap;
+  line-height: 24px;
+  margin-top: -2px;
+  text-align: left;
+  font-family: Segoe UI, Arial;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  color: rgba(33, 37, 41, 1);
+}
+#change_pw_ecs {
+  opacity: 0;
+  position: absolute;
+  width: 198px;
+  height: 40px;
+  left: 0px;
+  top: 56px;
+  overflow: visible;
+  transition: all 0.3s ease-out;
+  --web-animation: fadein 0.3s ease-out;
+  --web-action-type: page;
+  --web-action-target: Home.html;
+  cursor: pointer;
+}
+#Path_1_ect {
+  fill: rgba(239, 241, 245, 1);
+}
+.Path_1_ect {
+  overflow: visible;
+  position: absolute;
+  width: 198px;
+  height: 40px;
+  left: 0px;
+  top: 0px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}
+#Change_password_ecu {
+  left: 15.13px;
+  top: 7.583px;
+  position: absolute;
+  overflow: visible;
+  width: 158px;
+  white-space: nowrap;
+  line-height: 24px;
+  margin-top: -2px;
+  text-align: left;
+  font-family: Segoe UI, Arial;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  color: rgba(33, 37, 41, 1);
+}
