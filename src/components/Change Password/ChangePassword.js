@@ -30,7 +30,7 @@ export default class ChangePassword extends Component {
 						<div id="New_password">
 							<Form inline>
 								<FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-									<Label for="exampleEmail" className="mr-sm-2"> <b>Old password  : </b></Label>
+									<Label className="mr-sm-2"> <b>Old password  : </b></Label>
 									<Input type="password"  placeholder="Old password" />
 								</FormGroup>
 							</Form>
@@ -40,7 +40,7 @@ export default class ChangePassword extends Component {
 						<div id="Old_password">
 							<Form inline>
 								<FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-									<Label for="exampleEmail" className="mr-sm-2"><b>New password:</b></Label>
+									<Label className="mr-sm-2"><b>New password:</b></Label>
 									<Input type="password"  placeholder="New password" />
 								</FormGroup>
 							</Form>
