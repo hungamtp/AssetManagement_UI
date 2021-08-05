@@ -13,6 +13,7 @@ export default class index extends Component {
         <Menu business={business.HOME}/>
         {/* menu co prop là business tương ứng HOME, MANAGE_USER, ... mn xem them trong const */}
         {/* layout mẫu mn cu v mà làm nha */}
+        
       </div>
     );
   }

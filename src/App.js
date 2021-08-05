@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import Login from "./components/Login";
 import Home from "./components/Home";
+import ManageAsset from "./components/Manage Asset/ManageAsset";
+import Edit from "./components/Manage Asset_Edit/Edit";
+import ChangePassword from "./components/Change Password/ChangePassword";
+
+
+ 
+
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import ProtectedRoute from "./components/ProtectedRoute";
 
 export default class App extends Component {
@@ -14,6 +22,19 @@ export default class App extends Component {
             <Route exact path="/home">
               <Home />
             </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/manageasset">
+              <ManageAsset />
+            </Route>
+            <Route exact path="/editasset">
+              <Edit />
+            </Route>
+            <Route exact path="/changepassword">
+              <ChangePassword />
+            </Route>
+            
             <Route path="/**" render={() => <h2>Not found</h2>}></Route>
           </Switch>
         </Router>
