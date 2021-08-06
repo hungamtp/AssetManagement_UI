@@ -1,10 +1,20 @@
 import React, { Component } from "react";
 import "./Navbar.css";
 import { UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
+import Logout from "../Logout";
 
 
 
 export default class index extends Component {
+  state = {
+    isShowLogout: false
+  }
+
+  handleLogoutShow = () => {
+    this.setState({
+      isShowLogout: !this.state.isShowLogout
+    })
+  }
 
   render() {
 
@@ -25,7 +35,7 @@ export default class index extends Component {
                   Binhnv
                 </DropdownToggle>
                 <DropdownMenu>
-                  <DropdownItem>Log Out</DropdownItem>
+                  <DropdownItem onClick={this.handleLogoutShow}>Log Out</DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem>Change Password</DropdownItem>
                 </DropdownMenu>
@@ -33,6 +43,7 @@ export default class index extends Component {
             </div>
           </div>
         </div>
+        <Logout isShowLogout={this.state.isShowLogout} handleLogoutShow={this.handleLogoutShow}/>
       </div>
     );
   }

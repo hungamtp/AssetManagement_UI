@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useCookies } from "react-cookie";
 import './Logout.css';
 
-const Logout = () => {
-    const [isShowLogout, setIsShowLogout] = useState(true);
+const Logout = (props) => {
     const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
     const handleLogout = () => {
@@ -11,11 +10,11 @@ const Logout = () => {
     }
 
     const handleCancel = () => {
-        setIsShowLogout(isShowLogout => !isShowLogout);
+        props.handleLogoutShow();
     }
 
     return (
-        <div id="logout" className={`${!isShowLogout ? "show" : ""}`}>
+        <div id="logout" className={`${!props.isShowLogout ? "show" : ""}`}>
             <div className="logout-header">
                 <p>Are you sure?</p>
             </div>
