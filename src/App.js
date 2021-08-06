@@ -11,6 +11,7 @@ import ChangePassword from "./components/Change Password/ChangePassword";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import CreateNewUser from "./components/Create New User";
 
 export default class App extends Component {
   render() {
@@ -33,6 +34,10 @@ export default class App extends Component {
             </Route>
             <Route exact path="/changepassword">
               <ChangePassword />
+            </Route>
+
+            <Route exact path="/createnewuser">
+              <CreateNewUser />
             </Route>
             
             <Route path="/**" render={() => <h2>Not found</h2>}></Route>
