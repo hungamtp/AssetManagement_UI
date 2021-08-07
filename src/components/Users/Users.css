@@ -1,0 +1,43 @@
+.users {
+  margin-left: 500px;
+  margin-top: 200px;
+}
+.row {
+  width: 150px;
+  margin-left: 20px;
+  text-decoration: underline;
+  padding-bottom: 10px;
+}
+.header {
+  display: flex;
+}
+#Search_bar {
+  margin-top: 150px;
+  width: max-content;
+  display: flex;
+  justify-content: space-between;
+}
+#right_search_bar {
+  display: flex;
+  margin-left: 200px;
+}
+#create_button {
+  margin-left: 30px;
+  background-color: red;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+input {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.roles {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.table {
+  min-width: 650px;
+  margin: 100px;
+}
