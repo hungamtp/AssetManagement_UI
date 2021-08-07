@@ -49,8 +49,11 @@ const Index = () => {
     }
   };
 
+  console.log(users);
+
   return (
-    <div className="users">
+    <div id="users">
+      <p className="title">User List</p>
       <div id="Search_bar">
         <select className="roles">
           <option>All</option>
@@ -72,16 +75,21 @@ const Index = () => {
       </div>
 
       <table>
-        <tr className="header">
-          <th className="row">Staff Code</th>
-          <th className="row">Full Name</th>
-          <th className="row">Username</th>
-          <th className="row">Joined Date</th>
-          <th className="row">Type</th>
-        </tr>
-        {users.map((user) => {
-          return <User user={user} />;
-        })}
+        <thead>
+          <tr>
+            <th>Staff Code</th>
+            <th>Full Name</th>
+            <th>Username</th>
+            <th>Joined Date</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user) => {
+            return <User user={user} />;
+          })}
+        </tbody>
+        
       </table>
 
       <Paginations

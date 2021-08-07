@@ -1,33 +1,36 @@
-.users {
-  margin-left: 500px;
-  margin-top: 200px;
+#users {
+  margin: 200px 500px;
 }
-.row {
-  width: 150px;
-  margin-left: 20px;
-  text-decoration: underline;
-  padding-bottom: 10px;
+
+#users .title {
+  color: red;
+  text-align: left;
+  font-family: Segoe UI, Arial;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 30px;
 }
-.header {
-  display: flex;
-}
+
 #Search_bar {
-  margin-top: 150px;
-  width: max-content;
   display: flex;
   justify-content: space-between;
 }
+
 #right_search_bar {
   display: flex;
   margin-left: 200px;
 }
+
 #create_button {
   margin-left: 30px;
   background-color: red;
   color: white;
   padding: 5px;
   border-radius: 5px;
+  float: right;
 }
+
 input {
   border: 1px solid black;
   border-radius: 5px;
@@ -36,8 +39,17 @@ input {
 .roles {
   border: 1px solid black;
   border-radius: 5px;
+  width: 129px;
 }
-.table {
-  min-width: 650px;
-  margin: 100px;
+
+#users table {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+#users th {
+  text-decoration: underline;
+  padding-bottom: 10px;
+  border-bottom: 1px solid lightgrey;
 }
