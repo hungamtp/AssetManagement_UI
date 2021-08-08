@@ -49,16 +49,24 @@ const Index = () => {
     }
   };
 
-  console.log(users);
+  const handleChangeRole = (roleId) => {
+    console.log(roleId);
+  };
 
   return (
     <div id="users">
       <p className="title">User List</p>
       <div id="Search_bar">
         <select className="roles">
-          <option>All</option>
+          <option onChange={() => console.log(roleSearch)}>All</option>
           {roles.map((role) => {
-            return <option>{role.name.replace("ROLE_", "")}</option>;
+            return (
+              <>
+                <option value={role.id}>
+                  <input type="checkbox" value={role.name} />
+                </option>
+              </>
+            );
           })}
         </select>
         <div id="right_search_bar">
@@ -89,7 +97,6 @@ const Index = () => {
             return <User user={user} />;
           })}
         </tbody>
-        
       </table>
 
       <Paginations

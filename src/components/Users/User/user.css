@@ -1,5 +1,9 @@
 #users td {
-    padding-bottom: 10px;
-    padding-top: 10px;
-    border-bottom: 0.5px solid lightgray;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-bottom: 0.5px solid lightgray;
+}
+#dialog {
+  background-color: #fdfefe;
+  color: red;
 }
