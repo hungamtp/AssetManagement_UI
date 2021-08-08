@@ -7,6 +7,8 @@ import searchIcon from "../../images/search.png";
 import Paginations from "./Pagination/Pagination";
 import { MenuItem, Select, FormControl } from "@material-ui/core";
 import { InputLabel } from "@material-ui/core";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 
 const Index = () => {
   const [users, setUsers] = useState([]);
@@ -18,6 +20,11 @@ const Index = () => {
   const [search, setSearch] = useState("staffCode:,username:,role:,location:");
   const [nameSearch, setNameSearch] = useState("");
   const [roleSearch, setRoleSearch] = useState("");
+  const [isStaffCodeASC, setIsStaffCodeASC] = useState(true);
+  const [isFullNameCodeASC, setIsFullNameCodeASC] = useState(true);
+  const [isUserNameASC, setisUserNameASC] = useState(true);
+  const [isJoinedDateASC, setisJoinedDateASC] = useState(true);
+  const [isTypeASC, setIsTypeASC] = useState(true);
 
   useEffect(() => {
     const fetchRoles = async () => {
@@ -78,8 +85,56 @@ const Index = () => {
     setSearch(newSearch);
   };
 
+  const handleSortByStaffCode = () => {
+    if (isStaffCodeASC) {
+      setSort("staffCodeASC");
+      setIsStaffCodeASC(!isStaffCodeASC);
+    } else {
+      setSort("staffCodeDES");
+      setIsStaffCodeASC(!isStaffCodeASC);
+    }
+  };
+
+  const handleSortByFullName = () => {
+    if (isFullNameCodeASC) {
+      setSort("lastNameASC");
+      setIsFullNameCodeASC(!isFullNameCodeASC);
+    } else {
+      setSort("lastNameDES");
+      setIsFullNameCodeASC(!isFullNameCodeASC);
+    }
+  };
+  const handleSortByUserName = () => {
+    if (isUserNameASC) {
+      setSort("usernameASC");
+      setisUserNameASC(!isUserNameASC);
+    } else {
+      setSort("usernameDES");
+      setisUserNameASC(!isUserNameASC);
+    }
+  };
+  const handleSortByJoinedDate = () => {
+    if (isJoinedDateASC) {
+      setSort("joinedDateASC");
+      setisJoinedDateASC(!isJoinedDateASC);
+    } else {
+      setSort("joinedDateDES");
+      setisJoinedDateASC(!isJoinedDateASC);
+    }
+  };
+  const handleSortType = () => {
+    if (isTypeASC) {
+      setSort("roleASC");
+      setIsTypeASC(!isTypeASC);
+    } else {
+      setSort("roleDES");
+      setIsTypeASC(!isTypeASC);
+    }
+  };
+
   return (
     <div id="users">
+      {sort}
       <p className="title">User List</p>
       <div id="Search_bar">
         <FormControl>
@@ -128,11 +183,26 @@ const Index = () => {
       <table>
         <thead>
           <tr>
-            <th>Staff Code</th>
-            <th>Full Name</th>
-            <th>Username</th>
-            <th>Joined Date</th>
-            <th>Type</th>
+            <th onClick={handleSortByStaffCode}>
+              Staff Code
+              {isStaffCodeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+            </th>
+            <th onClick={handleSortByFullName}>
+              Full Name
+              {isFullNameCodeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+            </th>
+            <th onClick={handleSortByUserName}>
+              Username
+              {isUserNameASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+            </th>
+            <th onClick={handleSortByJoinedDate}>
+              Joined Date
+              {isJoinedDateASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+            </th>
+            <th onClick={handleSortType}>
+              Type
+              {isTypeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+            </th>
           </tr>
         </thead>
         <tbody>
