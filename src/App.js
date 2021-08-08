@@ -11,12 +11,12 @@ import ChangePassword from "./components/Change Password/ChangePassword";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import ProtectedRoute from "./components/ProtectedRoute";
-import CreateNewUser from "./components/Create New User";
+import CreateNewUser_Page from "./pages/Create new user";
 
 export default class App extends Component {
   render() {
     return (
-      <div>
+      <div> 
         <Router>
           <Switch>
             {/* <ProtectedRoute exact path="/manage/category" component={Home} /> */}
@@ -37,7 +37,7 @@ export default class App extends Component {
             </Route>
 
             <Route exact path="/createnewuser">
-              <CreateNewUser />
+              <CreateNewUser_Page />
             </Route>
             
             <Route path="/**" render={() => <h2>Not found</h2>}></Route>
