@@ -14,7 +14,6 @@ export default class Edit extends Component {
             <div>
                 <Navbar businessName=" Manage Asset > Edit Asset" />
                 <Menu business={business.MANAGE_ASSET} />
-
                 <div id="Edit_Asset">
                     <span>Edit Asset</span>
                 </div>
