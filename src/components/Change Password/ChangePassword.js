@@ -10,21 +10,21 @@ import { useCookies } from "react-cookie";
 
 const ChangePassword = () => {
 	const [user, setUser] = useState(false);
+	const [username, setUsername] = useState("");
 	const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 	const [newPassword, setNewPassword] = useState("");
 	const [oldPassword, setOldPassword] = useState("");
 	
 	useEffect(() => {
-		//getuser
+		//getuser and set username
 		setUser(cookies.user);
 	}, [])
 
 	const handleChangePassword = () => {
-		let Url = "localhost:9994/asset-management/staff/password";
+		let Url = "http://localhost:9994/asset-management/admin/password/" + username;
 		let data = {
 			oldPassword, newPassword
 		}
-		console.log(data);
 		axios.put(Url, data)
 			.then(() => alert("Change Password OK!"))
 			.catch(err => console.log(err));
