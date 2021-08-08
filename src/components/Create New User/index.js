@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useCookies } from "react-cookie";
 import './CreateNewUser.css';
 
 const Checkbox = ({ label, value, onChange }) => {
@@ -12,6 +14,8 @@ const Checkbox = ({ label, value, onChange }) => {
 };
 
 const CreateNewUser = () => {
+    const [user, setUser] = useState(false);
+    //const [cookies, setCookie, removeCookie] = useCookies(['user']);
     const [lastName, setLastName] = useState("");
     const [firstName, setFirstName] = useState("");
     const [dateOfBirth, setDateOfBirth] = useState("");
@@ -26,10 +30,14 @@ const CreateNewUser = () => {
     const [valid, setValid] = useState("");
     const [validDOB, setValidDOB] = useState(true);
     const [validJD, setValidJD] = useState(true);
+
+    let history = useHistory();
+
     let Url = "http://localhost:9994/asset-management/api/users/save";
 
     useEffect(() => {
-        //do something
+        //get user
+        //setUser(JSON.parse(cookies));
     }, [valid])
 
     const handleValid = (mes, type) => {
@@ -93,6 +101,7 @@ const CreateNewUser = () => {
 
     const handleCancel = () => {
         //go back to manage user page
+        history.push("/manageuser");
     }
 
     return (
