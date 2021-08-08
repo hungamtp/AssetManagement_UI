@@ -32,7 +32,9 @@ const Index = ({ user }) => {
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle id="dialog-title">Detailed User Information</DialogTitle>
+        <div id="dialog-title" className={classes.dialogTitle}>
+          Detailed User Information
+        </div>
         <div className={classes.dialogContent}>
           <div className={classes.title}>
             <div>Staff Code</div>

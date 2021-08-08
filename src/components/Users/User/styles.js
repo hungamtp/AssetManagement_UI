@@ -7,6 +7,12 @@ export default makeStyles((theme) => ({
     paddingRight: 200,
     justifyContent: "space-around",
   },
+  dialogTitle: {
+    color: "red",
+    backgroundColor: "#FDFEFE",
+    border: 1,
+    borderRadius: 5,
+  },
   title: {
     marginRight: 40,
   },
