@@ -80,7 +80,6 @@ const Index = () => {
 
   return (
     <div id="users">
-      {search}
       <p className="title">User List</p>
       <div id="Search_bar">
         <FormControl>
