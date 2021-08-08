@@ -25,7 +25,7 @@ const ChangePassword = () => {
 			oldPassword, newPassword
 		}
 		console.log(data);
-		axios.post(Url, data)
+		axios.put(Url, data)
 			.then(() => alert("Change Password OK!"))
 			.catch(err => console.log(err));
 	}
