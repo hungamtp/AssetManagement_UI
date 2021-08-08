@@ -4,6 +4,8 @@ import Home from "./components/Home";
 import ManageAsset from "./components/Manage Asset/ManageAsset";
 import Edit from "./components/Manage Asset_Edit/Edit";
 import ChangePassword from "./components/Change Password/ChangePassword";
+import LoginFirst from "./components/LoginFirst/LoginFirst";
+import Logout from "./components/Logout";
 
 
  
@@ -39,6 +41,15 @@ export default class App extends Component {
             <Route exact path="/createnewuser">
               <CreateNewUser />
             </Route>
+            <Route exact path="/changepassword">
+              <ChangePassword />
+            </Route>
+            <Route exact path="/login_first">
+              <LoginFirst />
+            </Route>
+            <Route exact path="/logout">
+              <Logout />
+            </Route> 
             
             <Route path="/**" render={() => <h2>Not found</h2>}></Route>
           </Switch>
