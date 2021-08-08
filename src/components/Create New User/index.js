@@ -68,7 +68,7 @@ const CreateNewUser = () => {
             handleValid("Joined date is not later than Date of Birth. Please select a different date", true);
             return false;
         }
-        if (jd.getDay() == 0 || jd.getDay() == 7) {
+        if (jd.getDay() == 0 || jd.getDay() == 6) {
             handleValid("Joined date is Saturday or Sunday. Please select a different date", true);
             return false;
         }
@@ -112,7 +112,10 @@ const CreateNewUser = () => {
                 <div className="DOB">
                     <label htmlFor="dateOfBirth" className="label">Date Of Birth</label>
                     <input className={!validDOB ? "red-input" : "input"} type="date" name="dateOfBirth" value={dateOfBirth}
-                        onChange={({ target }) => setDateOfBirth(target.value)}/>
+                        onChange={({ target }) => {
+                            setDateOfBirth(target.value);
+                            setValidDOB(true);
+                        }}/>
                     <p className={!validDOB ? "show-error" : "none"}>{valid}</p>
                 </div>
                 <div className="Gender">
@@ -134,7 +137,10 @@ const CreateNewUser = () => {
                 <div className="Joined_Date">
                     <label htmlFor="joinedDate" className="label">Joined Date</label>
                     <input className={!validJD ? "red-input" : "input"} type="date" name="joinedDate" value={joinedDate}
-                        onChange={({ target }) => setJoinedDate(target.value)}/>
+                        onChange={({ target }) => {
+                            setJoinedDate(target.value);
+                            setValidJD(true);
+                        }}/>
                     <p className={!validJD ? "show-error" : "none"}>{valid}</p>
                 </div>
                 <div className="Type">
