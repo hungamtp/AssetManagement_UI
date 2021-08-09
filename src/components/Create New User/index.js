@@ -15,7 +15,7 @@ const Checkbox = ({ label, value, onChange }) => {
 
 const CreateNewUser = () => {
     const [user, setUser] = useState(false);
-    //const [cookies, setCookie, removeCookie] = useCookies(['user']);
+    const [cookies, setCookie, removeCookie] = useCookies(['user']);
     const [lastName, setLastName] = useState("");
     const [firstName, setFirstName] = useState("");
     const [dateOfBirth, setDateOfBirth] = useState("");
@@ -39,7 +39,7 @@ const CreateNewUser = () => {
 
     useEffect(() => {
         //get user
-        //setUser(JSON.parse(cookies));
+        setUser(cookies.user);
     }, [])
 
     useEffect(() => {
