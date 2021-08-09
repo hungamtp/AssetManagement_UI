@@ -14,7 +14,7 @@ const Logout = (props) => {
     }
 
     return (
-        <div id="logout" className={`${!props.isShowLogout ? "show" : ""}`}>
+        <div id="logout" className={`${!props.isShowLogout ? "show-logout" : ""}`}>
             <div className="logout-header">
                 <p>Are you sure?</p>
             </div>
