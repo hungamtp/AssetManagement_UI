@@ -26,7 +26,7 @@ export default class index extends Component {
               </svg>
             </div>
             <div id="binhnv_eco">
-              <span>binhnv</span>
+              <span>{localStorage.getItem('username')}</span>
             </div>
           </div>
           <div id="log_out_ecp" className="log_out">
