@@ -20,7 +20,7 @@ const Login = (props) => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    const api = 'http://localhost:9994/asset-management/user/signin';
+    const api = 'http://localhost:9994/asset-management/signin';
     axios.post(api, {
       username, password
     })
@@ -32,8 +32,9 @@ const Login = (props) => {
           }
         }
       })
-      .catch(() => {
-        setIsFailed(true)
+      .catch((err) => {
+        console.log(err);
+        setIsFailed(true);
       })
   }
 
