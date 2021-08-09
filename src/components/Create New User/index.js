@@ -40,6 +40,8 @@ const CreateNewUser = () => {
     useEffect(() => {
         //get user
         setUser(cookies.user);
+        setLocation(cookies.user.idLocation)
+        console.log(`${user.type} ${user.token}`);
     }, [])
 
     useEffect(() => {
@@ -100,12 +102,16 @@ const CreateNewUser = () => {
     const handleSaveUser = () => {
         const check = CheckValidation();
         const data = {
-            firstName, lastName, dateOfBirth: dateOfBirth + ' 00:00', gender, joinedDate: joinedDate + ' 00:00', role, location: 1
+            firstName, lastName, dateOfBirth: dateOfBirth + ' 00:00', gender, joinedDate: joinedDate + ' 00:00', role, location
         }
         console.log(data);
         if (check) {
             axios.post(Url, {
                 firstName, lastName, dateOfBirth: dateOfBirth + ' 00:00', gender, joinedDate: joinedDate + ' 00:00', role, location: 1
+            }, {
+                headers : {
+                    'Authorization': `${user.type} ${user.token}`
+                }
             })
             .then(() => {
                 alert("Create New User OK!")
