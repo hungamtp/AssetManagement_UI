@@ -22,7 +22,7 @@ const CreateNewUser = () => {
     const [gender, setGender] = useState("");
     const [joinedDate, setJoinedDate] = useState("");
     const [role, setRole] = useState("ROLE_ADMIN");
-    const [location, setLocation] = useState("");
+    const [location, setLocation] = useState(1);
 
     const [checkedFemale, setCheckedFemale] = useState(false);
     const [checkedMale, setCheckedMale] = useState(false);
@@ -30,6 +30,8 @@ const CreateNewUser = () => {
     const [valid, setValid] = useState("");
     const [validDOB, setValidDOB] = useState(true);
     const [validJD, setValidJD] = useState(true);
+
+    const [isEnabled, setIsEnabled] = useState(false);
 
     let history = useHistory();
 
@@ -39,6 +41,14 @@ const CreateNewUser = () => {
         //get user
         //setUser(JSON.parse(cookies));
     }, [valid])
+
+    useEffect(() => {
+        console.log(isEnabled);
+        if (lastName.length > 0 && firstName.length > 0 && dateOfBirth.length > 0
+            && gender.length > 0 && joinedDate.length > 0)
+                setIsEnabled(true)
+            else setIsEnabled(false);
+    }, [firstName, lastName, dateOfBirth, gender, joinedDate])
 
     const handleValid = (mes, type) => {
         setValid(mes);
@@ -162,7 +172,7 @@ const CreateNewUser = () => {
                 </div>
             </form>
             <div className="button-flex">
-                <button className="save-btn" onClick={handleSaveUser}>SAVE</button>
+                <button className="save-btn" onClick={handleSaveUser} disabled={!isEnabled}>SAVE</button>
                 <button className="cancel-btn" onClick={handleCancel}>CANCEL</button>
             </div>
         </div>
