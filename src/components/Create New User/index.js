@@ -40,6 +40,10 @@ const CreateNewUser = () => {
     useEffect(() => {
         //get user
         //setUser(JSON.parse(cookies));
+    }, [])
+
+    useEffect(() => {
+        //do something
     }, [valid])
 
     useEffect(() => {
