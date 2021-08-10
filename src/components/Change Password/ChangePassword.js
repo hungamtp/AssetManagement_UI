@@ -18,6 +18,8 @@ const ChangePassword = () => {
 	useEffect(() => {
 		//getuser and set username
 		setUser(cookies.user);
+		setUsername(cookies.user.username);
+		console.log(cookies.user);
 	}, [])
 
 	const handleChangePassword = () => {
