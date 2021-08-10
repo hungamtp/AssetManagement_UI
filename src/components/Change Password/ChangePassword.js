@@ -7,6 +7,7 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { ButtonToggle } from "reactstrap";
 import axios from 'axios';
 import { useCookies } from "react-cookie";
+import { put } from '../../httpHelper';
 
 const ChangePassword = () => {
 	const [user, setUser] = useState(false);
@@ -29,17 +30,13 @@ const ChangePassword = () => {
 	}, [newPassword, oldPassword])
 
 	const handleChangePassword = () => {
-		let Url = "http://localhost:9994/asset-management/user/password/" + username;
+		let Url = "user/password/" + username;
 		let data = {
 			oldPassword, newPassword
 		}
-		axios.put(Url, data, {
-			headers: {
-				'Authorization': `${user.type} ${user.token}`
-			}
-		})
-			.then(() => alert("Change Password OK!"))
-			.catch(err => console.log(err));
+		put(Url, data)
+		.then(() => alert("Change Password OK!"))
+		.catch(err => console.log(err));			
 	}
 
 	const handleCancelChangePassword = () => {

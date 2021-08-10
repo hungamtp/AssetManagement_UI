@@ -7,12 +7,10 @@ import axios from 'axios';
 import { ButtonToggle } from "reactstrap";
 import { Button, Form, FormGroup, Label, Input, Col, } from 'reactstrap';
 import React, { useEffect, useState } from 'react';
-import { useCookies } from "react-cookie";
-
+import { get, put } from '../../httpHelper';
 
 
 const EditAsset = () => {
-    const [user, setUser] = useState(false);
 	const [id, setid] = useState("");
 	const [Name, setName] = useState("");
 	const [Category, setCategory] = useState("");
@@ -20,7 +18,6 @@ const EditAsset = () => {
     const [InstalledDate, setInstalledDate] = useState("");
     const [State, setState] = useState("");
     const [categoryList, setCategoryList] = useState([]);
-    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
     
     const [checkedAvailalbe, setCheckedAvailalbe] = useState(false);
     const [checkedNotAvailable, setCheckedNotAvailable] = useState(false);
@@ -32,10 +29,9 @@ const EditAsset = () => {
     const [isDisabled, setIsDisable] = useState(true);
 
     useEffect(() => {
-        setUser(cookies.user);
-        let Url = "";
         //getCategoryList
-        //axios.get(Url)
+        //let Url = "";
+        //get(Url)
         //.then(response => setCategoryList(response.data.data))
         //.catch(err => console.log(err))
     },[])
@@ -59,14 +55,15 @@ const EditAsset = () => {
     }
 
 	const handleEdit = () => {
-		let Url = "http://localhost:9994/asset-management/asset/edit" + id;
+		let Url = "asset/edit" + id;
 		let data = {
 			Name, Category,Specification, InstalledDate: InstalledDate + " 00:00", State
 		}
         //console.log(data);
-		axios.put(Url, data)
-			.then(() => alert("Edit Aset Successfull!"))
-			.catch(err => console.log(err));
+        //Cường đổi lại sử dụng httpHelper.js để Cường get user auth sẵn luôn, nên bạn đổi form qua vậy nha
+		put(Url, data)
+        .then(() => alert("Edit Aset Successfull!"))
+        .catch(err => console.log(err));
 	}
    
     const handleChangeAvailable = () => {
