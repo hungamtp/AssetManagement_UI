@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import './CreateNewUser.css';
+import { post } from '../../httpHelper';
 
 const Checkbox = ({ label, value, onChange }) => {
     return (
@@ -34,8 +35,6 @@ const CreateNewUser = () => {
     const [isEnabled, setIsEnabled] = useState(false);
 
     let history = useHistory();
-
-    let Url = "http://localhost:9994/asset-management/api/users/save";
 
     useEffect(() => {
         //get user
@@ -104,18 +103,12 @@ const CreateNewUser = () => {
         const data = {
             firstName, lastName, dateOfBirth: dateOfBirth + ' 00:00', gender, joinedDate: joinedDate + ' 00:00', role, location
         }
-        console.log(data);
+        let Url = "admin/save";
         if (check) {
-            axios.post(Url, {
-                firstName, lastName, dateOfBirth: dateOfBirth + ' 00:00', gender, joinedDate: joinedDate + ' 00:00', role, location: 1
-            }, {
-                headers : {
-                    'Authorization': `${user.type} ${user.token}`
-                }
-            })
+            post(Url, data)
             .then(() => {
                 alert("Create New User OK!")
-            }).catch(err => console.log(err))
+            }).catch(err => console.log(err))            
         } 
     }
 
