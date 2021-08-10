@@ -21,7 +21,7 @@ const ChangePassword = () => {
 	}, [])
 
 	const handleChangePassword = () => {
-		let Url = "http://localhost:9994/asset-management/admin/password/" + username;
+		let Url = "http://localhost:9994/asset-management/user/password/" + username;
 		let data = {
 			oldPassword, newPassword
 		}
@@ -64,9 +64,9 @@ const ChangePassword = () => {
 				</div>
 				<div id="PW_lw">
 					<div id="Old_password">
-						<Form inline>
-							<FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-								<Label className="mr-sm-2"><b>New password:</b></Label>
+						<Form className="d-inline">
+							<FormGroup  className="mb-2 mr-sm-2 mb-sm-0" >
+								<Label htmlFor="New password" className="mr-sm-2"><b>New password:</b></Label>							
 								<Input type="password"  value={newPassword}
 									onChange={(event) => setNewPassword(event.target.value)}/>
 							</FormGroup>
