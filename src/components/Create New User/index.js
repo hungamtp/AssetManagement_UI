@@ -39,7 +39,6 @@ const CreateNewUser = () => {
     useEffect(() => {
         //get user
         setUser(cookies.user);
-        console.log(cookies.user);
         setLocation(cookies.user.idLocation);
     }, [])
 
