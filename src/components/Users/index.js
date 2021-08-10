@@ -9,6 +9,7 @@ import { MenuItem, Select, FormControl } from "@material-ui/core";
 import { InputLabel } from "@material-ui/core";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
+import { useHistory } from "react-router";
 
 const Index = () => {
   const [users, setUsers] = useState([]);
@@ -26,6 +27,10 @@ const Index = () => {
   const [isJoinedDateASC, setisJoinedDateASC] = useState(true);
   const [isTypeASC, setIsTypeASC] = useState(true);
 
+  const locationId = localStorage.getItem("locationId");
+
+  const history = useHistory();
+
   useEffect(() => {
     const fetchRoles = async () => {
       const response = await roleApi.getRoles();
@@ -37,6 +42,7 @@ const Index = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
+      await setSearch(`staffCode:,username:,role:,location:${locationId}`);
       const response = await userApi.getUsers(currentPage, size, sort, search);
       const usersData = response.data.data;
       setTotalPage(usersData.totalPages);
@@ -49,11 +55,11 @@ const Index = () => {
     e.preventDefault();
     if (nameSearch.toUpperCase().startsWith("SD")) {
       setSearch(
-        `staffCode:${nameSearch},username:,role:${roleSearch},location:`
+        `staffCode:${nameSearch},username:,role:${roleSearch},location:${locationId}`
       );
     } else {
       setSearch(
-        `staffCode:,username:${nameSearch},role:${roleSearch},location:`
+        `staffCode:,username:${nameSearch},role:${roleSearch},location:${locationId}`
       );
     }
   };
@@ -132,9 +138,12 @@ const Index = () => {
     }
   };
 
+  const handleClickCreateNew = () => {
+    history.push("/createnewuser");
+  };
+
   return (
     <div id="users">
-      {sort}
       <p className="title">User List</p>
       <div id="Search_bar">
         <FormControl>
@@ -176,7 +185,9 @@ const Index = () => {
           <button onClick={handleOnClickSearchButton}>
             <img src={searchIcon} height="35px" />
           </button>
-          <button id="create_button">Create new user</button>
+          <button id="create_button" onClick={handleClickCreateNew}>
+            Create new user
+          </button>
         </div>
       </div>
 
