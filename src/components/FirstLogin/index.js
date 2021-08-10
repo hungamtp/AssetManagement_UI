@@ -9,35 +9,43 @@ import {
 import { Redirect } from "react-router-dom";
 import * as business from "../../constants/Business";
 import axios from "axios";
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 
-export default class index extends Component {
+class index extends Component {
+
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
+
     constructor(props) {
         super(props);
         this.state = {
             isDisabled: true,
             password: '',
             isFailed: false,
-            messageFail: ''
+            messageFail: '',
+            user: this.props.cookies.get('user') || ''
         }
     }
 
     changePassword(e) {
         e.preventDefault();
-        if (localStorage.getItem('role') === 'ROLE_ADMIN') {
+        if (this.state.user.role === 'ROLE_ADMIN') {
             const api = 'http://localhost:9994/asset-management/admin/password/first';
             axios.put(api,
                 {
-                    staffCode: `${localStorage.getItem('id')}`,
+                    staffCode: `${this.state.user.staffCode}`,
                     newPassword: e.target.password.value
                 },
                 {
-                    headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
+                    headers: { Authorization: `Bearer ${this.state.user.token}` }
                 }
             )
                 .then(response => {
                     if (response.status === 200) {
                         if (response.data.successCode === 'CHANGE_PASSWORD_SUCCESS') {
-                            localStorage.setItem('firstLogin', 'true');
+                            this.props.cookies.set('user', JSON.stringify(response.data.data), { path: "/" })
                             this.props.onSuccess();
                         }
                     }
@@ -67,21 +75,21 @@ export default class index extends Component {
                     this.setState({ isFailed: true });
                 })
         }
-        else if (localStorage.getItem('role') === 'ROLE_STAFF') {
-            const api = 'http://localhost:9994/asset-management/staff/password/first';
+        else if (this.state.user.role === 'ROLE_USER') {
+            const api = 'http://localhost:9994/asset-management/user/password/first';
             axios.put(api,
                 {
-                    staffCode: `${localStorage.getItem('id')}`,
+                    staffCode: `${this.state.user.staffCode}`,
                     newPassword: e.target.password.value
                 },
                 {
-                    headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
+                    headers: { Authorization: `Bearer ${this.state.user.token}` }
                 }
             )
                 .then(response => {
                     if (response.status === 200) {
                         if (response.data.successCode === 'CHANGE_PASSWORD_SUCCESS') {
-                            localStorage.setItem('firstLogin', 'true');
+                            this.props.cookies.set('user', JSON.stringify(response.data.data), { path: "/" })
                             this.props.onSuccess();
                         }
                     }
@@ -128,7 +136,7 @@ export default class index extends Component {
         return (
             <div>
                 {
-                    localStorage.getItem('accessToken') == null &&
+                    this.state.user === '' &&
                     <Redirect to="/" />
                 }
                 <Navbar businessName="Home" />
@@ -190,3 +198,5 @@ export default class index extends Component {
         )
     }
 }
+
+export default withCookies(index);

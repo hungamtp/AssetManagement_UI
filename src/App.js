@@ -6,14 +6,19 @@ import FirstLogin from "./components/FirstLogin";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Test from "./components/test/Test";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 
-export default class App extends Component {
+class App extends Component {
+
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      isLogin: false,
-      role: '',
-      isFirstLogin: false
+      user: this.props.cookies.get('user') || '',
     }
   }
 
@@ -23,9 +28,7 @@ export default class App extends Component {
 
   loadState() {
     this.setState({
-      isLogin: localStorage.getItem('accessToken') != null,
-      role: localStorage.getItem('role') === 'ROLE_ADMIN' ? 'ADMIN' : 'STAFF',
-      isFirstLogin: localStorage.getItem('firstLogin') === 'false'
+      user: this.props.cookies.get('user') || ''
     })
   }
 
@@ -34,20 +37,20 @@ export default class App extends Component {
       <div>
         <Router>
           {
-            this.state.isLogin && this.state.isFirstLogin &&
+            this.state.user !== '' && this.state.user.firstLogin === false &&
             <Redirect to="/first"/>
           }
           {
-            this.state.isLogin && 
-            this.state.role === 'ADMIN' &&
-            this.state.isFirstLogin === false &&
+            this.state.user !== '' && 
+            this.state.user.role === 'ROLE_ADMIN' &&
+            this.state.user.firstLogin === true &&
             <Redirect to="/admin"/>
           }
           {
-            this.state.isLogin && 
-            this.state.role === 'STAFF' &&
-            this.state.isFirstLogin === false &&
-            <Redirect to="/staff"/>
+            this.state.user !== '' && 
+            this.state.user.role === 'ROLE_USER' &&
+            this.state.user.firstLogin === true &&
+            <Redirect to="/user"/>
           }
           <Switch>
             {/* <ProtectedRoute exact path="/manage/category" component={Home} /> */}
@@ -60,8 +63,8 @@ export default class App extends Component {
             <Route exact path="/admin">
               <Home />
             </Route>
-            <Route exact path="/staff">
-              <StaffHome firstLogin={this.state.isFirstLogin}/>
+            <Route exact path="/user">
+              <StaffHome />
             </Route>
             <Route exact path="/test">
               <Test/>
@@ -73,3 +76,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default withCookies(App);
