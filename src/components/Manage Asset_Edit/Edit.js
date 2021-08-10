@@ -7,18 +7,20 @@ import axios from 'axios';
 import { ButtonToggle } from "reactstrap";
 import { Button, Form, FormGroup, Label, Input, Col, } from 'reactstrap';
 import React, { useEffect, useState } from 'react';
+import { useCookies } from "react-cookie";
 
 
 
-const Edit = () => {
-    //const [user, setUser] = useState(false);
+const EditAsset = () => {
+    const [user, setUser] = useState(false);
 	const [id, setid] = useState("");
 	const [Name, setName] = useState("");
 	const [Category, setCategory] = useState("");
     const [Specification, setSpecification] = useState("");
     const [InstalledDate, setInstalledDate] = useState("");
     const [State, setState] = useState("");
-    //const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+    const [categoryList, setCategoryList] = useState([]);
+    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
     
     const [checkedAvailalbe, setCheckedAvailalbe] = useState(false);
     const [checkedNotAvailable, setCheckedNotAvailable] = useState(false);
@@ -27,31 +29,41 @@ const Edit = () => {
     
     const [valid, setValid] = useState("");
     const [validIDay, setValidIDay] = useState(true);
+    const [isDisabled, setIsDisable] = useState(true);
 
- 
-        
-	
+    useEffect(() => {
+        setUser(cookies.user);
+        let Url = "";
+        //getCategoryList
+        //axios.get(Url)
+        //.then(response => setCategoryList(response.data.data))
+        //.catch(err => console.log(err))
+    },[])
+
 	useEffect(() => {
-//getuser and set username
-    //setUser(cookies.user);
+        //do something
 	 }, [valid])
+
+     useEffect(() => {
+		if (Name.length > 0 && Category.length > 0 && Specification.length > 0 &&
+            InstalledDate.length > 0 && State.length > 0)
+			setIsDisable(false)
+		else setIsDisable(true);
+	}, [Name, Category, Specification, InstalledDate, State])
 
      const handleValid = (mes, type) => {
         setValid(mes);
-        if (!type) {
-            setValidIDay(false);
-           
-        } else {
-            
-            setValidIDay(true);
-        } 
+        if (!type) 
+            setValidIDay(false) 
+        else setValidIDay(true);
     }
 
 	const handleEdit = () => {
 		let Url = "http://localhost:9994/asset-management/asset/edit" + id;
 		let data = {
-			Name, Category,Specification, InstalledDate, State
+			Name, Category,Specification, InstalledDate: InstalledDate + " 00:00", State
 		}
+        //console.log(data);
 		axios.put(Url, data)
 			.then(() => alert("Edit Aset Successfull!"))
 			.catch(err => console.log(err));
@@ -91,8 +103,6 @@ const Edit = () => {
 	}
         return (
             <div>
-                <Navbar businessName=" Manage Asset > Edit Asset" />
-                <Menu business={business.MANAGE_ASSET} />
                 <div id="Edit_Asset">
                     <span>Edit Asset</span>
                 </div>
@@ -157,6 +167,7 @@ const Edit = () => {
                             <Col sm={10}>
                                 <Input type="select" name="select" value={Category} 
                                  onChange={({ target }) => setCategory(target.value)}>
+                                     {/*categoryList.map(item => <option value={item.categoryName}>item.categoryName</option>)*/}
                                     <option>Laptop</option>
                                     <option>Mouse</option>
                                     <option>PC</option>
@@ -173,7 +184,7 @@ const Edit = () => {
                     </div>
                     <div id="Save_btn_fth" class="Save_btn">
                     <div  className="Save_btn" onclick="application.goToTargetView(event)">
-					<ButtonToggle className=" btn-block" color="danger" onClick={handleEdit} > Save </ButtonToggle>
+					<ButtonToggle className=" btn-block" color="danger" onClick={handleEdit} disabled={isDisabled}> Save </ButtonToggle>
 					</div>
                     </div>
                     <div id="Name">
@@ -191,4 +202,4 @@ const Edit = () => {
             </div>
         )
     }
-export default Edit;
+export default EditAsset;

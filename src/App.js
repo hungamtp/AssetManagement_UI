@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import ManageAsset from "./components/Manage Asset/ManageAsset";
-import Edit from "./components/Manage Asset_Edit/Edit";
-import ChangePassword from "./components/Change Password/ChangePassword";
 import LoginFirst from "./components/LoginFirst/LoginFirst";
 import Logout from "./components/Logout";
 
@@ -14,6 +12,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreateNewUser from "./components/Create New User";
+import ChangePassword_Page from "./pages/Change password";
+import EditAsset_Page from "./pages/Edit asset";
 
 export default class App extends Component {
   render() {
@@ -32,17 +32,14 @@ export default class App extends Component {
               <ManageAsset />
             </Route>
             <Route exact path="/editasset">
-              <Edit />
+              <EditAsset_Page />
             </Route>
             <Route exact path="/changepassword">
-              <ChangePassword />
+              <ChangePassword_Page/>
             </Route>
 
             <Route exact path="/createnewuser">
               <CreateNewUser />
-            </Route>
-            <Route exact path="/changepassword">
-              <ChangePassword />
             </Route>
             <Route exact path="/login_first">
               <LoginFirst />
