@@ -1,14 +1,23 @@
 import React, { Component } from "react";
 import Login from "./components/Login";
 import Home from "./components/Home";
+import ManageAsset from "./components/Manage Asset/ManageAsset";
+import Edit from "./components/Manage Asset_Edit/Edit";
+import ChangePassword from "./components/Change Password/ChangePassword";
+
+
+ 
+
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import ProtectedRoute from "./components/ProtectedRoute";
 import Index from "./components/Users";
+import CreateNewUser_Page from "./pages/Create new user";
 
 export default class App extends Component {
   render() {
     return (
-      <div>
+      <div> 
         <Router>
           <Switch>
             {/* <ProtectedRoute exact path="/manage/category" component={Home} /> */}
@@ -18,6 +27,23 @@ export default class App extends Component {
             <Route exact path="/test">
               <Index/>
             </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/manageasset">
+              <ManageAsset />
+            </Route>
+            <Route exact path="/editasset">
+              <Edit />
+            </Route>
+            <Route exact path="/changepassword">
+              <ChangePassword />
+            </Route>
+
+            <Route exact path="/createnewuser">
+              <CreateNewUser_Page />
+            </Route>
+            
             <Route path="/**" render={() => <h2>Not found</h2>}></Route>
           </Switch>
         </Router>

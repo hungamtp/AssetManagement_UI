@@ -4,6 +4,7 @@ import Navbar from "../Navbar";
 import Menu from "../Menu";
 import * as business from "../../constants/Business";
 import Users from "../Users";
+import Logout from "../Logout";
 
 export default class index extends Component {
   render() {
