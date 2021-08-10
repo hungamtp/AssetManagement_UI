@@ -40,8 +40,8 @@ const CreateNewUser = () => {
     useEffect(() => {
         //get user
         setUser(cookies.user);
-        setLocation(cookies.user.idLocation)
-        console.log(`${user.type} ${user.token}`);
+        console.log(cookies.user);
+        setLocation(cookies.user.idLocation);
     }, [])
 
     useEffect(() => {
