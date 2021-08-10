@@ -8,6 +8,10 @@ import Test from "./components/test/Test";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
+import ManageAsset from "./components/Manage Asset/ManageAsset";
+import Edit from "./components/Manage Asset_Edit/Edit";
+import ChangePassword from "./components/Change Password/ChangePassword";
+import CreateNewUser_Page from "./pages/Create new user";
 
 class App extends Component {
 
@@ -31,10 +35,9 @@ class App extends Component {
       user: this.props.cookies.get('user') || ''
     })
   }
-
   render() {
     return (
-      <div>
+      <div> 
         <Router>
           {
             this.state.user !== '' && this.state.user.firstLogin === false &&
@@ -69,6 +72,20 @@ class App extends Component {
             <Route exact path="/test">
               <Test/>
             </Route>
+            <Route exact path="/manageasset">
+              <ManageAsset />
+            </Route>
+            <Route exact path="/editasset">
+              <Edit />
+            </Route>
+            <Route exact path="/changepassword">
+              <ChangePassword />
+            </Route>
+
+            <Route exact path="/createnewuser">
+              <CreateNewUser_Page />
+            </Route>
+            
             <Route path="/**" render={() => <h2>Not found</h2>}></Route>
           </Switch>
         </Router>

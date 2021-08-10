@@ -6,6 +6,7 @@ import * as business from "../../constants/Business";
 import { Redirect } from "react-router-dom";
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
+import Logout from "../Logout";
 
 class index extends Component {
 
@@ -19,7 +20,6 @@ class index extends Component {
       user: this.props.cookies.get('user') || '',
     }
   }
-
 
   render() {
     return (
