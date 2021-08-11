@@ -1,4 +1,4 @@
-export const EndPoint = process.env.URL;
+export const EndPoint = "http://localhost:9994/asset-management";
 export const CREATE_ASSET = "/create-asset";
 
 // API
