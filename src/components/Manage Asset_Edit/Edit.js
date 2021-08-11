@@ -28,12 +28,13 @@ const EditAsset = () => {
     const [validIDay, setValidIDay] = useState(true);
     const [isDisabled, setIsDisable] = useState(true);
 
+
     useEffect(() => {
         //getCategoryList
-        //let Url = "";
-        //get(Url)
-        //.then(response => setCategoryList(response.data.data))
-        //.catch(err => console.log(err))
+        let Url = "category";
+        get(Url)
+        .then(response => setCategoryList(response.data.data))
+        .catch(err => console.log(err))
     },[])
 
 	useEffect(() => {
@@ -108,7 +109,7 @@ const EditAsset = () => {
                         <FormGroup row>
                             <Label htmlFor="specification" sm={2}>Specific</Label>
                             <Col md={10}>
-                                <Input type="textarea" name="text" id="exampleText" value={Specification}
+                                <Input type="textarea" name="text" value={Specification}
 									onChange={(event) => setSpecification(event.target.value)} />
                             </Col>                           
                         </FormGroup>                  
@@ -164,12 +165,8 @@ const EditAsset = () => {
                             <Col sm={10}>
                                 <Input type="select" name="select" value={Category} 
                                  onChange={({ target }) => setCategory(target.value)}>
-                                     {/*categoryList.map(item => <option value={item.categoryName}>item.categoryName</option>)*/}
-                                    <option>Laptop</option>
-                                    <option>Mouse</option>
-                                    <option>PC</option>
-                                    <option>USB</option>
-                                    <option>Head</option>
+                                    {categoryList.map(item =><option value={item.categoryName}>{item.categoryName}</option>)}
+                                   
                                 </Input>
                             </Col>
                         </FormGroup>

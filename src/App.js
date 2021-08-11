@@ -41,7 +41,9 @@ class App extends Component {
     return (
       <div>
         <Router>
- 
+          {this.state.user !== "" && this.state.user.firstLogin === false && <Redirect to="/first" />}
+          {this.state.user !== "" && this.state.user.role === "ROLE_ADMIN" && this.state.user.firstLogin === true && <Redirect to="/admin" />}
+          {this.state.user !== "" && this.state.user.role === "ROLE_USER" && this.state.user.firstLogin === true && <Redirect to="/user" />}
           <Switch>
             {/* <ProtectedRoute exact path="/manage/category" component={Home} /> */}
             <Route exact path="/">
