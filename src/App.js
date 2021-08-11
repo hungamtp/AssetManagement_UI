@@ -5,13 +5,8 @@ import StaffHome from "./components/StaffHome";
 import FirstLogin from "./components/FirstLogin";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Test from "./components/test/Test";
-<<<<<<< HEAD
-import { instanceOf } from "prop-types";
-import { withCookies, Cookies } from "react-cookie";
-=======
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
->>>>>>> 182e20c4704df55f7519317a3c9b9d98fd20a56f
 import ManageAsset from "./components/Manage Asset/ManageAsset";
 import LoginFirst from "./components/LoginFirst/LoginFirst";
 import Logout from "./components/Logout";
@@ -19,15 +14,10 @@ import Edit from "./components/Manage Asset_Edit/Edit";
 import ChangePassword from "./components/Change Password/ChangePassword";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreateNewUser_Page from "./pages/Create new user";
-<<<<<<< HEAD
 import CreateAsset from "./pages/CreateAsset";
 import * as URL from "./constants/URL";
 import Index from "./components/Users";
 import ProtectedRoute from "./components/ProtectedRoute";
-=======
-import ProtectedRoute from "./components/ProtectedRoute";
-import CreateNewUser from "./components/Create New User";
->>>>>>> 182e20c4704df55f7519317a3c9b9d98fd20a56f
 import ChangePassword_Page from "./pages/Change password";
 import EditAsset_Page from "./pages/Edit asset";
 
@@ -43,10 +33,6 @@ class App extends Component {
     };
   }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 182e20c4704df55f7519317a3c9b9d98fd20a56f
   componentDidMount() {
     this.loadState();
   }
