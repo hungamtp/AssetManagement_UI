@@ -92,7 +92,7 @@ export default class CreateCategoryModal extends Component {
   render() {
     return (
       <div>
-        <Button color={this.props.color} onClick={this.toggle} className={this.props.buttonClassName}>
+        <Button color={this.props.color} onClick={this.toggle} className={this.props.buttonClassName} style={{"margin-left": "25rem"}}>
           {this.props.buttonLabel}
         </Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} size="lg" backdrop={["static"]} keyboard={false}>
