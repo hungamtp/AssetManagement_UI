@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useCookies } from "react-cookie";
+import { useHistory } from 'react-router-dom';
 import './Logout.css';
 
 const Logout = (props) => {
     const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+    let history = useHistory();
 
     const handleLogout = () => {
         removeCookie("user");
+        history.push("/")
     }
 
     const handleCancel = () => {
