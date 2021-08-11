@@ -15,6 +15,7 @@ import CreateNewUser_Page from "./pages/Create new user";
 import CreateAsset from "./pages/CreateAsset";
 import * as URL from "./constants/URL";
 import Index from "./components/Users";
+import EditUser_Page from "./pages/Edit user";
 
 class App extends Component {
   static propTypes = {
@@ -41,9 +42,6 @@ class App extends Component {
     return (
       <div>
         <Router>
-          {this.state.user !== "" && this.state.user.firstLogin === false && <Redirect to="/first" />}
-          {this.state.user !== "" && this.state.user.role === "ROLE_ADMIN" && this.state.user.firstLogin === true && <Redirect to="/admin" />}
-          {this.state.user !== "" && this.state.user.role === "ROLE_USER" && this.state.user.firstLogin === true && <Redirect to="/user" />}
           <Switch>
             {/* <ProtectedRoute exact path="/manage/category" component={Home} /> */}
             <Route exact path="/">
@@ -79,6 +77,10 @@ class App extends Component {
 
             <Route exact path="/createnewuser">
               <CreateNewUser_Page />
+            </Route>
+
+            <Route path="/edituser/:staffCode">
+              <EditUser_Page/>
             </Route>
 
             <Route exact path={URL.CREATE_ASSET}>
