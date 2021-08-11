@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useState } from "react";
 import "./Login.css";
-import { useCookies } from "react-cookie";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { useCookies } from 'react-cookie';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import axios from "axios";
 
@@ -92,6 +92,6 @@ const Login = (props) => {
       </Modal>
     </div>
   );
-};
+}
 
 export default Login;

@@ -30,275 +30,16 @@
     top: 99px;
     overflow: visible;
 }
-#Specification_fse {
-    left: 0px;
-    top: 9px;
-    position: absolute;
-    overflow: visible;
-    width: 92px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Helvetica Neue, Arial;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    color: rgba(33,37,41,1);
-}
-#Rectangle_330_fsf {
-    fill: rgba(255,255,255,1);
-    stroke: rgba(112,112,112,1);
-    stroke-width: 1px;
-    stroke-linejoin: miter;
-    stroke-linecap: butt;
-    stroke-miterlimit: 4;
-    shape-rendering: auto;
-}
-.Rectangle_330_fsf {
-    position: absolute;
-    overflow: visible;
-    width: 280px;
-    height: 86px;
-    left: 98px;
-    top: 0px;
-}
-#Core_i5_8GB_RAM_750_GB_HDD_Win_fsg {
-    left: 115px;
-    top: 9px;
-    position: absolute;
-    overflow: visible;
-    width: 255px;
-    height: 39px;
-    text-align: left;
-    font-family: Helvetica Neue, Arial;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    color: rgba(33,37,41,1);
-}
+
 #State_fsh {
     position: absolute;
     width: 268px;
     height: 94px;
     left: 0px;
-    top: 252px;
+    top: 232px;
     overflow: visible;
 }
-#state {
-    position: absolute;
-    width: 166px;
-    height: 94px;
-    left: 102px;
-    top: 0px;
-    overflow: visible;
-}
-#available {
-    position: absolute;
-    width: 82px;
-    height: 21px;
-    left: 0px;
-    top: 0px;
-    overflow: visible;
-}
-#Label_fsk {
-    left: 19px;
-    top: 0px;
-    position: absolute;
-    overflow: visible;
-    width: 64px;
-    white-space: nowrap;
-    line-height: 24px;
-    margin-top: -4px;
-    text-align: left;
-    font-family: HelveticaNeue, Arial;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    color: rgba(33,37,41,1);
-}
-#Radio_fsl {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    left: 0px;
-    top: 4px;
-    overflow: visible;
-}
-#Oval_fsm {
-    fill: rgba(207,35,56,1);
-    stroke: rgba(207,35,56,1);
-    stroke-width: 1px;
-    stroke-linejoin: miter;
-    stroke-linecap: butt;
-    stroke-miterlimit: 4;
-    shape-rendering: auto;
-}
-.Oval_fsm {
-    overflow: visible;
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    left: 0px;
-    top: 0px;
-    transform: matrix(1,0,0,1,0,0);
-}
-#Ellipse_3_fsn {
-    fill: rgba(255,255,255,1);
-}
-.Ellipse_3_fsn {
-    position: absolute;
-    overflow: visible;
-    width: 6px;
-    height: 6px;
-    left: 5px;
-    top: 5px;
-}
-#not_available {
-    position: absolute;
-    width: 112px;
-    height: 21px;
-    left: 0px;
-    top: 24px;
-    overflow: visible;
-}
-#Label_fsp {
-    left: 19px;
-    top: 0px;
-    position: absolute;
-    overflow: visible;
-    width: 94px;
-    white-space: nowrap;
-    line-height: 24px;
-    margin-top: -4px;
-    text-align: left;
-    font-family: HelveticaNeue, Arial;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    color: rgba(33,37,41,1);
-}
-#Radio_fsq {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    left: 0px;
-    top: 4px;
-    overflow: visible;
-}
-#Oval_fsr {
-    fill: rgba(255,255,255,1);
-    stroke: rgba(182,182,182,1);
-    stroke-width: 1px;
-    stroke-linejoin: miter;
-    stroke-linecap: butt;
-    stroke-miterlimit: 10;
-    shape-rendering: auto;
-}
-.Oval_fsr {
-    position: absolute;
-    overflow: visible;
-    width: 16px;
-    height: 16px;
-    left: 0px;
-    top: 0px;
-}
-#waiting {
-    position: absolute;
-    width: 165px;
-    height: 21px;
-    left: 1px;
-    top: 49px;
-    overflow: visible;
-}
-#Label_fst {
-    left: 19px;
-    top: 0px;
-    position: absolute;
-    overflow: visible;
-    width: 147px;
-    white-space: nowrap;
-    line-height: 24px;
-    margin-top: -4px;
-    text-align: left;
-    font-family: HelveticaNeue, Arial;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    color: rgba(33,37,41,1);
-}
-#Radio_fsu {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    left: 0px;
-    top: 4px;
-    overflow: visible;
-}
-#Oval_fsv {
-    fill: rgba(255,255,255,1);
-    stroke: rgba(182,182,182,1);
-    stroke-width: 1px;
-    stroke-linejoin: miter;
-    stroke-linecap: butt;
-    stroke-miterlimit: 10;
-    shape-rendering: auto;
-}
-.Oval_fsv {
-    position: absolute;
-    overflow: visible;
-    width: 16px;
-    height: 16px;
-    left: 0px;
-    top: 0px;
-}
-#recycled {
-    position: absolute;
-    width: 81px;
-    height: 21px;
-    left: 1px;
-    top: 73px;
-    overflow: visible;
-}
-#Label_fsx {
-    left: 19px;
-    top: 0px;
-    position: absolute;
-    overflow: visible;
-    width: 63px;
-    white-space: nowrap;
-    line-height: 24px;
-    margin-top: -4px;
-    text-align: left;
-    font-family: HelveticaNeue, Arial;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    color: rgba(33,37,41,1);
-}
-#Radio_fsy {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    left: 0px;
-    top: 4px;
-    overflow: visible;
-}
-#Oval_fsz {
-    fill: rgba(255,255,255,1);
-    stroke: rgba(182,182,182,1);
-    stroke-width: 1px;
-    stroke-linejoin: miter;
-    stroke-linecap: butt;
-    stroke-miterlimit: 10;
-    shape-rendering: auto;
-}
-.Oval_fsz {
-    position: absolute;
-    overflow: visible;
-    width: 16px;
-    height: 16px;
-    left: 0px;
-    top: 0px;
-}
+
 #State_fs {
     left: 0px;
     top: 2px;
@@ -318,86 +59,10 @@
     width: 380px;
     height: 35px;
     left: 0px;
-    top: 199px;
+    top: 172px;
     overflow: visible;
 }
-#Installed_Date_fs {
-    left: 0px;
-    top: 9px;
-    position: absolute;
-    overflow: visible;
-    width: 99px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Helvetica Neue, Arial;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    color: rgba(33,37,41,1);
-}
-#Rectangle_330_fs {
-    fill: rgba(255,255,255,1);
-    stroke: rgba(112,112,112,1);
-    stroke-width: 1px;
-    stroke-linejoin: miter;
-    stroke-linecap: butt;
-    stroke-miterlimit: 4;
-    shape-rendering: auto;
-}
-.Rectangle_330_fs {
-    position: absolute;
-    overflow: visible;
-    width: 280px;
-    height: 35px;
-    left: 100px;
-    top: 0px;
-}
-#calendar-date-fill_fs {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    left: 349px;
-    top: 10px;
-    overflow: visible;
-}
-#Path_2_fs {
-    fill: rgba(112,112,112,1);
-}
-.Path_2_fs {
-    overflow: visible;
-    position: absolute;
-    width: 16px;
-    height: 10.246px;
-    left: 0px;
-    top: 0px;
-    transform: matrix(1,0,0,1,0,0);
-}
-#Path_3_fs {
-    fill: rgba(112,112,112,1);
-}
-.Path_3_fs {
-    overflow: visible;
-    position: absolute;
-    width: 16px;
-    height: 11px;
-    left: 0px;
-    top: 5px;
-    transform: matrix(1,0,0,1,0,0);
-}
-#ID20042020 {
-    left: 115px;
-    top: 9px;
-    position: absolute;
-    overflow: visible;
-    width: 81px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Helvetica Neue, Arial;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    color: rgba(33,37,41,1);
-}
+
 #Category_fs {
     position: absolute;
     width: 378px;
@@ -420,59 +85,7 @@
     font-size: 16px;
     color: rgba(33,37,41,1);
 }
-#Dropdown {
-    opacity: 0.7;
-    position: absolute;
-    width: 280px;
-    height: 35px;
-    left: 98px;
-    top: 0px;
-    overflow: visible;
-}
-#Path_8_ftb {
-    fill: rgba(239,241,245,1);
-    stroke: rgba(112,112,112,1);
-    stroke-width: 1px;
-    stroke-linejoin: miter;
-    stroke-linecap: butt;
-    stroke-miterlimit: 4;
-    shape-rendering: auto;
-}
-.Path_8_ftb {
-    overflow: visible;
-    position: absolute;
-    width: 280px;
-    height: 35px;
-    left: 0px;
-    top: 0px;
-    transform: matrix(1,0,0,1,0,0);
-}
-#Laptop_ftc {
-    left: 17px;
-    top: 9px;
-    position: absolute;
-    overflow: visible;
-    width: 50px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Helvetica Neue, Arial;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    color: rgba(33,37,41,1);
-}
-#icondropdown_arrow_ftd {
-    fill: rgba(112,112,112,1);
-}
-.icondropdown_arrow_ftd {
-    overflow: visible;
-    position: absolute;
-    width: 12px;
-    height: 6px;
-    left: 350px;
-    top: 15px;
-    transform: matrix(1,0,0,1,0,0);
-}
+
 #Cancel_btn_fte {
     position: absolute;
     width: 82px;
@@ -486,23 +99,7 @@
     --web-action-target: Manage_Asset.html;
     cursor: pointer;
 }
-#Secondary__6C757D_ftf {
-    fill: transparent;
-    stroke: rgba(108,117,125,1);
-    stroke-width: 1px;
-    stroke-linejoin: miter;
-    stroke-linecap: butt;
-    stroke-miterlimit: 4;
-    shape-rendering: auto;
-}
-.Secondary__6C757D_ftf {
-    position: absolute;
-    overflow: visible;
-    width: 82px;
-    height: 37px;
-    left: 0px;
-    top: 0px;
-}
+
 #Cancel_ftg {
     left: 16px;
     top: 9px;
@@ -525,17 +122,7 @@
     top: 364px;
     overflow: visible;
 }
-#Primary__007BFF_fti {
-    fill: rgba(227,12,24,1);
-}
-.Primary__007BFF_fti {
-    position: absolute;
-    overflow: visible;
-    width: 68px;
-    height: 37px;
-    left: 0px;
-    top: 0px;
-}
+
 #Save_ftj {
     left: 16px;
     top: 9px;
@@ -558,48 +145,7 @@
     top: 0px;
     overflow: visible;
 }
-#Name_ftl {
-    left: 0px;
-    top: 9px;
-    position: absolute;
-    overflow: visible;
-    width: 44px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Helvetica Neue, Arial;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    color: rgba(33,37,41,1);
-}
-#Rectangle_330_ftm {
-    fill: rgba(255,255,255,1);
-    stroke: rgba(112,112,112,1);
-    stroke-width: 1px;
-    stroke-linejoin: miter;
-    stroke-linecap: butt;
-    stroke-miterlimit: 4;
-    shape-rendering: auto;
-}
-.Rectangle_330_ftm {
-    position: absolute;
-    overflow: visible;
-    width: 280px;
-    height: 35px;
-    left: 98px;
-    top: 0px;
-}
-#Laptop_HP_ProBook_450_G1 {
-    left: 115px;
-    top: 9px;
-    position: absolute;
-    overflow: visible;
-    width: 199px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Helvetica Neue, Arial;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    color: rgba(33,37,41,1);
+#lb{
+    position:relative;
+    left: 20px;
 }
