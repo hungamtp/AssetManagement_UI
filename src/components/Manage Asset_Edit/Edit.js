@@ -28,6 +28,7 @@ const EditAsset = () => {
     const [validIDay, setValidIDay] = useState(true);
     const [isDisabled, setIsDisable] = useState(true);
 
+
     useEffect(() => {
         //getCategoryList
         let Url = "category";
