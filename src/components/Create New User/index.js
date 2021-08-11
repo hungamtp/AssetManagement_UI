@@ -102,7 +102,7 @@ const CreateNewUser = () => {
         const data = {
             firstName, lastName, dateOfBirth: dateOfBirth + ' 00:00', gender, joinedDate: joinedDate + ' 00:00', role, location
         }
-        let Url = "admin/save";
+        let Url = "admin/user/save";
         if (check) {
             post(Url, data)
             .then(() => {
