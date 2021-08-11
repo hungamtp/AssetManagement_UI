@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./user.css";
 import useStyles from "./styles";
+import { useHistory } from "react-router";
 import { Dialog, Slide, Button } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -11,6 +12,7 @@ const Index = ({ user }) => {
   const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
 
   const classes = useStyles();
+  const history = useHistory();
 
   const handleCloseUpdateForm = () => {
     setOpenUpdateDialog(false);
@@ -20,6 +22,10 @@ const Index = ({ user }) => {
   };
   const showUserDetail = () => {
     handleOpenUpdateForm();
+  };
+
+  const handleEditIconClick = () => {
+    history.push(`/edituser/${user.staffCode}`);
   };
   return (
     <>
@@ -71,7 +77,7 @@ const Index = ({ user }) => {
         <td onClick={showUserDetail}>{user.type.replace("ROLE_", "")}</td>
         <td id="icon_zone">
           <div id="edit_icon">
-            <EditIcon />
+            <EditIcon onClick={handleEditIconClick} />
           </div>
           <div>
             <DeleteIcon />
