@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import './CreateNewUser.css';
+import { post } from '../../httpHelper';
 
 const Checkbox = ({ label, value, onChange }) => {
     return (
@@ -15,14 +16,14 @@ const Checkbox = ({ label, value, onChange }) => {
 
 const CreateNewUser = () => {
     const [user, setUser] = useState(false);
-    //const [cookies, setCookie, removeCookie] = useCookies(['user']);
+    const [cookies, setCookie, removeCookie] = useCookies(['user']);
     const [lastName, setLastName] = useState("");
     const [firstName, setFirstName] = useState("");
     const [dateOfBirth, setDateOfBirth] = useState("");
     const [gender, setGender] = useState("");
     const [joinedDate, setJoinedDate] = useState("");
     const [role, setRole] = useState("ROLE_ADMIN");
-    const [location, setLocation] = useState("");
+    const [location, setLocation] = useState(1);
 
     const [checkedFemale, setCheckedFemale] = useState(false);
     const [checkedMale, setCheckedMale] = useState(false);
@@ -31,14 +32,27 @@ const CreateNewUser = () => {
     const [validDOB, setValidDOB] = useState(true);
     const [validJD, setValidJD] = useState(true);
 
-    let history = useHistory();
+    const [isEnabled, setIsEnabled] = useState(false);
 
-    let Url = "http://localhost:9994/asset-management/api/users/save";
+    let history = useHistory();
 
     useEffect(() => {
         //get user
-        //setUser(JSON.parse(cookies));
+        setUser(cookies.user);
+        setLocation(cookies.user.idLocation);
+    }, [])
+
+    useEffect(() => {
+        //do something
     }, [valid])
+
+    useEffect(() => {
+        console.log(isEnabled);
+        if (lastName.length > 0 && firstName.length > 0 && dateOfBirth.length > 0
+            && gender.length > 0 && joinedDate.length > 0)
+                setIsEnabled(true)
+            else setIsEnabled(false);
+    }, [firstName, lastName, dateOfBirth, gender, joinedDate])
 
     const handleValid = (mes, type) => {
         setValid(mes);
@@ -86,16 +100,14 @@ const CreateNewUser = () => {
     const handleSaveUser = () => {
         const check = CheckValidation();
         const data = {
-            firstName, lastName, dateOfBirth: dateOfBirth + ' 00:00', gender, joinedDate: joinedDate + ' 00:00', role, location: 1
+            firstName, lastName, dateOfBirth: dateOfBirth + ' 00:00', gender, joinedDate: joinedDate + ' 00:00', role, location
         }
-        console.log(data);
+        let Url = "admin/save";
         if (check) {
-            axios.post(Url, {
-                firstName, lastName, dateOfBirth: dateOfBirth + ' 00:00', gender, joinedDate: joinedDate + ' 00:00', role, location: 1
-            })
+            post(Url, data)
             .then(() => {
                 alert("Create New User OK!")
-            }).catch(err => console.log(err))
+            }).catch(err => console.log(err))            
         } 
     }
 
@@ -162,7 +174,7 @@ const CreateNewUser = () => {
                 </div>
             </form>
             <div className="button-flex">
-                <button className="save-btn" onClick={handleSaveUser}>SAVE</button>
+                <button className="save-btn" onClick={handleSaveUser} disabled={!isEnabled}>SAVE</button>
                 <button className="cancel-btn" onClick={handleCancel}>CANCEL</button>
             </div>
         </div>
