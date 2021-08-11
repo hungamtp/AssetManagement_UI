@@ -124,7 +124,7 @@ const EditUser = () => {
         const data = {
             firstName, lastName, dateOfBirth: dateOfBirth + ' 00:00', gender, joinedDate: joinedDate + ' 00:00', role, location
         }
-        let Url = "user/update/" + staffCode;
+        let Url = "admin/user/update/" + staffCode;
         if (check) {
             put(Url, data)
             .then(() => {
