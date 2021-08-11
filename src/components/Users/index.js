@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Users.css";
 import User from "./User";
-import userApi from "../../axios/userApi";
-import roleApi from "../../axios/roleApi";
 import searchIcon from "../../images/search.png";
 import Paginations from "./Pagination/Pagination";
 import { MenuItem, Select, FormControl } from "@material-ui/core";
@@ -10,6 +8,7 @@ import { InputLabel } from "@material-ui/core";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { useHistory } from "react-router";
+import { get } from "../../httpHelper";
 
 const Index = () => {
   const [users, setUsers] = useState([]);
@@ -17,8 +16,10 @@ const Index = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(5);
   const [size, setSize] = useState(15);
-  const [sort, setSort] = useState("staffCode");
-  const [search, setSearch] = useState("staffCode:,username:,role:,location:");
+  const [sort, setSort] = useState("staffCodeASC");
+  const [search, setSearch] = useState(
+    "isDeleted:false,staffCode:,username:,role:,location:"
+  );
   const [nameSearch, setNameSearch] = useState("");
   const [name, setName] = useState("");
   const [staffCode, setStaffCode] = useState("");
@@ -35,7 +36,7 @@ const Index = () => {
 
   useEffect(() => {
     const fetchRoles = async () => {
-      const response = await roleApi.getRoles();
+      const response = await get("api/roles");
       const rolesData = response.data.data;
       setRoles(rolesData);
     };
@@ -45,9 +46,10 @@ const Index = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       await setSearch(
-        `staffCode:${staffCode},username:${name},role:${roleSearch},location:${locationId}`
+        `isDeleted:false,staffCode:${staffCode},username:${name},role:${roleSearch},location:${locationId}`
       );
-      const response = await userApi.getUsers(currentPage, size, sort, search);
+      const url = `user?page=${currentPage}&size=${size}&sort=${sort}&search=${search}`;
+      const response = await get(url);
       const usersData = response.data.data;
       setTotalPage(usersData.totalPages);
       setUsers(usersData.data);
@@ -61,13 +63,13 @@ const Index = () => {
       setStaffCode(nameSearch);
       setName("");
       setSearch(
-        `staffCode:${nameSearch},username:,role:${roleSearch},location:${locationId}`
+        `isDeleted:false,staffCode:${nameSearch},username:,role:${roleSearch},location:${locationId}`
       );
     } else {
       setName(nameSearch);
       setStaffCode("");
       setSearch(
-        `staffCode:,username:${nameSearch},role:${roleSearch},location:${locationId}`
+        `isDeleted:false,staffCode:,username:${nameSearch},role:${roleSearch},location:${locationId}`
       );
     }
   };
@@ -78,24 +80,24 @@ const Index = () => {
       const newRoleSearch = roleSearch.replace(newRole, "");
       await setRoleSearch(newRoleSearch);
       const list = search.split(",");
-      const newSearch = `${list[0]},${list[1]},role:,${list[3]}`;
+      const newSearch = `${list[0]},${list[1]},${list[2]},role:,${list[4]}`;
       setSearch(newSearch);
     } else if (roleSearch.length === 4) {
       await setRoleSearch("");
       const list = search.split(",");
-      const newSearch = `${list[0]},${list[1]},role:,${list[3]}`;
+      const newSearch = `${list[0]},${list[1]},${list[2]},role:,${list[4]}`;
       setSearch(newSearch);
     } else {
       await setRoleSearch(newRole);
       const list = search.split(",");
-      const newSearch = `${list[0]},${list[1]},role:${newRole},${list[3]}`;
+      const newSearch = `${list[0]},${list[1]},${list[2]},role:${newRole},${list[4]}`;
       await setSearch(newSearch);
     }
   };
   const handlChangeAllRole = () => {
     setRoleSearch("");
     const list = search.split(",");
-    const newSearch = `${list[0]},${list[1]},role:,${list[3]}`;
+    const newSearch = `${list[0]},${list[1]},${list[2]},role:,${list[4]}`;
     setSearch(newSearch);
   };
 
