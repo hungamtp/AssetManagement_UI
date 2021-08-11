@@ -12,6 +12,7 @@ import CreateNewUser_Page from "./pages/Create new user";
 import CreateAsset from "./pages/CreateAsset";
 import * as URL from "./constants/URL";
 import Index from "./components/Users";
+import EditUser_Page from "./pages/Edit user";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ChangePassword_Page from "./pages/Change password";
 import EditAsset_Page from "./pages/Edit asset";
@@ -81,6 +82,10 @@ class App extends Component {
               <LoginFirst />
             </Route>
             
+
+            <Route path="/edituser/:staffCode">
+              <EditUser_Page/>
+            </Route>
 
             <Route exact path={URL.CREATE_ASSET}>
               <CreateAsset />
