@@ -30,6 +30,23 @@ export default class index extends Component {
         <div id="account_ecj" className="account">
           <div id="account_eck" className="account">
             <div id="binhnv_eco">
+              <span>...</span>
+            </div>
+          </div>
+          <div id="log_out_ecp" className="log_out">
+            <svg className="Path_1_ecq" viewBox="0 0 198 40">
+              <path id="Path_1_ecq" d="M 0 0 L 198 0 L 198 40 L 0 40 L 0 0 Z"></path>
+            </svg>
+            <div id="Log_out_ecr">
+              <span>Log out</span>
+            </div>
+          </div>
+          <div id="change_pw_ecs" className="change_pw">
+            <svg className="Path_1_ect" viewBox="0 0 198 40">
+              <path id="Path_1_ect" d="M 0 0 L 198 0 L 198 40.00000381469727 L 0 40.00000381469727 L 0 0 Z"></path>
+            </svg>
+            <div id="Change_password_ecu">
+              <span>Change password</span>
               <UncontrolledButtonDropdown>
                 <DropdownToggle caret color="#CF2338">
                   Binhnv
