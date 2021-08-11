@@ -132,9 +132,8 @@ export default class index extends Component {
     } catch (error) {
       console.log(error);
       this.setState({
-        message: getCategoryFailException(error),
+        notiContent: getCategoryFailException(error),
       });
-      this.clearMessage();
       return;
     }
     this.setCategory(categoryResult.data.data);

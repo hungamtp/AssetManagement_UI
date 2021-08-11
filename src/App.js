@@ -4,8 +4,8 @@ import Home from "./components/Home";
 import StaffHome from "./components/StaffHome";
 import FirstLogin from "./components/FirstLogin";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import { instanceOf } from 'prop-types';
-import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from "prop-types";
+import { withCookies, Cookies } from "react-cookie";
 import ManageAsset from "./components/Manage Asset/ManageAsset";
 import LoginFirst from "./components/LoginFirst/LoginFirst";
 import CreateNewUser_Page from "./pages/Create new user";
@@ -23,13 +23,10 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
-  componentDidMount() {
-    
-  }
+  componentDidMount() {}
 
   render() {
     return (
@@ -56,7 +53,7 @@ class App extends Component {
               <EditAsset_Page />
             </Route>
             <Route exact path="/changepassword">
-              <ChangePassword_Page/>
+              <ChangePassword_Page />
             </Route>
 
             <Route exact path="/createnewuser">
@@ -65,7 +62,6 @@ class App extends Component {
             <Route exact path="/login_first">
               <LoginFirst />
             </Route>
-            
 
             <Route exact path={URL.CREATE_ASSET}>
               <CreateAsset />
