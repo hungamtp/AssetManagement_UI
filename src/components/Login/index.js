@@ -4,6 +4,8 @@ import { useCookies } from "react-cookie";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import axios from "axios";
+import {post} from '../../httpHelper';
+import { withRouter, useHistory } from "react-router-dom";
 
 const Login = (props) => {
   const [cookies, setCookie] = useCookies(["user"]);
@@ -11,6 +13,7 @@ const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isFailed, setIsFailed] = useState(false);
+  let history = useHistory();
 
   useEffect(() => {
     if (username.length > 0 && password.length > 0) setIsDisabled(false);
@@ -19,28 +22,41 @@ const Login = (props) => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    const api = "http://localhost:9994/asset-management/signin";
-    axios
-      .post(api, {
-        username,
-        password,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          if (response.data.successCode === "USER_LOGIN_SUCCESS") {
-            setCookie("user", JSON.stringify(response.data.data), {
-              path: "/",
-            });
-            localStorage.setItem("jwtToken", response.data.data.token);
-            localStorage.setItem("locationId", response.data.data.idLocation);
-            props.onLogin();
+    let url = "signin";
+    let body = {
+      username,
+      password
+    }
+    post(url, body)
+    .then(response => {
+      if (response.status === 200) {
+        if (response.data.successCode === "USER_LOGIN_SUCCESS") {
+          setCookie("user", JSON.stringify(response.data.data), {
+            path: "/",
+          });
+          localStorage.setItem("jwtToken", response.data.data.token);
+          localStorage.setItem("locationId", response.data.data.idLocation);
+          // props.onLogin();
+          if(response.data.data.firstLogin === false) {
+            history.push("/first");
+          }
+          if(response.data.data.firstLogin === true 
+            && response.data.data.role === 'ROLE_ADMIN')
+          {
+            history.push("/admin");
+          }
+          if(response.data.data.firstLogin === true 
+            && response.data.data.role === 'ROLE_USER')
+          {
+            history.push("/user");
           }
         }
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsFailed(true);
-      });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      setIsFailed(true);
+    })
   };
 
   return (
@@ -94,4 +110,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default withRouter(Login);

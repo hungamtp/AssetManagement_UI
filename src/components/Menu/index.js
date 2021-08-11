@@ -130,7 +130,7 @@ class index extends Component {
         } else if (businessName === business.REQUEST_FOR_RETURNING) {
           this.props.history.push("/home4");
         } else if (businessName === business.MANAGE_ASSET) {
-          this.props.history.push("/home5");
+          this.props.history.push("/manageasset");
         } else if (businessName === business.REPORT) {
           this.props.history.push("/home6");
         }

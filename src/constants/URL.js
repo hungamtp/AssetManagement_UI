@@ -1,1 +1,1 @@
-export const EndPoint = 'http://localhost:9995/my-shop/api/v1';
+export const EndPoint = 'http://localhost:9994/asset-management';
