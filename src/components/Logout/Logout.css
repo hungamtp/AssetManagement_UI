@@ -15,7 +15,7 @@
     --web-page-font: Arial;
 }
 
-.show {
+.show-logout {
     display: none;
 }
 
@@ -89,3 +89,4 @@
     --web-action-target: Home.html;
     cursor: pointer;
 }
+
