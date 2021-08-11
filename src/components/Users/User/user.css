@@ -7,3 +7,19 @@
   background-color: #fdfefe;
   color: red;
 }
+#edit_icon {
+  width: 16.001px;
+  height: 16px;
+  left: 1268px;
+  top: 314px;
+  overflow: visible;
+  transition: all 0.3s ease-out;
+  --web-animation: fadein 0.3s ease-out;
+  --web-action-type: page;
+  --web-action-target: Manage_User___Edit_user___annt.html;
+  cursor: pointer;
+}
+#icon_zone {
+  display: flex;
+  justify-content: space-between;
+}

@@ -80,7 +80,7 @@ const Index = () => {
       const list = search.split(",");
       const newSearch = `${list[0]},${list[1]},role:,${list[3]}`;
       setSearch(newSearch);
-    } else if (roleSearch.length === 1) {
+    } else if (roleSearch.length === 4) {
       await setRoleSearch("");
       const list = search.split(",");
       const newSearch = `${list[0]},${list[1]},role:,${list[3]}`;
@@ -168,18 +168,20 @@ const Index = () => {
               All
             </MenuItem>
             {roles.map((role) => {
-              return (
-                <>
-                  <MenuItem value={role.id}>
-                    <input
-                      type="checkbox"
-                      value={role.id}
-                      onChange={(e) => handleRoleChange(e)}
-                    />
-                    {role.name.replace("ROLE_", "")}
-                  </MenuItem>
-                </>
-              );
+              if (!role.name.includes("_LOCKED")) {
+                return (
+                  <>
+                    <MenuItem value={role.id}>
+                      <input
+                        type="checkbox"
+                        value={role.id}
+                        onChange={(e) => handleRoleChange(e)}
+                      />
+                      {role.name.replace("ROLE_", "")}
+                    </MenuItem>
+                  </>
+                );
+              }
             })}
           </Select>
         </FormControl>
@@ -222,6 +224,7 @@ const Index = () => {
               Type
               {isTypeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
             </th>
+            <th></th>
           </tr>
         </thead>
         <tbody>

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "./user.css";
 import useStyles from "./styles";
-import { Dialog, DialogTitle, Slide, Button } from "@material-ui/core";
+import { Dialog, Slide, Button } from "@material-ui/core";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -61,12 +63,20 @@ const Index = ({ user }) => {
           Cancel
         </Button>
       </Dialog>
-      <tr onClick={showUserDetail}>
-        <td>{user.staffCode}</td>
-        <td>{user.fullName}</td>
-        <td>{user.username}</td>
-        <td>{user.joinedDate}</td>
-        <td>{user.type.replace("ROLE_", "")}</td>
+      <tr>
+        <td onClick={showUserDetail}>{user.staffCode}</td>
+        <td onClick={showUserDetail}>{user.fullName}</td>
+        <td onClick={showUserDetail}>{user.username}</td>
+        <td onClick={showUserDetail}>{user.joinedDate}</td>
+        <td onClick={showUserDetail}>{user.type.replace("ROLE_", "")}</td>
+        <td id="icon_zone">
+          <div id="edit_icon">
+            <EditIcon />
+          </div>
+          <div>
+            <DeleteIcon />
+          </div>
+        </td>
       </tr>
     </>
   );
