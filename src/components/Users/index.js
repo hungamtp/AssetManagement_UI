@@ -20,6 +20,8 @@ const Index = () => {
   const [sort, setSort] = useState("staffCode");
   const [search, setSearch] = useState("staffCode:,username:,role:,location:");
   const [nameSearch, setNameSearch] = useState("");
+  const [name, setName] = useState("");
+  const [staffCode, setStaffCode] = useState("");
   const [roleSearch, setRoleSearch] = useState("");
   const [isStaffCodeASC, setIsStaffCodeASC] = useState(true);
   const [isFullNameCodeASC, setIsFullNameCodeASC] = useState(true);
@@ -42,7 +44,9 @@ const Index = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      await setSearch(`staffCode:,username:,role:,location:${locationId}`);
+      await setSearch(
+        `staffCode:${staffCode},username:${name},role:${roleSearch},location:${locationId}`
+      );
       const response = await userApi.getUsers(currentPage, size, sort, search);
       const usersData = response.data.data;
       setTotalPage(usersData.totalPages);
@@ -54,10 +58,14 @@ const Index = () => {
   const handleOnClickSearchButton = (e) => {
     e.preventDefault();
     if (nameSearch.toUpperCase().startsWith("SD")) {
+      setStaffCode(nameSearch);
+      setName("");
       setSearch(
         `staffCode:${nameSearch},username:,role:${roleSearch},location:${locationId}`
       );
     } else {
+      setName(nameSearch);
+      setStaffCode("");
       setSearch(
         `staffCode:,username:${nameSearch},role:${roleSearch},location:${locationId}`
       );
@@ -81,7 +89,7 @@ const Index = () => {
       await setRoleSearch(newRole);
       const list = search.split(",");
       const newSearch = `${list[0]},${list[1]},role:${newRole},${list[3]}`;
-      setSearch(newSearch);
+      await setSearch(newSearch);
     }
   };
   const handlChangeAllRole = () => {
