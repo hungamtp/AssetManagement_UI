@@ -36,7 +36,7 @@ const Index = () => {
 
   useEffect(() => {
     const fetchRoles = async () => {
-      const response = await get("api/roles");
+      const response = await get("role");
       const rolesData = response.data.data;
       setRoles(rolesData);
     };
