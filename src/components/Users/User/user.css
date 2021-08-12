@@ -7,6 +7,12 @@
   background-color: #fdfefe;
   color: red;
 }
+#detail_title {
+  display: flex;
+  color: red;
+  justify-content: space-between;
+  padding: 20px;
+}
 #edit_icon {
   width: 16.001px;
   height: 16px;
@@ -22,4 +28,40 @@
 #icon_zone {
   display: flex;
   justify-content: space-between;
+}
+#Form_jo {
+  height: 180px;
+  width: 400px;
+  padding-left: 50px;
+}
+#header_jp {
+  background-color: #fafcfc;
+  height: 50px;
+  margin-top: 20px;
+}
+#button_zone {
+  margin-top: 20px;
+}
+#delete_btn {
+  margin-right: 20px;
+}
+#cancel_btn {
+  color: black;
+}
+#form_notice {
+  height: 150px;
+  width: 450px;
+  padding-left: 50px;
+  padding-top: 20px;
+  padding-right: 20px;
+}
+#header_notice {
+  display: flex;
+  justify-content: space-between;
+  color: red;
+  margin-bottom: 20px;
+}
+#cancel_notice {
+  border: 2px solid red;
+  padding: 1px;
 }
