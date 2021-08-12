@@ -122,7 +122,7 @@ const EditUser = () => {
     const handleSaveUser = () => {
         const check = CheckValidation();
         const data = {
-            firstName, lastName, dateOfBirth: dateOfBirth + ' 00:00', gender, joinedDate: joinedDate + ' 00:00', role, location
+            dateOfBirth: dateOfBirth + ' 00:00', gender, joinedDate: joinedDate + ' 00:00', role, location
         }
         let Url = "user/update/" + staffCode;
         if (check) {
