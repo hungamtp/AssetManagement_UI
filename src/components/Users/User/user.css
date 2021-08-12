@@ -65,3 +65,46 @@
   border: 2px solid red;
   padding: 1px;
 }
+#edit_icon_kh {
+  fill: rgba(112, 112, 112, 1);
+}
+.edit_icon_kh {
+  overflow: visible;
+  width: 16.001px;
+  height: 16px;
+  left: 0px;
+  top: 0px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}
+#edit_icon {
+  overflow: visible;
+  transition: all 0.3s ease-out;
+  --web-animation: fadein 0.3s ease-out;
+  --web-action-type: page;
+  --web-action-target: Manage_User___Edit_user___annt.html;
+  cursor: pointer;
+}
+#x-circle-fill {
+  overflow: visible;
+  --web-animation: fadein 0.3s ease-out;
+  --web-action-type: page;
+  --web-action-target: Manage_User___disable_user.html;
+  cursor: pointer;
+}
+#x-circle-fill_kj {
+  fill: rgba(239, 241, 245, 1);
+  stroke: rgba(207, 35, 56, 1);
+  stroke-width: 1px;
+  stroke-linejoin: miter;
+  stroke-linecap: butt;
+  stroke-miterlimit: 4;
+  shape-rendering: auto;
+}
+.x-circle-fill_kj {
+  overflow: visible;
+  width: 17px;
+  height: 17px;
+  left: 0px;
+  top: 0px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}

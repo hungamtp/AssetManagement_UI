@@ -151,6 +151,11 @@ const Index = () => {
     history.push("/createnewuser");
   };
 
+  const onDelete = (staffCode) => {
+    const newUsers = users.filter((user) => user.staffCode !== staffCode);
+    setUsers(newUsers);
+  };
+
   return (
     <div id="users">
       <p className="title">User List</p>
@@ -230,7 +235,7 @@ const Index = () => {
         </thead>
         <tbody>
           {users.map((user) => {
-            return <User user={user} />;
+            return <User user={user} onDelete={onDelete} />;
           })}
         </tbody>
       </table>
