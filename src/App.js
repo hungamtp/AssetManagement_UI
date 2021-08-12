@@ -22,6 +22,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import ChangePassword_Page from "./pages/Change password";
 import EditAsset_Page from "./pages/Edit asset";
 import Users from "./components/Users";
+import ManageUser_Page from "./pages/ManageUser";
 
 class App extends Component {
   static propTypes = {
@@ -77,7 +78,7 @@ class App extends Component {
               <EditUser_Page />
             </Route>
             <Route path="/manageuser">
-              <Users />
+              <ManageUser_Page />
             </Route>
 
             <Route exact path={URL.CREATE_ASSET}>
