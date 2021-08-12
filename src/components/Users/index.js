@@ -51,7 +51,14 @@ const Index = () => {
       const response = await get(url);
       const usersData = response.data.data;
       setTotalPage(usersData.totalPages);
-      setUsers(usersData.data);
+      if (localStorage.getItem("topUser") !== null) {
+        console.log(JSON.parse(localStorage.getItem("topUser")));
+        const newAddedUser = JSON.parse(localStorage.getItem("topUser"));
+        setUsers([newAddedUser, ...usersData.data]);
+        localStorage.removeItem("topUser");
+      } else {
+        setUsers(usersData.data);
+      }
     };
     fetchUsers();
   }, [currentPage, size, sort, search]);
