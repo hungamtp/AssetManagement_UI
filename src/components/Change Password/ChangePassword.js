@@ -3,9 +3,7 @@ import Navbar from "../Navbar";
 import Menu from "../Menu";
 import * as business from "../../constants/Business";
 import './ChangePassword.css'
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import { ButtonToggle } from "reactstrap";
-import axios from 'axios';
+import { useHistory, useParams } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import { put } from '../../httpHelper';
 
@@ -17,6 +15,8 @@ const ChangePassword = () => {
 	const [oldPassword, setOldPassword] = useState("");
 	const [isDisabled, setIsDisable] = useState(true);
 	
+	let history = useHistory();
+
 	useEffect(() => {
 		//getuser and set username
 		setUser(cookies.user);
@@ -30,17 +30,27 @@ const ChangePassword = () => {
 	}, [newPassword, oldPassword])
 
 	const handleChangePassword = () => {
+		let Url = "admin/password/" + username;
+		let data = {
+			oldPassword, newPassword
+		}
+		put(Url, data)
+		.then(() => alert("Change Password Successfull!"))
+		.catch(err => console.log(err));			
+	}
+	const handleUserChangePassword = () => {
 		let Url = "user/password/" + username;
 		let data = {
 			oldPassword, newPassword
 		}
 		put(Url, data)
-		.then(() => alert("Change Password OK!"))
+		.then(() => alert("Change Password Successfull!"))
 		.catch(err => console.log(err));			
 	}
 
 	const handleCancelChangePassword = () => {
 		//cancel
+		history.push("/admin");
 	}
 	
 	return (
@@ -62,7 +72,7 @@ const ChangePassword = () => {
 				</div>
 				</form>
 				<div className="changepassword-btn">
-					<button className="save-btn" disabled={isDisabled} onClick={handleChangePassword}>SAVE</button>
+					<button className="save-btn" disabled={isDisabled} onClick={handleUserChangePassword} onClick={handleChangePassword}>SAVE</button>
 					<button className="cancel-btn" onClick={handleCancelChangePassword}>CANCEL</button>
 				</div>
 			</div>

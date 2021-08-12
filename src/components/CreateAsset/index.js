@@ -23,6 +23,7 @@ export default class index extends Component {
       modal: false,
       notiContent: "",
       categoryList: [],
+      disabledButon: true,
     };
     this.toggle = this.toggle.bind(this);
   }
@@ -34,14 +35,34 @@ export default class index extends Component {
   }
 
   handleFieldChange(e, key) {
-    this.setState({ [key]: e.target.value });
+    this.setState({ [key]: e.target.value }, () => {
+      this.checktoEnabledButton();
+    });
   }
 
   handleRadioChange(key) {
     if (key === "avalableCheck") {
-      this.setState({ avalableCheck: true, notAvailableCheck: false });
+      this.setState({ avalableCheck: true, notAvailableCheck: false }, () => {
+        this.checktoEnabledButton();
+      });
     } else {
-      this.setState({ avalableCheck: false, notAvailableCheck: true });
+      this.setState({ avalableCheck: false, notAvailableCheck: true }, () => {
+        this.checktoEnabledButton();
+      });
+    }
+  }
+
+  checktoEnabledButton() {
+    if (
+      this.state.name.trim() === "" ||
+      this.state.category === "" ||
+      this.state.specification.trim() === "" ||
+      this.state.installDate === "" ||
+      (this.state.avalableCheck === "" && this.state.notAvailableCheck === "")
+    ) {
+      this.setState({ disabledButon: true });
+    } else {
+      this.setState({ disabledButon: false });
     }
   }
 
@@ -132,9 +153,8 @@ export default class index extends Component {
     } catch (error) {
       console.log(error);
       this.setState({
-        message: getCategoryFailException(error),
+        notiContent: getCategoryFailException(error),
       });
-      this.clearMessage();
       return;
     }
     this.setCategory(categoryResult.data.data);
@@ -232,7 +252,7 @@ export default class index extends Component {
             <Input
               type="select"
               name="category"
-              className="Path_8_fo my_category w-50"
+              className="Path_8_fo my_category"
               id="Path_8_fo"
               value={this.state.category}
               onChange={(e) => this.handleFieldChange(e, "category")}
@@ -247,9 +267,9 @@ export default class index extends Component {
               ))}
             </Input>
             <CreateCategoryModal
-              buttonClassName="float-right ml-5"
-              buttonLabel="Create"
-              color="primary"
+              buttonClassName="float-right"
+              buttonLabel="Create category"
+              color="link"
               actionButtonColor="success"
               actionButtonLabel="Save"
               title="Create category"
@@ -262,7 +282,7 @@ export default class index extends Component {
           <Button id="Cancel_btn_fp" className="Cancel_btn" outline color="secondary" onClick={() => this.cancelClick()}>
             Cancel
           </Button>
-          <Button id="Save_btn_fs" className="Save_btn" color="danger" onClick={() => this.saveClick()}>
+          <Button id="Save_btn_fs" className="Save_btn" color="danger" onClick={() => this.saveClick()} disabled={this.state.disabledButon}>
             Save
           </Button>
 
@@ -280,6 +300,12 @@ export default class index extends Component {
               onChange={(e) => this.handleFieldChange(e, "name")}
             />
           </div>
+          <svg class="icondropdown_arrow_fa" viewBox="0.023 -6 12 6">
+            <path
+              id="icondropdown_arrow_fa"
+              d="M 0.02301025576889515 -6 L 12.02301120758057 -6 L 6.002416610717773 1.862645149230957e-09 L 0.02301025576889515 -6 Z"
+            ></path>
+          </svg>
         </div>
         {/* noti modal */}
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={["static"]} keyboard={false}>

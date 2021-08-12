@@ -7796,3 +7796,9 @@
     left: 1.134px;
     top: 1px;
 }
+
+.search-input{
+    border: 1px solid black;
+    padding-left: 10px;
+    padding-right: 32px;
+}

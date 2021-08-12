@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from "../Navbar";
-import { Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 
@@ -27,21 +27,21 @@ class index extends Component {
                 <Navbar businessName="Staff Home Page" />
                 {
                     this.state.user === '' &&
-                    <Redirect to="/" />
+                    this.props.history.push('/')
                 }
                 {
                     this.state.user !== '' &&
                     this.state.user.role !== 'ROLE_USER' &&
-                    <Redirect to="/" />
+                    this.props.history.push('/')
                 }
                 {
                     this.state.user !== '' &&
                     this.state.user.firstLogin === false &&
-                    <Redirect to="/first" />
+                    this.props.history.push('/first')
                 }
             </div>
         )
     }
 }
 
-export default withCookies(index);
+export default withCookies(withRouter(index));

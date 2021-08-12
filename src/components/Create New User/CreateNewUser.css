@@ -124,7 +124,7 @@
     cursor: pointer;
 }
 
-#create-new-user .save-btn {
+#create-new-user .save-btn:disabled {
     width: 68px;
     height: 37px;
 	margin-right: 10px;
