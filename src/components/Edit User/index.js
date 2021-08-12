@@ -44,7 +44,7 @@ const EditUser = () => {
         setUser(cookies.user);
         setLocation(cookies.user.idLocation);
         //get info
-        let Url = "user/" + staffCode;
+        let Url = "user/" + staffCode.trim();
         get(Url)
             .then((response) => setUserInfo(response.data.data))
             .catch(err => console.log(err));
@@ -124,7 +124,7 @@ const EditUser = () => {
         const data = {
             dateOfBirth: dateOfBirth + ' 00:00', gender, joinedDate: joinedDate + ' 00:00', role, location
         }
-        let Url = "user/update/" + staffCode;
+        let Url = "user/update/" + staffCode.trim();
         if (check) {
             put(Url, data)
             .then(() => {
