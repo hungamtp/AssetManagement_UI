@@ -105,8 +105,9 @@ const CreateNewUser = () => {
         let Url = "user/save";
         if (check) {
             post(Url, data)
-            .then(() => {
+            .then((response) => {
                 alert("Create New User OK!");
+                localStorage.setItem("topUser", JSON.stringify(response.data.data));
                 history.push("/manageuser");
             }).catch(err => console.log(err))            
         } 

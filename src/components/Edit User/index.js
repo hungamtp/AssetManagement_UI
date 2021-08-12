@@ -127,9 +127,10 @@ const EditUser = () => {
         let Url = "user/update/" + staffCode.trim();
         if (check) {
             put(Url, data)
-            .then(() => {
+            .then((response) => {
                 alert("Edit User OK!");
-                history.push(`/manageuser/${staffCode.trim()}`);
+                localStorage.setItem("topUser", JSON.stringify(response.data.data));
+                history.push("/manageuser");
             }).catch(err => console.log(err))            
         } 
     }
