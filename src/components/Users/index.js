@@ -30,9 +30,9 @@ const Index = () => {
   const [isJoinedDateASC, setisJoinedDateASC] = useState(true);
   const [isTypeASC, setIsTypeASC] = useState(true);
 
-  const locationId = localStorage.getItem("locationId");
+//   const locationId = localStorage.getItem("locationId");
 
-  const history = useHistory();
+//   const history = useHistory();
 
   useEffect(() => {
     const fetchRoles = async () => {

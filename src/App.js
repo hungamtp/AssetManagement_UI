@@ -4,8 +4,8 @@ import Home from "./components/Home";
 import StaffHome from "./components/StaffHome";
 import FirstLogin from "./components/FirstLogin";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import { instanceOf } from 'prop-types';
-import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from "prop-types";
+import { withCookies, Cookies } from "react-cookie";
 import ManageAsset from "./components/Manage Asset/ManageAsset";
 import LoginFirst from "./components/LoginFirst/LoginFirst";
 import CreateNewUser_Page from "./pages/Create new user";
@@ -24,43 +24,25 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      user: this.props.cookies.get("user") || "",
-    };
+    this.state = {};
   }
 
-  componentDidMount() {
-    this.loadState();
-  }
+  componentDidMount() {}
 
-  loadState() {
-    this.setState({
-      user: this.props.cookies.get("user") || "",
-    });
-  }
   render() {
     return (
       <div>
         <Router>
-          {this.state.user !== "" && this.state.user.firstLogin === false && <Redirect to="/first" />}
-          {this.state.user !== "" && this.state.user.role === "ROLE_ADMIN" && this.state.user.firstLogin === true && <Redirect to="/admin" />}
-          {this.state.user !== "" && this.state.user.role === "ROLE_USER" && this.state.user.firstLogin === true && <Redirect to="/user" />}
           <Switch>
             {/* <ProtectedRoute exact path="/manage/category" component={Home} /> */}
             <Route exact path="/">
-              <Login onLogin={() => this.loadState()} />
+              <Login />
             </Route>
             <Route exact path="/first">
-              <FirstLogin onSuccess={() => this.loadState()} />
+              <FirstLogin />
             </Route>
             <Route exact path="/admin">
               <Home />
-            </Route>
-            <Route exact path="/test">
-              <Index />
-            </Route>
-            <Route exact path="/login">
-              <Login />
             </Route>
             <Route exact path="/user">
               <StaffHome />
@@ -72,7 +54,7 @@ class App extends Component {
               <EditAsset_Page />
             </Route>
             <Route exact path="/changepassword">
-              <ChangePassword_Page/>
+              <ChangePassword_Page />
             </Route>
 
             <Route exact path="/createnewuser">
@@ -81,7 +63,6 @@ class App extends Component {
             <Route exact path="/login_first">
               <LoginFirst />
             </Route>
-            
 
             <Route path="/edituser/:staffCode">
               <EditUser_Page/>
