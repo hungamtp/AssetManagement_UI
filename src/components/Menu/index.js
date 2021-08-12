@@ -32,7 +32,7 @@ class index extends Component {
 
   componentDidMount() {
     if (this.state.user !== "") {
-      if (this.state.user.role[0] === business.ROLE_STAFF) {
+      if (this.state.user.role === business.ROLE_STAFF) {
         this.setState({
           homeClassName: "d-none",
           manageUserClassName: "d-none",
@@ -47,7 +47,7 @@ class index extends Component {
           requestForReturningClassNameActive: "d-none",
           reportClassNameActive: "d-none",
         });
-      } else if (this.state.user.role[0] === business.ROLE_ADMIN) {
+      } else if (this.state.user.role === business.ROLE_ADMIN) {
         this.setState(
           {
             homeClassName: "",
@@ -87,9 +87,9 @@ class index extends Component {
 
   handleMenuClick(businessName) {
     if (this.state.user !== "") {
-      if (this.state.user.role[0] === business.ROLE_STAFF) {
+      if (this.state.user.role === business.ROLE_STAFF) {
         this.setState({});
-      } else if (this.state.user.role[0] === business.ROLE_ADMIN) {
+      } else if (this.state.user.role === business.ROLE_ADMIN) {
         if (businessName === business.HOME) {
           this.props.history.push("/home1");
         } else if (businessName === business.MANAGE_USER) {
