@@ -105,6 +105,23 @@
     padding-left: 5px;
 }
 
+#edit-user-form .input:disabled {
+    margin-top: 15px;
+    width: 280px;
+    height: 35px;
+    white-space: nowrap;
+    border: 1px solid gray;
+    background-color: rgb(211, 213, 214);
+    border-radius: 5px;
+    text-align: left;
+    font-family: Helvetica Neue, Arial;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    color: rgba(33,37,41,1);
+    padding-left: 5px;
+}
+
 #edit-user .button-flex {
     margin-top: 25px;
     display: flex;
@@ -116,6 +133,19 @@
     height: 37px;
 	margin-right: 10px;
     background-color: rgba(227,12,24,1);
+    color: white;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#edit-user .save-btn:disabled {
+    width: 68px;
+    height: 37px;
+	margin-right: 10px;
+    background-color: rgb(167, 86, 90);
     color: white;
     font-weight: bold;
     border: none;
