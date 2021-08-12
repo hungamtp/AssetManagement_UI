@@ -124,6 +124,19 @@
     cursor: pointer;
 }
 
+#create-new-user .save-btn {
+    width: 68px;
+    height: 37px;
+	margin-right: 10px;
+    background-color: rgb(167, 86, 90);
+    color: white;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
 #create-new-user .cancel-btn {
     width: 68px;
     height: 37px;

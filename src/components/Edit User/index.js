@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import './EditUser.css';
 import { get, put } from '../../httpHelper';
@@ -128,7 +128,8 @@ const EditUser = () => {
         if (check) {
             put(Url, data)
             .then(() => {
-                alert("Edit User OK!")
+                alert("Edit User OK!");
+                history.push(`/manageuser/${staffCode.trim()}`);
             }).catch(err => console.log(err))            
         } 
     }
@@ -144,11 +145,11 @@ const EditUser = () => {
             <form id="edit-user-form">
                 <div className="First_name">
                     <label htmlFor="firstname" className="label">First Name</label>
-                    <input className="input" type="text" name="firstname" value={firstName}/>
+                    <input className="input" type="text" name="firstname" value={firstName} disabled/>
                 </div>
                 <div className="Last_name">
                     <label htmlFor="lastname" className="label">Last Name</label>
-                    <input className="input" type="text" name="lastname" value={lastName}/>
+                    <input className="input" type="text" name="lastname" value={lastName} disabled/>
                 </div>
                 <div className="DOB">
                     <label htmlFor="dateOfBirth" className="label">Date Of Birth</label>
