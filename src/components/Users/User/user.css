@@ -7,6 +7,12 @@
   background-color: #fdfefe;
   color: red;
 }
+#detail_title {
+  display: flex;
+  color: red;
+  justify-content: space-between;
+  padding: 20px;
+}
 #edit_icon {
   width: 16.001px;
   height: 16px;

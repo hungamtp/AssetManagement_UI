@@ -65,8 +65,11 @@ const Index = ({ user }) => {
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <div id="dialog-title" className={classes.dialogTitle}>
-          Detailed User Information
+        <div id="dialog-title" id="detail_title">
+          <h5> Detailed User Information</h5>
+          <Button onClick={handleCloseUpdateForm} color="primary" size="small">
+            X
+          </Button>
         </div>
         <div className={classes.dialogContent}>
           <div className={classes.title}>
@@ -90,9 +93,6 @@ const Index = ({ user }) => {
             <div>{user.location}</div>
           </div>
         </div>
-        <Button onClick={handleCloseUpdateForm} color="primary">
-          Cancel
-        </Button>
       </Dialog>
       <tr>
         <td onClick={showUserDetail}>{user.staffCode}</td>
