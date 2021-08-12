@@ -106,7 +106,8 @@ const CreateNewUser = () => {
         if (check) {
             post(Url, data)
             .then(() => {
-                alert("Create New User OK!")
+                alert("Create New User OK!");
+                history.push("/manageuser");
             }).catch(err => console.log(err))            
         } 
     }
