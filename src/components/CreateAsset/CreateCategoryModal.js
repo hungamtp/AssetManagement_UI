@@ -14,6 +14,7 @@ export default class CreateCategoryModal extends Component {
       categoryName: "",
       categoryCode: "",
       message: "",
+      disabledButon: true,
     };
     this.toggle = this.toggle.bind(this);
     this.toggleSave = this.toggleSave.bind(this);
@@ -83,16 +84,35 @@ export default class CreateCategoryModal extends Component {
 
   handleCategoryChange(e, key) {
     if (key === "categoryCode") {
-      this.setState({ [key]: e.target.value.toUpperCase() });
+      this.setState({ [key]: e.target.value.toUpperCase() }, () => {
+        this.checktoEnabledButton();
+      });
     } else {
-      this.setState({ [key]: e.target.value });
+      this.setState({ [key]: e.target.value }, () => {
+        this.checktoEnabledButton();
+      });
+    }
+  }
+
+  checktoEnabledButton() {
+    let categoryCodePattern = /(^[A-Z]{2,3}$)/;
+    if (this.state.categoryCode.trim() === "" || !checkPattern(categoryCodePattern, this.state.categoryCode.trim()) || this.state.categoryName.trim() === "") {
+      this.setState({ disabledButon: true });
+    } else {
+      this.setState({ disabledButon: false });
     }
   }
 
   render() {
     return (
       <div>
-        <Button color={this.props.color} onClick={this.toggle} className={this.props.buttonClassName} style={{"margin-left": "25rem"}}>
+        <Button
+          color={this.props.color}
+          onClick={this.toggle}
+          className={this.props.buttonClassName}
+          style={{ "margin-left": "25rem", width: "8rem" }}
+          size="sm"
+        >
           {this.props.buttonLabel}
         </Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} size="lg" backdrop={["static"]} keyboard={false}>
@@ -101,21 +121,21 @@ export default class CreateCategoryModal extends Component {
             <h4 className="text-danger">{this.state.message}</h4>
             <Form>
               <FormGroup row>
-                <Label sm={4}>Category code</Label>
+                <Label sm={3}>Category code:</Label>
                 <Col sm={8}>
                   <Input
                     type="text"
                     name="categoryCode"
                     id="categoryCode"
-                    placeholder="Category code"
+                    placeholder="2 - 3 character"
                     value={this.state.categoryCode}
                     onChange={(e) => this.handleCategoryChange(e, "categoryCode")}
                   />
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label for="categoryName" sm={4}>
-                  Category name
+                <Label for="categoryName" sm={3}>
+                  Category name:
                 </Label>
                 <Col sm={8}>
                   <Input
@@ -131,7 +151,7 @@ export default class CreateCategoryModal extends Component {
             </Form>
           </ModalBody>
           <ModalFooter>
-            <Button color={this.props.actionButtonColor} onClick={this.handleSaveClick}>
+            <Button color={this.props.actionButtonColor} onClick={this.handleSaveClick} disabled={this.state.disabledButon}>
               {this.props.actionButtonLabel}
             </Button>
             <Button color="secondary" onClick={this.toggle}>

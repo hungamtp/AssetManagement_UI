@@ -249,7 +249,7 @@
   position: absolute;
   width: 16px;
   height: 16px;
-  left: 450px;
+  left: 349px;
   top: 10px;
   overflow: visible;
 }
@@ -279,7 +279,7 @@
 }
 #Joined_Date_fm {
   position: absolute;
-  width: 475px;
+  width: 378px;
   height: 35px;
   left: 0px;
   top: 49px;
@@ -457,3 +457,8 @@
   top: 64px;
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
+
+/* .my_category {
+  width: 280px !important;
+} */
+
