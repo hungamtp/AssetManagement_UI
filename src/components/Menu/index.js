@@ -91,9 +91,9 @@ class index extends Component {
         this.setState({});
       } else if (this.state.user.role === business.ROLE_ADMIN) {
         if (businessName === business.HOME) {
-          this.props.history.push("/manageuser");
+          this.props.history.push("/home");
         } else if (businessName === business.MANAGE_USER) {
-          this.props.history.push("/home2");
+          this.props.history.push("/manageuser");
         } else if (businessName === business.MANAGE_ASSIGNMENT) {
           this.props.history.push("/home3");
         } else if (businessName === business.REQUEST_FOR_RETURNING) {

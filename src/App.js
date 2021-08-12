@@ -30,49 +30,25 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      user: this.props.cookies.get("user") || "",
-    };
+    this.state = {};
   }
 
-  componentDidMount() {
-    this.loadState();
-  }
+  componentDidMount() {}
 
-  loadState() {
-    this.setState({
-      user: this.props.cookies.get("user") || "",
-    });
-  }
   render() {
     return (
       <div>
         <Router>
-          {this.state.user !== "" && this.state.user.firstLogin === false && (
-            <Redirect to="/first" />
-          )}
-          {this.state.user !== "" &&
-            this.state.user.role === "ROLE_ADMIN" &&
-            this.state.user.firstLogin === true && <Redirect to="/admin" />}
-          {this.state.user !== "" &&
-            this.state.user.role === "ROLE_USER" &&
-            this.state.user.firstLogin === true && <Redirect to="/user" />}
           <Switch>
             {/* <ProtectedRoute exact path="/manage/category" component={Home} /> */}
             <Route exact path="/">
-              <Login onLogin={() => this.loadState()} />
+              <Login />
             </Route>
             <Route exact path="/first">
-              <FirstLogin onSuccess={() => this.loadState()} />
+              <FirstLogin />
             </Route>
             <Route exact path="/admin">
               <Home />
-            </Route>
-            <Route exact path="/test">
-              <Index />
-            </Route>
-            <Route exact path="/login">
-              <Login />
             </Route>
             <Route exact path="/user">
               <StaffHome />

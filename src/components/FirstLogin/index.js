@@ -6,11 +6,12 @@ import {
     Button, Form, FormGroup, Label, Input,
     Modal, ModalHeader, ModalBody, ModalFooter
 } from "reactstrap";
-import { Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import * as business from "../../constants/Business";
 import axios from "axios";
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
+import { put } from '../../httpHelper';
 
 class index extends Component {
 
@@ -32,21 +33,17 @@ class index extends Component {
     changePassword(e) {
         e.preventDefault();
         if (this.state.user.role === 'ROLE_ADMIN') {
-            const api = 'http://localhost:9994/asset-management/admin/password/first';
-            axios.put(api,
-                {
-                    staffCode: `${this.state.user.staffCode}`,
-                    newPassword: e.target.password.value
-                },
-                {
-                    headers: { Authorization: `Bearer ${this.state.user.token}` }
-                }
-            )
+            let url = "admin/password/first";
+            let body = {
+                staffCode: `${this.state.user.staffCode}`,
+                newPassword: e.target.password.value
+            }
+            put(url, body)
                 .then(response => {
                     if (response.status === 200) {
                         if (response.data.successCode === 'CHANGE_PASSWORD_SUCCESS') {
                             this.props.cookies.set('user', JSON.stringify(response.data.data), { path: "/" })
-                            this.props.onSuccess();
+                            this.props.history.push("/admin");
                         }
                     }
                 })
@@ -76,21 +73,17 @@ class index extends Component {
                 })
         }
         else if (this.state.user.role === 'ROLE_USER') {
-            const api = 'http://localhost:9994/asset-management/user/password/first';
-            axios.put(api,
-                {
-                    staffCode: `${this.state.user.staffCode}`,
-                    newPassword: e.target.password.value
-                },
-                {
-                    headers: { Authorization: `Bearer ${this.state.user.token}` }
-                }
-            )
+            let url = "user/password/first";
+            let body = {
+                staffCode: `${this.state.user.staffCode}`,
+                newPassword: e.target.password.value
+            }
+            put(url, body)
                 .then(response => {
                     if (response.status === 200) {
                         if (response.data.successCode === 'CHANGE_PASSWORD_SUCCESS') {
                             this.props.cookies.set('user', JSON.stringify(response.data.data), { path: "/" })
-                            this.props.onSuccess();
+                            this.props.history.push("/user");
                         }
                     }
                 })
@@ -137,7 +130,7 @@ class index extends Component {
             <div>
                 {
                     this.state.user === '' &&
-                    <Redirect to="/" />
+                    this.props.history.push('/')
                 }
                 <Navbar businessName="Home" />
                 <div id="Login_the_first_time">
@@ -199,4 +192,4 @@ class index extends Component {
     }
 }
 
-export default withCookies(index);
+export default withCookies(withRouter(index));
