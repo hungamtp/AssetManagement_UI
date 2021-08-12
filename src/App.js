@@ -3,7 +3,12 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import StaffHome from "./components/StaffHome";
 import FirstLogin from "./components/FirstLogin";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import { instanceOf } from "prop-types";
 import { withCookies, Cookies } from "react-cookie";
 import ManageAsset from "./components/Manage Asset/ManageAsset";
@@ -16,6 +21,7 @@ import EditUser_Page from "./pages/Edit user";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ChangePassword_Page from "./pages/Change password";
 import EditAsset_Page from "./pages/Edit asset";
+import Users from "./components/Users";
 
 class App extends Component {
   static propTypes = {
@@ -60,12 +66,18 @@ class App extends Component {
             <Route exact path="/createnewuser">
               <CreateNewUser_Page />
             </Route>
+            <Route exact path="/createnewuser">
+              <CreateNewUser_Page />
+            </Route>
             <Route exact path="/login_first">
               <LoginFirst />
             </Route>
 
             <Route path="/edituser/:staffCode">
-              <EditUser_Page/>
+              <EditUser_Page />
+            </Route>
+            <Route path="/manageuser">
+              <Users />
             </Route>
 
             <Route exact path={URL.CREATE_ASSET}>
