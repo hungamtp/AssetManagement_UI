@@ -54,8 +54,18 @@ const Index = () => {
       if (localStorage.getItem("topUser") !== null) {
         console.log(JSON.parse(localStorage.getItem("topUser")));
         const newAddedUser = JSON.parse(localStorage.getItem("topUser"));
-        setUsers([newAddedUser, ...usersData.data]);
+        const newUsers = usersData.data.filter(
+          (user) => user.staffCode !== newAddedUser.staffCode
+        );
+        setUsers([newAddedUser, ...newUsers]);
         localStorage.removeItem("topUser");
+      } else if (localStorage.getItem("edittedUser") !== null) {
+        const edditedUser = JSON.parse(localStorage.getItem("edittedUser"));
+        const newUsers = usersData.data.filter(
+          (user) => user.staffCode !== edditedUser.staffCode
+        );
+        setUsers([edditedUser, ...newUsers]);
+        localStorage.removeItem("edittedUser");
       } else {
         setUsers(usersData.data);
       }
