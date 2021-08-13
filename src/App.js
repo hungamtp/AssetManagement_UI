@@ -86,10 +86,6 @@ class App extends Component {
               <CreateAsset />
             </Route>
 
-            <Route path="/deleteasset/:assetCode">
-              <DeleteAsset/>
-            </Route>
-
             <Route path="/**" render={() => <h2>Not found</h2>}></Route>
           </Switch>
         </Router>

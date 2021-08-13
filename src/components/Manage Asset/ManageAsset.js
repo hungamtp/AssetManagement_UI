@@ -9,9 +9,10 @@ import {
 	Modal, ModalHeader, ModalBody, ModalFooter, Alert
 }
 	from "reactstrap";
-import { post, get } from "../../httpHelper";
+import { post, get, del } from "../../httpHelper";
 import { withRouter } from "react-router-dom";
 import AssetDetail from './AssetDetail';
+import DeleteAsset, { DeleteAsset_No, DeleteAsset_Yes } from '../Delete Asset';
 
 class ManageAsset extends Component {
 
@@ -43,7 +44,11 @@ class ManageAsset extends Component {
 			assetId: '',
 
 			isFail: false,
-			messageFail: ''
+			messageFail: '',
+
+			deleteAssetNO: false,
+			deleteAssetYES: false,
+			deleteCode: ''
 		}
 	}
 
@@ -267,7 +272,7 @@ class ManageAsset extends Component {
 		})
 	}
 
-	changeFilter() {
+	reloadPage() {
 		this.loadData();
 		this.returnPageList();
 	}
@@ -276,8 +281,42 @@ class ManageAsset extends Component {
 		this.props.history.push(`editasset/${assetCode}`);
 	}
 
+	handleDeleteAssetShow = () => {
+		this.setState({
+			deleteAssetNO: false,
+			deleteAssetYES: false
+		});
+		this.reloadPage();
+    }
+
+    handleDeleteAssetNO = () => {
+		this.setState({
+			deleteAssetNO: true,
+			deleteAssetYES: false
+		})
+    }
+
+    handleDeleteAssetYES = () => {
+		this.setState({
+			deleteAssetNO: false,
+			deleteAssetYES: true
+		})
+    }
+
 	handleDeleteAsset(assetCode) {
-		
+		this.setState({
+			deleteCode: assetCode
+		})
+		let Url = `asset/check/${assetCode}`;
+        del(Url)
+            .then(response => {
+                if (response.data.successCode === "ASSET_ABLE_TO_DELETE")
+                    this.handleDeleteAssetYES();
+            })
+            .catch(error => {
+                if (error.response.data.message === "ERR_ASSET_ALREADY_HAVE_ASSIGNMENT")
+                    this.handleDeleteAssetNO();
+            });
 	}
 
 	render() {
@@ -302,7 +341,7 @@ class ManageAsset extends Component {
 										checked={this.state.allState === true}
 										onChange={() => {
 											this.setState({ allState: !this.state.allState });
-											this.changeFilter();
+											this.reloadPage();
 										}}
 									/>
 									All
@@ -314,7 +353,7 @@ class ManageAsset extends Component {
 										checked={this.state.assigned === true}
 										onChange={() => {
 											this.setState({ assigned: !this.state.assigned });
-											this.changeFilter();
+											this.reloadPage();
 										}}
 									/>
 									Assigned
@@ -326,7 +365,7 @@ class ManageAsset extends Component {
 										checked={this.state.available === true}
 										onChange={() => {
 											this.setState({ available: !this.state.available });
-											this.changeFilter();
+											this.reloadPage();
 										}}
 									/>
 									Available
@@ -338,7 +377,7 @@ class ManageAsset extends Component {
 										checked={this.state.notAvailable === true}
 										onChange={() => {
 											this.setState({ notAvailable: !this.state.notAvailable });
-											this.changeFilter();
+											this.reloadPage();
 										}}
 									/>
 									Not available
@@ -350,7 +389,7 @@ class ManageAsset extends Component {
 										checked={this.state.waiting === true}
 										onChange={() => {
 											this.setState({ waiting: !this.state.waiting });
-											this.changeFilter();
+											this.reloadPage();
 										}}
 									/>
 									Waiting for recycling
@@ -362,7 +401,7 @@ class ManageAsset extends Component {
 										checked={this.state.recycled === true}
 										onChange={() => {
 											this.setState({ recycled: !this.state.recycled });
-											this.changeFilter();
+											this.reloadPage();
 										}}
 									/>
 									Recycled
@@ -387,7 +426,7 @@ class ManageAsset extends Component {
 										checked={this.state.allCategory === true}
 										onChange={(e) => {
 											this.setState({ allCategory: e.target.checked });
-											this.changeFilter();
+											this.reloadPage();
 										}}
 									/>
 									All
@@ -402,7 +441,7 @@ class ManageAsset extends Component {
 													value={category.categoryCode}
 													onChange={(e) => {
 														this.handleSelectCategory(e);
-														this.changeFilter();
+														this.reloadPage();
 													}}
 												/>
 												{category.categoryName}
@@ -548,6 +587,8 @@ class ManageAsset extends Component {
 						<Button color="danger" onClick={() => this.toggleShow()}>Close</Button>
 					</ModalFooter>
 				</Modal>
+				<DeleteAsset_Yes assetCode={this.state.deleteCode} handleDeleteAssetShow={this.handleDeleteAssetShow} deleteAssetYES={this.state.deleteAssetYES}/>
+            	<DeleteAsset_No assetCode={this.state.deleteCode} handleDeleteAssetShow={this.handleDeleteAssetShow} deleteAssetNO={this.state.deleteAssetNO}/>
 			</div>
 		)
 	}

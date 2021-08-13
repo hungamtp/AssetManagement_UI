@@ -3,11 +3,14 @@ import { useParams } from "react-router";
 import { del } from "../../httpHelper";
 import './DeleteAsset.css'
 
-const DeleteAsset_Yes = (props) => {
+export const DeleteAsset_Yes = (props) => {
     const handleConfirmDeleteAsset = () => {
         let Url=`asset/${props.assetCode}`;
         del(Url)
-            .then(() => alert("Delete asset OK!"))
+            .then(() => {
+                alert("Delete asset OK!");
+                props.handleDeleteAssetShow();
+            })
             .catch(response => console.log(response))
     }
 
@@ -31,7 +34,7 @@ const DeleteAsset_Yes = (props) => {
     )
 }
 
-const DeleteAsset_No = (props) => {
+export const DeleteAsset_No = (props) => {
     const handleXButton = () => {
         props.handleDeleteAssetShow();
     }
@@ -52,45 +55,3 @@ const DeleteAsset_No = (props) => {
         </div>
     )
 }
-
-const DeleteAsset = () => {
-    const [deleteAssetNO, setDeleteAssetNO] = useState(false);
-    const [deleteAssetYES, setDeleteAssetYES] = useState(false);
-    let { assetCode } = useParams();
-
-    const handleDeleteAssetShow = () => {
-        setDeleteAssetNO(false);
-        setDeleteAssetYES(false);
-    }
-
-    const handleDeleteAssetNO = () => {
-        setDeleteAssetNO(true);
-        setDeleteAssetYES(false);
-    }
-
-    const handleDeleteAssetYES = () => {
-        setDeleteAssetNO(false);
-        setDeleteAssetYES(true);
-    }
-
-    useEffect(() => {
-        let Url = `asset/check/${assetCode}`;
-        del(Url)
-            .then(response => {
-                if (response.data.successCode === "ASSET_ABLE_TO_DELETE")
-                    handleDeleteAssetYES();
-            })
-            .catch(error => {
-                if (error.response.data.message === "ERR_ASSET_ALREADY_HAVE_ASSIGNMENT")
-                    handleDeleteAssetNO();
-            })
-    }, [])
-
-    return (
-        <div id="delete-asset">
-            <DeleteAsset_Yes assetCode={assetCode} handleDeleteAssetShow={handleDeleteAssetShow} deleteAssetYES={deleteAssetYES}/>
-            <DeleteAsset_No assetCode={assetCode} handleDeleteAssetShow={handleDeleteAssetShow} deleteAssetNO={deleteAssetNO}/>
-        </div>
-    )
-}
-export default DeleteAsset;
