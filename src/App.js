@@ -57,7 +57,7 @@ class App extends Component {
             <Route exact path="/manageasset">
               <ManageAsset />
             </Route>
-            <Route exact path="/editasset">
+            <Route exact path="/editasset/:assetCode">
               <EditAsset_Page />
             </Route>
             <Route exact path="/changepassword">
