@@ -1,9 +1,9 @@
-#create-new-user {
+#edit-user {
     width: 400px;
     margin: 200px 500px;
 }
 
-#create-user-title {
+#edit-user-title {
     overflow: visible;
     width: max-content;
     white-space: nowrap;
@@ -19,17 +19,17 @@
     color: rgba(207,35,56,1);
 }
 
-#create-user-form {
+#edit-user-form {
     width: fit-content;
     height: fit-content;
     overflow: visible;
 }
 
-#create-user-form .Gender {
+#edit-user-form .Gender {
     display: flex;
 }
 
-#create-user-form .label {
+#edit-user-form .label {
     overflow: visible;
     width: 120px;
     white-space: nowrap;
@@ -73,7 +73,7 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    /* create custom radiobutton appearance */
+    /* edit custom radiobutton appearance */
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -89,7 +89,7 @@
     border: 6px solid rgba(227,12,24,1) ;
 }
 
-#create-user-form .input {
+#edit-user-form .input {
     margin-top: 15px;
     width: 280px;
     height: 35px;
@@ -105,13 +105,13 @@
     padding-left: 5px;
 }
 
-#create-new-user .button-flex {
+#edit-user .button-flex {
     margin-top: 25px;
     display: flex;
     justify-content: flex-end;
 }
 
-#create-new-user .save-btn {
+#edit-user .save-btn {
     width: 68px;
     height: 37px;
 	margin-right: 10px;
@@ -124,20 +124,7 @@
     cursor: pointer;
 }
 
-#create-new-user .save-btn:disabled {
-    width: 68px;
-    height: 37px;
-	margin-right: 10px;
-    background-color: rgb(167, 86, 90);
-    color: white;
-    font-weight: bold;
-    border: none;
-    outline: none;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-#create-new-user .cancel-btn {
+#edit-user .cancel-btn {
     width: 68px;
     height: 37px;
     margin-left: 10px;
@@ -148,7 +135,7 @@
     cursor: pointer;
 }
 
-#create-user-form .red-input {
+#edit-user-form .red-input {
     margin-top: 15px;
     width: 280px;
     height: 35px;
@@ -164,7 +151,7 @@
     padding-left: 5px;
 }
 
-#create-user-form .show-error {
+#edit-user-form .show-error {
     margin-left: 120px;
     margin-top: 5px;
     width: 280px;
@@ -172,6 +159,6 @@
     color: rgba(227,12,24,1);
 }
 
-#create-user-form .none {
+#edit-user-form .none {
     display: none;
 }

@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useCookies } from "react-cookie";
-import './CreateNewUser.css';
-import { post } from '../../httpHelper';
+import './EditUser.css';
+import { get, put } from '../../httpHelper';
 
 const Checkbox = ({ label, value, onChange }) => {
     return (
@@ -14,7 +14,7 @@ const Checkbox = ({ label, value, onChange }) => {
     );
 };
 
-const CreateNewUser = () => {
+const EditUser = () => {
     const [user, setUser] = useState(false);
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
     const [lastName, setLastName] = useState("");
@@ -34,13 +34,35 @@ const CreateNewUser = () => {
 
     const [isEnabled, setIsEnabled] = useState(false);
 
+    const [userInfo, setUserInfo] = useState(null);
+
     let history = useHistory();
+    let {staffCode} = useParams();
 
     useEffect(() => {
         //get user
         setUser(cookies.user);
         setLocation(cookies.user.idLocation);
+        //get info
+        let Url = "user/" + staffCode.trim();
+        get(Url)
+            .then((response) => setUserInfo(response.data.data))
+            .catch(err => console.log(err));
     }, [])
+
+    useEffect(() => {
+        console.log(userInfo);
+        if (userInfo !== null) {
+            setFirstName(userInfo.firstName);
+            setLastName(userInfo.lastName);
+            setDateOfBirth(userInfo.dateOfBirth.slice(0, 10));
+            setJoinedDate(userInfo.joinedDate.slice(0, 10));
+            setRole(userInfo.role);
+            if (userInfo.gender === "FEMALE")
+                handleChangeFemale()
+            else handleChangeMale();
+        }
+    }, [userInfo])
 
     useEffect(() => {
         //do something
@@ -100,15 +122,13 @@ const CreateNewUser = () => {
     const handleSaveUser = () => {
         const check = CheckValidation();
         const data = {
-            firstName, lastName, dateOfBirth: dateOfBirth + ' 00:00', gender, joinedDate: joinedDate + ' 00:00', role, location
+            dateOfBirth: dateOfBirth + ' 00:00', gender, joinedDate: joinedDate + ' 00:00', role, location
         }
-        let Url = "user/save";
+        let Url = "user/update/" + staffCode.trim();
         if (check) {
-            post(Url, data)
-            .then((response) => {
-                alert("Create New User OK!");
-                localStorage.setItem("topUser", JSON.stringify(response.data.data));
-                history.push("/manageuser");
+            put(Url, data)
+            .then(() => {
+                alert("Edit User OK!")
             }).catch(err => console.log(err))            
         } 
     }
@@ -119,18 +139,16 @@ const CreateNewUser = () => {
     }
 
     return (
-        <div id="create-new-user">
-            <div id="create-user-title">Create New User</div>
-            <form id="create-user-form">
+        <div id="edit-user">
+            <div id="edit-user-title">Edit User</div>
+            <form id="edit-user-form">
                 <div className="First_name">
                     <label htmlFor="firstname" className="label">First Name</label>
-                    <input className="input" type="text" name="firstname" value={firstName}
-                        onChange={({ target }) => setFirstName(target.value)}/>
+                    <input className="input" type="text" name="firstname" value={firstName}/>
                 </div>
                 <div className="Last_name">
                     <label htmlFor="lastname" className="label">Last Name</label>
-                    <input className="input" type="text" name="lastname" value={lastName}
-                        onChange={({ target }) => setLastName(target.value)}/>
+                    <input className="input" type="text" name="lastname" value={lastName}/>
                 </div>
                 <div className="DOB">
                     <label htmlFor="dateOfBirth" className="label">Date Of Birth</label>
@@ -159,7 +177,7 @@ const CreateNewUser = () => {
                 </div>
                 <div className="Joined_Date">
                     <label htmlFor="joinedDate" className="label">Joined Date</label>
-                    <input className={!validJD ? "red-input" : "input"} type="date" name="joinedDate" value={joinedDate}
+                    <input className={!validJD ? "red-input" : "input"} type="date" name="joinedDate" value={joinedDate} 
                         onChange={({ target }) => {
                             setJoinedDate(target.value);
                             setValidJD(true);
@@ -183,4 +201,4 @@ const CreateNewUser = () => {
     )
 }
 
-export default CreateNewUser;
+export default EditUser;

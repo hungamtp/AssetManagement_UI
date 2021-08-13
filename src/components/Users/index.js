@@ -29,14 +29,15 @@ const Index = () => {
   const [isUserNameASC, setisUserNameASC] = useState(true);
   const [isJoinedDateASC, setisJoinedDateASC] = useState(true);
   const [isTypeASC, setIsTypeASC] = useState(true);
+  const [locationId, setLocationId] = useState("");
 
   const locationId = localStorage.getItem("locationId");
 
- const history = useHistory();
+  const history = useHistory();
 
   useEffect(() => {
     const fetchRoles = async () => {
-      const response = await get("api/roles");
+      const response = await get("role");
       const rolesData = response.data.data;
       setRoles(rolesData);
     };
@@ -45,10 +46,10 @@ const Index = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      await setSearch(
-        `isDeleted:false,staffCode:${staffCode},username:${name},role:${roleSearch},location:${locationId}`
-      );
-      const url = `user?page=${currentPage}&size=${size}&sort=${sort}&search=${search}`;
+      const location = await localStorage.getItem("locationId");
+      await setLocationId(location);
+      const url =
+        await `user?page=${currentPage}&size=${size}&sort=${sort}&search=isDeleted:false,staffCode:${staffCode},username:${name},role:${roleSearch},location:${location}`;
       const response = await get(url);
       const usersData = response.data.data;
       setTotalPage(usersData.totalPages);
@@ -94,8 +95,8 @@ const Index = () => {
       await setSearch(newSearch);
     }
   };
-  const handlChangeAllRole = () => {
-    setRoleSearch("");
+  const handlChangeAllRole = async () => {
+    await setRoleSearch("");
     const list = search.split(",");
     const newSearch = `${list[0]},${list[1]},${list[2]},role:,${list[4]}`;
     setSearch(newSearch);
@@ -150,6 +151,11 @@ const Index = () => {
 
   const handleClickCreateNew = () => {
     history.push("/createnewuser");
+  };
+
+  const onDelete = (staffCode) => {
+    const newUsers = users.filter((user) => user.staffCode !== staffCode);
+    setUsers(newUsers);
   };
 
   return (
@@ -231,7 +237,7 @@ const Index = () => {
         </thead>
         <tbody>
           {users.map((user) => {
-            return <User user={user} />;
+            return <User user={user} onDelete={onDelete} />;
           })}
         </tbody>
       </table>

@@ -94,13 +94,13 @@ class index extends Component {
         if (businessName === business.HOME) {
           this.props.history.push("/admin");
         } else if (businessName === business.MANAGE_USER) {
-          this.props.history.push("/home2");
+          this.props.history.push("/manageuser");
         } else if (businessName === business.MANAGE_ASSIGNMENT) {
           this.props.history.push("/home3");
         } else if (businessName === business.REQUEST_FOR_RETURNING) {
           this.props.history.push("/home4");
         } else if (businessName === business.MANAGE_ASSET) {
-          this.props.history.push("/manageasset");
+          this.props.history.push("/home5");
         } else if (businessName === business.REPORT) {
           this.props.history.push("/home6");
         }
