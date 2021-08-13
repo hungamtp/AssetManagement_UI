@@ -32,7 +32,7 @@ class index extends Component {
 
   componentDidMount() {
     if (this.state.user !== "") {
-      if (this.state.user.role[0] === business.ROLE_STAFF) {
+      if (this.state.user.role === business.ROLE_USER) {
         this.setState({
           homeClassName: "d-none",
           manageUserClassName: "d-none",
@@ -47,7 +47,7 @@ class index extends Component {
           requestForReturningClassNameActive: "d-none",
           reportClassNameActive: "d-none",
         });
-      } else if (this.state.user.role[0] === business.ROLE_ADMIN) {
+      } else if (this.state.user.role === business.ROLE_ADMIN) {
         this.setState(
           {
             homeClassName: "",
@@ -82,47 +82,17 @@ class index extends Component {
       }
     } else {
       // dont't have cookie, redirect to sign in but we already have protected route so when we implement it for test only
-      this.setState(
-        {
-          homeClassName: "",
-          manageUserClassName: "",
-          manageAssetclassName: "",
-          manageAssignmentClassName: "",
-          requestForReturningClassName: "",
-          reportClassName: "",
-          homeClassNameActive: "d-none",
-          manageUserClassNameActive: "d-none",
-          manageAssetclassNameActive: "d-none",
-          manageAssignmentClassNameActive: "d-none",
-          requestForReturningClassNameActive: "d-none",
-          reportClassNameActive: "d-none",
-        },
-        () => {
-          if (this.props.business === business.HOME) {
-            this.setState({ homeClassNameActive: "" });
-          } else if (this.props.business === business.MANAGE_USER) {
-            this.setState({ manageUserClassNameActive: "" });
-          } else if (this.props.business === business.MANAGE_ASSIGNMENT) {
-            this.setState({ manageAssignmentClassNameActive: "" });
-          } else if (this.props.business === business.REQUEST_FOR_RETURNING) {
-            this.setState({ requestForReturningClassNameActive: "" });
-          } else if (this.props.business === business.MANAGE_ASSET) {
-            this.setState({ manageAssetclassNameActive: "" });
-          } else if (this.props.business === business.REPORT) {
-            this.setState({ reportClassNameActive: "" });
-          }
-        }
-      );
+      
     }
   }
 
   handleMenuClick(businessName) {
     if (this.state.user !== "") {
-      if (this.state.user.role[0] === business.ROLE_STAFF) {
+      if (this.state.user.role === business.ROLE_USER) {
         this.setState({});
-      } else if (this.state.user.role[0] === business.ROLE_ADMIN) {
+      } else if (this.state.user.role === business.ROLE_ADMIN) {
         if (businessName === business.HOME) {
-          this.props.history.push("/home1");
+          this.props.history.push("/admin");
         } else if (businessName === business.MANAGE_USER) {
           this.props.history.push("/home2");
         } else if (businessName === business.MANAGE_ASSIGNMENT) {
@@ -136,21 +106,7 @@ class index extends Component {
         }
       }
     } else {
-      // dont't have cookie, redirect to sign in but we already have protected route so when we implement it for test only
-      if (businessName === business.HOME) {
-        this.props.history.push("/home1");
-      } else if (businessName === business.MANAGE_USER) {
-        this.props.history.push("/home2");
-      } else if (businessName === business.MANAGE_ASSIGNMENT) {
-        this.props.history.push("/home3");
-      } else if (businessName === business.REQUEST_FOR_RETURNING) {
-        this.props.history.push("/home4");
-      } else if (businessName === business.MANAGE_ASSET) {
-        this.props.history.push("/home5");
-      } else if (businessName === business.REPORT) {
-        this.props.history.push("/home6");
-      }
-    }
+     } // dont't have cookie, redirect to sign in but we already have protected route so when we implement it for test only
   }
 
   render() {
