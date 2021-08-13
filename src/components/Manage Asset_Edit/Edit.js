@@ -178,7 +178,7 @@ const EditAsset = () => {
                             <FormGroup check disabled>
                                 <Label check>
                                     <Input type="radio" name="customRadio" value={"recycled"} 
-                                    onClick={handleChangeRecycled} checked={checkedWaitingforrecycling}/>{' '}Recycled
+                                    onClick={handleChangeRecycled} checked={checkedRecycled}/>{' '}Recycled
                                 </Label>
                             </FormGroup>
                         </Col>
