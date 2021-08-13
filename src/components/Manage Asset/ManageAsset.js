@@ -29,12 +29,12 @@ class ManageAsset extends Component {
 			sortType: "ASC",
 			searchValue: "",
 
-			available: true,
-			notAvailable: true,
-			assigned: true,
+			available: false,
+			notAvailable: false,
+			assigned: false,
 			waiting: false,
 			recycled: false,
-			allState: false,
+			allState: true,
 
 			allCategory: true,
 			selectedCategory: [],
@@ -267,6 +267,19 @@ class ManageAsset extends Component {
 		})
 	}
 
+	changeFilter() {
+		this.loadData();
+		this.returnPageList();
+	}
+
+	handleEditAsset(assetCode) {
+		this.props.history.push(`editasset/${assetCode}`);
+	}
+
+	handleDeleteAsset(assetCode) {
+		
+	}
+
 	render() {
 		return (
 			<div>
@@ -287,7 +300,10 @@ class ManageAsset extends Component {
 										style={{ marginRight: '10px', marginLeft: '10px' }}
 										type="checkbox"
 										checked={this.state.allState === true}
-										onChange={(e) => this.setState({ allState: e.target.checked })}
+										onChange={() => {
+											this.setState({ allState: !this.state.allState });
+											this.changeFilter();
+										}}
 									/>
 									All
 								</div>
@@ -296,7 +312,10 @@ class ManageAsset extends Component {
 										style={{ marginRight: '10px', marginLeft: '10px' }}
 										type="checkbox"
 										checked={this.state.assigned === true}
-										onChange={(e) => this.setState({ assigned: e.target.checked })}
+										onChange={() => {
+											this.setState({ assigned: !this.state.assigned });
+											this.changeFilter();
+										}}
 									/>
 									Assigned
 								</div>
@@ -305,7 +324,10 @@ class ManageAsset extends Component {
 										style={{ marginRight: '10px', marginLeft: '10px' }}
 										type="checkbox"
 										checked={this.state.available === true}
-										onChange={(e) => this.setState({ available: e.target.checked })}
+										onChange={() => {
+											this.setState({ available: !this.state.available });
+											this.changeFilter();
+										}}
 									/>
 									Available
 								</div>
@@ -314,7 +336,10 @@ class ManageAsset extends Component {
 										style={{ marginRight: '10px', marginLeft: '10px' }}
 										type="checkbox"
 										checked={this.state.notAvailable === true}
-										onChange={(e) => this.setState({ notAvailable: e.target.checked })}
+										onChange={() => {
+											this.setState({ notAvailable: !this.state.notAvailable });
+											this.changeFilter();
+										}}
 									/>
 									Not available
 								</div>
@@ -323,7 +348,10 @@ class ManageAsset extends Component {
 										style={{ marginRight: '10px', marginLeft: '10px' }}
 										type="checkbox"
 										checked={this.state.waiting === true}
-										onChange={(e) => this.setState({ waiting: e.target.checked })}
+										onChange={() => {
+											this.setState({ waiting: !this.state.waiting });
+											this.changeFilter();
+										}}
 									/>
 									Waiting for recycling
 								</div>
@@ -332,7 +360,10 @@ class ManageAsset extends Component {
 										style={{ marginRight: '10px', marginLeft: '10px' }}
 										type="checkbox"
 										checked={this.state.recycled === true}
-										onChange={(e) => this.setState({ recycled: e.target.checked })}
+										onChange={() => {
+											this.setState({ recycled: !this.state.recycled });
+											this.changeFilter();
+										}}
 									/>
 									Recycled
 								</div>
@@ -354,7 +385,10 @@ class ManageAsset extends Component {
 										style={{ marginRight: '10px', marginLeft: '10px' }}
 										type="checkbox"
 										checked={this.state.allCategory === true}
-										onChange={(e) => this.setState({ allCategory: e.target.checked })}
+										onChange={(e) => {
+											this.setState({ allCategory: e.target.checked });
+											this.changeFilter();
+										}}
 									/>
 									All
 								</div>
@@ -366,7 +400,10 @@ class ManageAsset extends Component {
 													style={{ marginRight: '10px', marginLeft: '10px' }}
 													type="checkbox"
 													value={category.categoryCode}
-													onChange={(e) => this.handleSelectCategory(e)}
+													onChange={(e) => {
+														this.handleSelectCategory(e);
+														this.changeFilter();
+													}}
 												/>
 												{category.categoryName}
 											</div>
@@ -448,30 +485,28 @@ class ManageAsset extends Component {
 							{
 								this.state.assetList.map((asset) => {
 									return (
-										<tr key={asset.assetCode} 
-											onClick={() => this.toggleShowButton(`${asset.assetCode}`)} 
-											style={{cursor: 'pointer'}}
-										>
-											<td>{asset.assetCode}</td>
-											<td>{asset.assetName}</td>
-											<td>{asset.category.categoryName}</td>
-											<td>
+										<tr key={asset.assetCode} >
+											<td onClick={() => this.toggleShowButton(`${asset.assetCode}`)} >{asset.assetCode}</td>
+											<td onClick={() => this.toggleShowButton(`${asset.assetCode}`)} >{asset.assetName}</td>
+											<td onClick={() => this.toggleShowButton(`${asset.assetCode}`)} >{asset.category.categoryName}</td>
+											<td onClick={() => this.toggleShowButton(`${asset.assetCode}`)} >
 												{asset.state === 1 && <span>Available</span>}
 												{asset.state === 2 && <span>Not Available</span>}
 												{asset.state === 3 && <span>Assigned</span>}
 												{asset.state === 4 && <span>Waiting for recycling</span>}
 												{asset.state === 5 && <span>Recycled</span>}
 											</td>
-											<td className="edit-icon">
-												<img
+											<td onClick={() => this.handleEditAsset(`${asset.assetCode}`)}>
+												<img 
+													className="edit-icon button-img"
 													src="https://cdn0.iconfinder.com/data/icons/glyphpack/45/edit-alt-512.png"
-													width="20px" />
+													width="20px"/>
 											</td>
-											<td className="delete-icon">
+											<td onClick={() => this.handleDeleteAsset(asset.assetCode)}>
 												<img
+													className="delete-icon"
 													src="https://cdn4.iconfinder.com/data/icons/social-messaging-ui-coloricon-1/21/52-512.png"
-													width="24px"
-												/>
+													width="24px" />
 											</td>
 										</tr>
 									)
