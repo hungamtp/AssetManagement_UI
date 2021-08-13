@@ -3,12 +3,12 @@ import "./Users.css";
 import User from "./User";
 import searchIcon from "../../images/search.png";
 import Paginations from "./Pagination/Pagination";
-import { MenuItem, Select, FormControl } from "@material-ui/core";
-import { InputLabel } from "@material-ui/core";
+import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { useHistory } from "react-router";
 import { get } from "../../httpHelper";
+import useStyles from "./styles";
 
 const Index = () => {
   const [users, setUsers] = useState([]);
@@ -30,8 +30,19 @@ const Index = () => {
   const [isJoinedDateASC, setisJoinedDateASC] = useState(true);
   const [isTypeASC, setIsTypeASC] = useState(true);
   const [locationId, setLocationId] = useState("");
+  const [open, setOpen] = React.useState(false);
+
+  const classes = useStyles();
 
   const history = useHistory();
+
+  const handleClick = () => {
+    setOpen((prev) => !prev);
+  };
+
+  const handleClickAway = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     const fetchRoles = async () => {
@@ -183,11 +194,15 @@ const Index = () => {
             labelId="label-type"
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={roleSearch}
             className="roles"
           >
-            <MenuItem value={""}>
-              <input type="checkbox" value={""} onChange={handlChangeAllRole} />
+            <MenuItem></MenuItem>
+            <MenuItem>
+              <input
+                type="checkbox"
+                onChange={handlChangeAllRole}
+                value="All"
+              />
               All
             </MenuItem>
             {roles.map((role) => {
@@ -200,7 +215,9 @@ const Index = () => {
                         value={role.id}
                         onChange={(e) => handleRoleChange(e)}
                       />
-                      {role.name.replace("ROLE_", "")}
+                      {role.name.includes("USER")
+                        ? "STAFF"
+                        : role.name.replace("ROLE_", "")}
                     </MenuItem>
                   </>
                 );
