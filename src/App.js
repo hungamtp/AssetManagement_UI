@@ -23,6 +23,7 @@ import ChangePassword_Page from "./pages/Change password";
 import EditAsset_Page from "./pages/Edit asset";
 import Users from "./components/Users";
 import ManageUser_Page from "./pages/ManageUser";
+import DeleteAsset from "./components/Delete Asset";
 
 class App extends Component {
   static propTypes = {
@@ -57,7 +58,7 @@ class App extends Component {
             <Route exact path="/manageasset">
               <ManageAsset />
             </Route>
-            <Route exact path="/editasset">
+            <Route path="/editasset/:assetCode">
               <EditAsset_Page />
             </Route>
             <Route exact path="/changepassword">
@@ -83,6 +84,10 @@ class App extends Component {
 
             <Route exact path={URL.CREATE_ASSET}>
               <CreateAsset />
+            </Route>
+
+            <Route path="/deleteasset/:assetCode">
+              <DeleteAsset/>
             </Route>
 
             <Route path="/**" render={() => <h2>Not found</h2>}></Route>
