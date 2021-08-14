@@ -23,6 +23,7 @@ import ChangePassword_Page from "./pages/Change password";
 import EditAsset_Page from "./pages/Edit asset";
 import Users from "./components/Users";
 import ManageUser_Page from "./pages/ManageUser";
+import Create_Assignment_Page from "./pages/Create assignment";
 
 class App extends Component {
   static propTypes = {
@@ -83,6 +84,10 @@ class App extends Component {
 
             <Route exact path={URL.CREATE_ASSET}>
               <CreateAsset />
+            </Route>
+
+            <Route path="/createassignment">
+              <Create_Assignment_Page />
             </Route>
 
             <Route path="/**" render={() => <h2>Not found</h2>}></Route>

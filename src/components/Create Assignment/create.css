@@ -1,0 +1,92 @@
+#Form_es {
+  position: absolute;
+  width: 350px;
+  height: 279px;
+  left: 543px;
+  top: 219px;
+  overflow: visible;
+}
+#title_form {
+  color: red;
+  margin-bottom: 40px;
+}
+#label {
+  display: block;
+  width: 100px;
+  margin-inline-end: 100px;
+}
+label {
+  width: fit-content;
+}
+#form {
+  display: block;
+}
+.field {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  position: relative;
+}
+.input_field {
+  width: 250px;
+}
+#note {
+  height: 50px;
+}
+#button-zone {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+#bt_save {
+  margin-right: 30px;
+}
+#search_icon {
+  position: absolute;
+  left: 320px;
+}
+#user_dialog {
+  width: 1000px;
+  padding: 50px;
+}
+#name-dialog {
+  color: red;
+}
+table {
+  width: 500px;
+  padding: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+th {
+  text-decoration: underline;
+}
+tr {
+  margin-top: 20px;
+}
+
+#dialog-title {
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
+}
+#search_user_icon {
+  position: absolute;
+  left: 150px;
+  cursor: pointer;
+}
+#button-zone1 {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+#button-zone2 {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
