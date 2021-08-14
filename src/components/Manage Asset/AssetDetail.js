@@ -9,9 +9,6 @@ export default class AssetDetail extends Component {
             asset: {},
             category: {},
             location: {},
-            assignment: {},
-            assignedBy: {},
-            assignedTo: {},
             assignmentList: [],
 
             isFail: false,
@@ -135,7 +132,7 @@ export default class AssetDetail extends Component {
                                                 this.state.assignmentList.map((assignment) => {
                                                     if (assignment.requests.length > 0) {
                                                         return (
-                                                            <tr>
+                                                            <tr key={assignment.assignmentId}>
                                                                 <td>{assignment.assignedDate.split('T')[0]}</td>
                                                                 <td>{assignment.assignedTo.username}</td>
                                                                 <td>{assignment.assignedBy.username}</td>
