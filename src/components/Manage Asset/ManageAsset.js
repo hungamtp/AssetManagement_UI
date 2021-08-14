@@ -11,14 +11,23 @@ import {
 	from "reactstrap";
 import { post, get, del } from "../../httpHelper";
 import { withRouter } from "react-router-dom";
+import { instanceOf } from "prop-types";
+import { withCookies, Cookies } from "react-cookie";
+import * as URL from "../../constants/URL";
+import * as role from "../../constants/Business";
 import AssetDetail from './AssetDetail';
 import DeleteAsset, { DeleteAsset_No, DeleteAsset_Yes } from '../Delete Asset';
 
 class ManageAsset extends Component {
 
+	static propTypes = {
+		cookies: instanceOf(Cookies).isRequired,
+	};
+
 	constructor(props) {
 		super(props);
 		this.state = {
+			user: this.props.cookies.get("user") || "",
 			assetList: [],
 			categoryList: [],
 			pageList: [],
@@ -576,6 +585,14 @@ class ManageAsset extends Component {
 						</Alert>
 					</div>
 				}
+				{
+					this.state.user === "" && 
+					this.props.history.push(URL.LOGIN)
+				}
+				{
+					this.state.user.role !== role.ROLE_ADMIN &&
+					this.props.history.push(URL.LOGIN)
+				}
 				<Modal size="lg" isOpen={this.state.modal} toggle={() => this.toggleShow()}>
 					<ModalHeader>Detailed Asset Information</ModalHeader>
 					<ModalBody>
@@ -591,4 +608,4 @@ class ManageAsset extends Component {
 		)
 	}
 }
-export default withRouter(ManageAsset);
+export default withCookies(withRouter(ManageAsset));
