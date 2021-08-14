@@ -35,7 +35,7 @@ function setCookie(cname, cvalue, exdays) {
 function handleError(error) {
   if (error.response !== undefined) {
     if (error.response.data !== undefined) {
-      if (error.response.data.error === errorCode.ERR_ROLE_DONT_HAVE_PERMISSION) {
+      if (error.response.data.error === errorCode.ERR_ROLE_DONT_HAVE_PERMISSION || error.response.data.error === errorCode.ERR_USER_UNAUTHORIZED) {
         console.log(error.response.data.error);
         if (getCookie("user") !== "") {
           setCookie("user", "", 0);
