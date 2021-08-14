@@ -3,25 +3,19 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import StaffHome from "./components/StaffHome";
 import FirstLogin from "./components/FirstLogin";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { instanceOf } from "prop-types";
 import { withCookies, Cookies } from "react-cookie";
 import ManageAsset from "./components/Manage Asset/ManageAsset";
-import LoginFirst from "./components/LoginFirst/LoginFirst";
 import CreateNewUser_Page from "./pages/Create new user";
 import CreateAsset from "./pages/CreateAsset";
 import * as URL from "./constants/URL";
-import Index from "./components/Users";
+import * as role from "./constants/Business";
 import EditUser_Page from "./pages/Edit user";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRouteForFirstLogin from "./components/ProtectedRouteForFirstLogin";
 import ChangePassword_Page from "./pages/Change password";
 import EditAsset_Page from "./pages/Edit asset";
-import Users from "./components/Users";
 import ManageUser_Page from "./pages/ManageUser";
 
 class App extends Component {
@@ -41,51 +35,25 @@ class App extends Component {
       <div>
         <Router>
           <Switch>
-            {/* <ProtectedRoute exact path="/manage/category" component={Home} /> */}
-            <Route exact path="/">
+            {/* CHANGEPASS */}
+            <ProtectedRouteForFirstLogin exact path={URL.FIRST_LOGIN} role={role.ROLE_ADMIN + role.ROLE_STAFF} component={FirstLogin} /> {/* ROLE?????? */}
+            <ProtectedRoute exact path={URL.CHANGE_PASS} role={role.ROLE_ADMIN + role.ROLE_STAFF} component={ChangePassword_Page} />
+            {/* HOME */}
+            <ProtectedRoute exact path={URL.HOME_ADMIN} role={role.ROLE_ADMIN} component={Home} />
+            <ProtectedRoute exact path={URL.HOME_USER} role={role.ROLE_STAFF} component={StaffHome} />
+            {/* USER */}
+            <ProtectedRoute exact path={URL.MANAGE_USER} role={role.ROLE_ADMIN} component={ManageUser_Page} />
+            <ProtectedRoute exact path={URL.CREATE_USER} role={role.ROLE_ADMIN} component={CreateNewUser_Page} />
+            <ProtectedRoute exact path={URL.EDIT_USER} role={role.ROLE_ADMIN} component={EditUser_Page} />
+            {/* ASSET */}
+            <ProtectedRoute exact path={URL.MANAGE_ASSET} role={role.ROLE_ADMIN} component={ManageAsset} />
+            <ProtectedRoute exact path={URL.CREATE_ASSET} role={role.ROLE_ADMIN} component={CreateAsset} />
+            <ProtectedRoute exact path={URL.EDIT_ASSET} role={role.ROLE_ADMIN} component={EditAsset_Page} />
+            
+            <Route exact path="/**">
               <Login />
             </Route>
-            <Route exact path="/first">
-              <FirstLogin />
-            </Route>
-            <Route exact path="/admin">
-              <Home />
-            </Route>
-            <Route exact path="/user">
-              <StaffHome />
-            </Route>
-            <Route exact path="/manageasset">
-              <ManageAsset />
-            </Route>
-            <Route exact path="/editasset/:assetCode">
-              <EditAsset_Page />
-            </Route>
-            <Route exact path="/changepassword">
-              <ChangePassword_Page />
-            </Route>
-
-            <Route exact path="/createnewuser">
-              <CreateNewUser_Page />
-            </Route>
-            <Route exact path="/createnewuser">
-              <CreateNewUser_Page />
-            </Route>
-            <Route exact path="/login_first">
-              <LoginFirst />
-            </Route>
-
-            <Route path="/edituser/:staffCode">
-              <EditUser_Page />
-            </Route>
-            <Route path="/manageuser">
-              <ManageUser_Page />
-            </Route>
-
-            <Route exact path={URL.CREATE_ASSET}>
-              <CreateAsset />
-            </Route>
-
-            <Route path="/**" render={() => <h2>Not found</h2>}></Route>
+            {/* <Route path="/**" render={() => <h2>Not found</h2>}></Route> */}
           </Switch>
         </Router>
       </div>
