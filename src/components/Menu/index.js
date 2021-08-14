@@ -32,7 +32,7 @@ class index extends Component {
 
   componentDidMount() {
     if (this.state.user !== "") {
-      if (this.state.user.role === business.ROLE_USER) {
+      if (this.state.user.role === business.ROLE_STAFF) {
         this.setState({
           homeClassName: "d-none",
           manageUserClassName: "d-none",
@@ -88,7 +88,7 @@ class index extends Component {
 
   handleMenuClick(businessName) {
     if (this.state.user !== "") {
-      if (this.state.user.role === business.ROLE_USER) {
+      if (this.state.user.role === business.ROLE_STAFF) {
         this.setState({});
       } else if (this.state.user.role === business.ROLE_ADMIN) {
         if (businessName === business.HOME) {
