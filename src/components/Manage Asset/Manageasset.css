@@ -1,6 +1,6 @@
 
 .table-content {
-    width: 50%;
+    width: 52%;
     margin-top: 20px;
     margin-left: 550px;
 }
@@ -30,19 +30,16 @@
 .filter-state-icon{
     display: inline-block;
     margin-right: 40px;
-    cursor: pointer;
 }
 
 .filter-category-icon{
     display: inline-block;
     margin-right: 40px;
-    cursor: pointer;
 }
 
 .search-icon{
     display: inline-block;
     margin-right: 40px;
-    cursor: pointer;
 }
 
 .title{
@@ -55,6 +52,7 @@
 .search input{
     border: 1px solid #000;
     padding-left: 10px;
+    font-size: 18px;
 }
 
 .paging{

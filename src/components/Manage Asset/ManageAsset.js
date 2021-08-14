@@ -30,12 +30,12 @@ class ManageAsset extends Component {
 			sortType: "ASC",
 			searchValue: "",
 
-			available: false,
-			notAvailable: false,
-			assigned: false,
+			available: true,
+			notAvailable: true,
+			assigned: true,
 			waiting: false,
 			recycled: false,
-			allState: true,
+			allState: false,
 
 			allCategory: true,
 			selectedCategory: [],
@@ -178,15 +178,11 @@ class ManageAsset extends Component {
 			})
 	}
 
-	filterState() {
-		this.setState({ currentPage: 1 }, () => {
-			this.loadData();
-			this.returnPageList();
-		})
-	}
-
-	search() {
-		this.setState({ currentPage: 1 }, () => {
+	search(e) {
+		this.setState({ 
+			currentPage: 1 ,
+			searchValue: e.target.value
+		}, () => {
 			this.loadData();
 			this.returnPageList();
 		})
@@ -251,13 +247,6 @@ class ManageAsset extends Component {
 		this.setState({ selectedCategory: list })
 	}
 
-	filterCategory() {
-		this.setState({ currentPage: 1 }, () => {
-			this.loadData();
-			this.returnPageList();
-		})
-	}
-
 	toggleShowButton(assetCode) {
 		this.setState({
 			modal: !this.state.modal,
@@ -273,8 +262,10 @@ class ManageAsset extends Component {
 	}
 
 	reloadPage() {
-		this.loadData();
-		this.returnPageList();
+		this.setState({ currentPage: 1 }, () => {
+			this.loadData();
+			this.returnPageList();
+		})
 	}
 
 	handleEditAsset(assetCode) {
@@ -339,9 +330,10 @@ class ManageAsset extends Component {
 										style={{ marginRight: '10px', marginLeft: '10px' }}
 										type="checkbox"
 										checked={this.state.allState === true}
-										onChange={() => {
-											this.setState({ allState: !this.state.allState });
-											this.reloadPage();
+										onChange={(e) => {
+											this.setState({ allState: e.target.checked }, () => {
+												this.reloadPage();
+											});	
 										}}
 									/>
 									All
@@ -351,9 +343,10 @@ class ManageAsset extends Component {
 										style={{ marginRight: '10px', marginLeft: '10px' }}
 										type="checkbox"
 										checked={this.state.assigned === true}
-										onChange={() => {
-											this.setState({ assigned: !this.state.assigned });
-											this.reloadPage();
+										onChange={(e) => {
+											this.setState({ assigned: e.target.checked }, () => {
+												this.reloadPage();
+											});
 										}}
 									/>
 									Assigned
@@ -363,9 +356,10 @@ class ManageAsset extends Component {
 										style={{ marginRight: '10px', marginLeft: '10px' }}
 										type="checkbox"
 										checked={this.state.available === true}
-										onChange={() => {
-											this.setState({ available: !this.state.available });
-											this.reloadPage();
+										onChange={(e) => {
+											this.setState({ available: e.target.checked }, () => {
+												this.reloadPage();
+											});
 										}}
 									/>
 									Available
@@ -375,9 +369,10 @@ class ManageAsset extends Component {
 										style={{ marginRight: '10px', marginLeft: '10px' }}
 										type="checkbox"
 										checked={this.state.notAvailable === true}
-										onChange={() => {
-											this.setState({ notAvailable: !this.state.notAvailable });
-											this.reloadPage();
+										onChange={(e) => {
+											this.setState({ notAvailable: e.target.checked }, () => {
+												this.reloadPage();
+											});	
 										}}
 									/>
 									Not available
@@ -387,9 +382,10 @@ class ManageAsset extends Component {
 										style={{ marginRight: '10px', marginLeft: '10px' }}
 										type="checkbox"
 										checked={this.state.waiting === true}
-										onChange={() => {
-											this.setState({ waiting: !this.state.waiting });
-											this.reloadPage();
+										onChange={(e) => {
+											this.setState({ waiting: e.target.checked }, () => {
+												this.reloadPage();
+											});
 										}}
 									/>
 									Waiting for recycling
@@ -399,9 +395,10 @@ class ManageAsset extends Component {
 										style={{ marginRight: '10px', marginLeft: '10px' }}
 										type="checkbox"
 										checked={this.state.recycled === true}
-										onChange={() => {
-											this.setState({ recycled: !this.state.recycled });
-											this.reloadPage();
+										onChange={(e) => {
+											this.setState({ recycled: e.target.checked }, () => {
+												this.reloadPage();
+											});
 										}}
 									/>
 									Recycled
@@ -409,7 +406,7 @@ class ManageAsset extends Component {
 							</DropdownMenu>
 						</UncontrolledDropdown>
 					</div>
-					<div className="filter-state-icon" onClick={() => this.filterState()}>
+					<div className="filter-state-icon">
 						<img src="https://cdn0.iconfinder.com/data/icons/glyphpack/36/filter-512.png"
 							width="20px" />
 					</div>
@@ -425,8 +422,9 @@ class ManageAsset extends Component {
 										type="checkbox"
 										checked={this.state.allCategory === true}
 										onChange={(e) => {
-											this.setState({ allCategory: e.target.checked });
-											this.reloadPage();
+											this.setState({ allCategory: e.target.checked }, () => {
+												this.reloadPage();
+											});	
 										}}
 									/>
 									All
@@ -452,17 +450,17 @@ class ManageAsset extends Component {
 							</DropdownMenu>
 						</UncontrolledDropdown>
 					</div>
-					<div className="filter-category-icon" onClick={() => this.filterCategory()}>
+					<div className="filter-category-icon">
 						<img src="https://cdn0.iconfinder.com/data/icons/glyphpack/36/filter-512.png"
 							width="20px" />
 					</div>
 					<div className="search">
 						<input
 							type="text"
-							onChange={(e) => this.setState({ searchValue: e.target.value })}
+							onChange={(e) => this.search(e)}
 						/>
 					</div>
-					<div className="search-icon" onClick={() => this.search()}>
+					<div className="search-icon">
 						<img src="https://cdn.icon-icons.com/icons2/2566/PNG/512/search_icon_153438.png"
 							width="28px" />
 					</div>
