@@ -8,7 +8,12 @@ import {
 	DropdownToggle, DropdownMenu,
 	Modal, ModalHeader, ModalBody, ModalFooter, Alert
 }
-	from "reactstrap";
+from "reactstrap";
+import SearchIcon from '../../images/search.png';
+import FilterIcon from '../../images/filter-icon.png';
+import DropdownIcon from '../../images/dropdown-icon.png';
+import UpdateIcon from '../../images/update-icon.png';
+import DeleteIcon from '../../images/delete-icon.png';
 import { post, get, del } from "../../httpHelper";
 import { withRouter } from "react-router-dom";
 import { instanceOf } from "prop-types";
@@ -416,7 +421,7 @@ class ManageAsset extends Component {
 						</UncontrolledDropdown>
 					</div>
 					<div className="filter-state-icon">
-						<img src="https://cdn0.iconfinder.com/data/icons/glyphpack/36/filter-512.png"
+						<img src={FilterIcon}
 							width="20px" />
 					</div>
 					<div className="filter-category">
@@ -460,7 +465,7 @@ class ManageAsset extends Component {
 						</UncontrolledDropdown>
 					</div>
 					<div className="filter-category-icon">
-						<img src="https://cdn0.iconfinder.com/data/icons/glyphpack/36/filter-512.png"
+						<img src={FilterIcon}
 							width="20px" />
 					</div>
 					<div className="search">
@@ -470,8 +475,8 @@ class ManageAsset extends Component {
 						/>
 					</div>
 					<div className="search-icon">
-						<img src="https://cdn.icon-icons.com/icons2/2566/PNG/512/search_icon_153438.png"
-							width="28px" />
+						<img src={SearchIcon}
+							width="24px" />
 					</div>
 					<div className="create-asset">
 						<Button color="danger">
@@ -489,7 +494,7 @@ class ManageAsset extends Component {
 								>
 									Asset Code
 									<img
-										src="https://image.flaticon.com/icons/png/512/60/60995.png"
+										src={DropdownIcon}
 										width="12px"
 									/>
 								</th>
@@ -499,7 +504,7 @@ class ManageAsset extends Component {
 								>
 									Asset Name
 									<img
-										src="https://image.flaticon.com/icons/png/512/60/60995.png"
+										src={DropdownIcon}
 										width="12px"
 									/>
 								</th>
@@ -509,7 +514,7 @@ class ManageAsset extends Component {
 								>
 									Category
 									<img
-										src="https://image.flaticon.com/icons/png/512/60/60995.png"
+										src={DropdownIcon}
 										width="12px"
 									/>
 								</th>
@@ -519,7 +524,7 @@ class ManageAsset extends Component {
 								>
 									State
 									<img
-										src="https://image.flaticon.com/icons/png/512/60/60995.png"
+										src={DropdownIcon}
 										width="12px"
 									/>
 								</th>
@@ -545,13 +550,13 @@ class ManageAsset extends Component {
 											<td onClick={() => this.handleEditAsset(`${asset.assetCode}`)}>
 												<img 
 													className="edit-icon button-img"
-													src="https://cdn0.iconfinder.com/data/icons/glyphpack/45/edit-alt-512.png"
+													src={UpdateIcon}
 													width="20px"/>
 											</td>
 											<td onClick={() => this.handleDeleteAsset(asset.assetCode)}>
 												<img
 													className="delete-icon"
-													src="https://cdn4.iconfinder.com/data/icons/social-messaging-ui-coloricon-1/21/52-512.png"
+													src={DeleteIcon}
 													width="24px" />
 											</td>
 										</tr>
