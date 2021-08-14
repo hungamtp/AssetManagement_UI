@@ -1,7 +1,6 @@
 // ROLE
 export const ROLE_ADMIN ="ROLE_ADMIN"
-export const ROLE_USER ="ROLE_USER"
-
+export const ROLE_STAFF ="ROLE_USER"
 //menu
 export const HOME ="home"
 export const MANAGE_USER ="manage_user"
