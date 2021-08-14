@@ -17,6 +17,7 @@ import ProtectedRouteForFirstLogin from "./components/ProtectedRouteForFirstLogi
 import ChangePassword_Page from "./pages/Change password";
 import EditAsset_Page from "./pages/Edit asset";
 import ManageUser_Page from "./pages/ManageUser";
+import DeleteAsset from "./components/Delete Asset";
 
 class App extends Component {
   static propTypes = {

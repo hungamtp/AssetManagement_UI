@@ -31,6 +31,8 @@ const Index = () => {
   const [isTypeASC, setIsTypeASC] = useState(true);
   const [locationId, setLocationId] = useState("");
 
+  //const locationId = localStorage.getItem("locationId");
+
   const history = useHistory();
 
   useEffect(() => {

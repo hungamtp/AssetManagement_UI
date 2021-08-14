@@ -82,6 +82,7 @@ class index extends Component {
       }
     } else {
       // dont't have cookie, redirect to sign in but we already have protected route so when we implement it for test only
+      
     }
   }
 
@@ -91,7 +92,7 @@ class index extends Component {
         this.setState({});
       } else if (this.state.user.role === business.ROLE_ADMIN) {
         if (businessName === business.HOME) {
-          this.props.history.push("/home");
+          this.props.history.push("/admin");
         } else if (businessName === business.MANAGE_USER) {
           this.props.history.push("/manageuser");
         } else if (businessName === business.MANAGE_ASSIGNMENT) {
@@ -99,14 +100,13 @@ class index extends Component {
         } else if (businessName === business.REQUEST_FOR_RETURNING) {
           this.props.history.push("/home4");
         } else if (businessName === business.MANAGE_ASSET) {
-          this.props.history.push("/home5");
+          this.props.history.push("/manageasset");
         } else if (businessName === business.REPORT) {
           this.props.history.push("/home6");
         }
       }
     } else {
-      // dont't have cookie, redirect to sign in but we already have protected route so when we implement it for test only
-    }
+     } // dont't have cookie, redirect to sign in but we already have protected route so when we implement it for test only
   }
 
   render() {
