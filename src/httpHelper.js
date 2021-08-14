@@ -1,5 +1,6 @@
 import axios from "axios";
-import * as URL from './constants/URL';
+import * as URL from "./constants/URL";
+import * as errorCode from "./constants/ErrorCode";
 const endpoint = URL.EndPoint;
 
 let token = getCookie("user") !== "" ? JSON.parse(getCookie("user")).token : "";
@@ -24,6 +25,28 @@ function getCookie(cname) {
   return "";
 }
 
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  let expires = "expires=" + d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function handleError(error) {
+  if (error.response !== undefined) {
+    if (error.response.data !== undefined) {
+      if (error.response.data.error === errorCode.ERR_ROLE_DONT_HAVE_PERMISSION) {
+        console.log(error.response.data.error);
+        if (getCookie("user") !== "") {
+          setCookie("user", "", 0);
+          window.location = URL.LOGIN;
+        }
+      }
+    }
+  }
+  console.log("Fail to call api");
+}
+
 export function get(url) {
   var config = {
     method: "get",
@@ -33,7 +56,12 @@ export function get(url) {
       "Content-Type": "application/json",
     },
   };
-  return axios(config);
+
+  let promise = axios(config);
+  promise.catch((err) => {
+    handleError(err);
+  });
+  return promise;
 }
 
 export function post(url, body) {
@@ -46,7 +74,12 @@ export function post(url, body) {
     },
     data: body,
   };
-  return axios(config);
+
+  let promise = axios(config);
+  promise.catch((err) => {
+    handleError(err);
+  });
+  return promise;
 }
 
 export function put(url, body) {
@@ -59,7 +92,11 @@ export function put(url, body) {
     },
     data: body,
   };
-  return axios(config);
+  let promise = axios(config);
+  promise.catch((err) => {
+    handleError(err);
+  });
+  return promise;
 }
 
 export function del(url) {
@@ -71,5 +108,9 @@ export function del(url) {
       "Content-Type": "application/json",
     },
   };
-  return axios(config);
+  let promise = axios(config);
+  promise.catch((err) => {
+    handleError(err);
+  });
+  return promise;
 }
