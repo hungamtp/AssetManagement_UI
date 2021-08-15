@@ -4,7 +4,8 @@ import useStyles from "./Style";
 import { useHistory } from "react-router";
 import { Dialog, Slide, Button } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import ReplayIcon from '@material-ui/icons/Replay';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -100,7 +101,10 @@ const Index = ({ assignment }) => {
             <EditIcon onClick={handleEditIconClick}/>
           </div>
           <div>
-            <DeleteIcon style={{marginLeft: "15px"}}/>
+            <HighlightOffIcon style={{marginLeft: "15px", color:"red"}}/>
+          </div>
+          <div>
+            <ReplayIcon style={{marginLeft: "15px", color:"blue"}}/>
           </div>
         </td>
       </tr>
