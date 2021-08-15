@@ -8,8 +8,6 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { useHistory } from "react-router";
 import { get } from "../../httpHelper";
-import useStyles from "./styles";
-import { InputGroup } from "react-bootstrap";
 
 const Index = () => {
   const [users, setUsers] = useState([]);
@@ -31,8 +29,6 @@ const Index = () => {
   const [isTypeASC, setIsTypeASC] = useState(true);
   const [locationId, setLocationId] = useState("");
   const [open, setOpen] = React.useState(false);
-
-  const classes = useStyles();
 
   //const locationId = localStorage.getItem("locationId");
 
@@ -261,6 +257,7 @@ const Index = () => {
                         setRoleSearch("");
                       } else {
                         setRoleSearch("1002");
+                        setIsAdminSelected(true);
                       }
                     }}
                   />
