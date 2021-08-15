@@ -96,7 +96,7 @@ class index extends Component {
         } else if (businessName === business.MANAGE_USER) {
           this.props.history.push("/manageuser");
         } else if (businessName === business.MANAGE_ASSIGNMENT) {
-          this.props.history.push("/home3");
+          this.props.history.push("/manageassignment");
         } else if (businessName === business.REQUEST_FOR_RETURNING) {
           this.props.history.push("/home4");
         } else if (businessName === business.MANAGE_ASSET) {
