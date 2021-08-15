@@ -122,6 +122,22 @@ class ManageAsset extends Component {
 					if (response.data.successCode === 'ASSET_LOADED_SUCCESS') {
 						this.setState({
 							assetList: response.data.data,
+						},()=>{
+							let newAsset = localStorage.getItem("newAsset")
+							let editAsset = localStorage.getItem("editAsset")
+							let assetList = this.state.assetList
+							if(newAsset!==null){
+								assetList[0]= JSON.parse(newAsset)
+								localStorage.removeItem("newAsset");
+								this.setState({assetList:assetList})
+							}else if(editAsset!==null){
+								editAsset = JSON.parse(editAsset)
+								let categoryFound = this.state.categoryList.filter(e=>e.categoryCode ===editAsset.categoryId)
+								editAsset.category = categoryFound
+								assetList[0] = editAsset
+								localStorage.removeItem("editAsset");
+								this.setState({assetList:assetList})
+							}
 						})
 					}
 				}
