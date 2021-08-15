@@ -20,6 +20,7 @@ import EditAsset_Page from "./pages/Edit asset";
 import ManageUser_Page from "./pages/ManageUser";
 import Create_Assignment_Page from "./pages/Create assignment";
 import DeleteAsset from "./components/Delete Asset";
+import ManageAssignment_Page from "./pages/ManageAssignment"
 
 class App extends Component {
   static propTypes = {
@@ -52,6 +53,8 @@ class App extends Component {
             <ProtectedRoute exact path={URL.MANAGE_ASSET} role={role.ROLE_ADMIN} component={ManageAsset} />
             <ProtectedRoute exact path={URL.CREATE_ASSET} role={role.ROLE_ADMIN} component={CreateAsset} />
             <ProtectedRoute exact path={URL.EDIT_ASSET} role={role.ROLE_ADMIN} component={EditAsset_Page} />
+            {/* ASSIGNMENT */}
+            <ProtectedRoute exact path={URL.MANAGE_ASSIGNMENT} role={role.ROLE_ADMIN} component={ManageAssignment_Page} />
             <Route exact path="/**">
               <Login />
             </Route>
