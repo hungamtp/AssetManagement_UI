@@ -1,35 +1,39 @@
-#logout {
+#delete-asset-no {
     position: absolute;
     font-family: Arial;
-    width: 294px;
-    height: 194px;
+    width: 480px;
+    height: 200px;
     top: 182px;
     left: 880px;
-    --web-view-name: Log out;
-    --web-view-id: logout;
-    --web-scale-to-fit: true;
-    --web-scale-to-fit-type: width;
-    --web-scale-on-resize: true;
-    --web-navigate-on-keypress: true;
-    --web-enable-deep-linking: true;
-    --web-page-font: Arial;
 }
 
-.show-logout {
+#delete-asset-yes {
+    position: absolute;
+    font-family: Arial;
+    width: 480px;
+    height: 200px;
+    top: 182px;
+    left: 880px;
+}
+
+.show-delete-asset {
     display: none;
 }
 
-.logout-header {
+.delete-asset-header {
     background-color: rgba(239,241,245,1);
     border: 1px solid rgba(33,37,41,1);
     border-radius: 6px;
-    padding: 17px 50px;
+    display: flex;
+    align-items: center;
 }
 
-.logout-header p {
+.delete-asset-header p {
+    padding-left: 50px;
+    padding-top: 12px;
     white-space: nowrap;
     text-align: left;
-    line-height: 0;
+    line-height: 30px;
     font-family: Segoe UI, Arial;
     font-style: normal;
     font-weight: bold;
@@ -37,15 +41,24 @@
     color: rgba(207,35,56,1);
 }
 
-.logout-body {
+.delete-asset-header .x-btn {
+    margin-left: 160px;
+    width: 25px;
+    height: 25px;
+    border: 3px solid rgba(207,35,56,1);
+    line-height: 0;
+    color: rgba(207,35,56,1);
+    font-weight: bolder;
+    border-radius: 5px;
+}
+
+.delete-asset-body {
     background-color: rgba(250,252,252,1);
     border: 1px solid rgba(33,37,41,1);
 }
 
-.logout-body p {
-    margin-left: 50px;
-    margin-top: 20px;
-    width: 200px;
+.delete-asset-body p {
+    margin: 10px 50px;
     text-align: left;
     font-family: Helvetica Neue, Arial;
     font-style: normal;
@@ -54,13 +67,19 @@
     color: rgba(33,37,41,1);
 }
 
-.logout-body .button-flex {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+.delete-asset-body .link-edit-asset {
+    text-align: center;
+    margin-bottom: 10px;
 }
 
-.logout-body .button-flex .logout-btn {
+.delete-asset-body .button-flex {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-left: 50px;
+}
+
+.delete-asset-body .button-flex .delete-btn {
     width: 85px;
     height: 37px;
     margin-right: 5px;
@@ -73,7 +92,7 @@
     cursor: pointer;
 }
 
-.logout-body .button-flex .cancel-btn {
+.delete-asset-body .button-flex .cancel-btn {
     width: 85px;
     height: 37px;
     margin-left: 5px;
@@ -83,4 +102,3 @@
     border-radius: 3px;
     cursor: pointer;
 }
-

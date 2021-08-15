@@ -1,3 +1,7 @@
+// AUTH
+export const ERR_ROLE_DONT_HAVE_PERMISSION = "Forbidden";
+export const ERR_USER_UNAUTHORIZED = "Unauthorized";
+
 /** CATEGORY **/
 export const ERR_CATEGORY_NOT_FOUND = "ERR_CATEGORY_NOT_FOUND";
 export const ERR_CATEGORY_EXISTED = "ERR_CATEGORY_EXISTED";

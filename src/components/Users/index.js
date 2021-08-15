@@ -34,6 +34,8 @@ const Index = () => {
 
   const classes = useStyles();
 
+  //const locationId = localStorage.getItem("locationId");
+
   const history = useHistory();
 
   const handleClick = () => {

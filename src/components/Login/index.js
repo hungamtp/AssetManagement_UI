@@ -5,7 +5,9 @@ import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import axios from "axios";
 import { post } from "../../httpHelper";
-import { withRouter, useHistory } from "react-router-dom";
+import { withRouter, useHistory, Redirect } from "react-router-dom";
+import * as URL from "../../constants/URL";
+import logo from "../../images/Logo_lk.png";
 
 const Login = (props) => {
   const [cookies, setCookie] = useCookies(["user"]);
@@ -34,7 +36,7 @@ const Login = (props) => {
             setCookie("user", JSON.stringify(response.data.data), {
               path: "/",
             });
-            localStorage.setItem("staffcode", response.data.data.staffCode);
+            localStorage.setItem("jwtToken", response.data.data.token);
             localStorage.setItem("locationId", response.data.data.idLocation);
             // props.onLogin();
             if (response.data.data.firstLogin === false) {
@@ -62,52 +64,73 @@ const Login = (props) => {
   };
 
   return (
-    <div id="Login" className="Login">
-      <div id="Welcome_to_Online_Asset_Manage">
-        <p>Welcome to Online Asset Management</p>
+    <div>
+      <div className="header">
+        <span className="logo">
+          <img src={logo} alt="logo company" width="50px" />
+        </span>
+        <span className="title">
+          <b>Online Asset Management</b>
+        </span>
       </div>
-      <div id="login-form">
-        <form>
-          <div className="login-data">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              name="username"
-              value={username}
-              onChange={({ target }) => setUsername(target.value)}
-            />
-          </div>
-          <div className="login-data">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={({ target }) => setPassword(target.value)}
-            />
-          </div>
-        </form>
-        <Button
-          className="login-btn"
-          disabled={isDisabled}
-          onClick={handleLogin}
-        >
-          Login
-        </Button>
-      </div>
-      <Modal isOpen={isFailed}>
-        <ModalHeader>Notice</ModalHeader>
-        <ModalBody>
-          <p style={{ color: "red" }}>
-            Username or Password is incorrect. Please try again.
-          </p>
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={() => setIsFailed(false)}>
-            Close
+      <div id="Login" className="Login">
+        {Object.keys(cookies).length === 0 && cookies.constructor === Object ? (
+          ""
+        ) : (
+          <Redirect to={URL.FIRST_LOGIN} />
+        )}
+        <div id="Welcome_to_Online_Asset_Manage">
+          <p>Welcome to Online Asset Management</p>
+        </div>
+        <div id="login-form">
+          <form>
+            <div className="login-data">
+              <label htmlFor="username">
+                Username
+                <span style={{ color: "red", fontSize: "20px" }}>*</span>
+              </label>
+              <input
+                type="text"
+                name="username"
+                value={username}
+                onChange={({ target }) => setUsername(target.value)}
+              />
+            </div>
+            <div className="login-data">
+              <label htmlFor="password">
+                Password
+                <span style={{ color: "red", fontSize: "20px" }}>*</span>
+              </label>
+              <input
+                type="password"
+                name="password"
+                value={password}
+                onChange={({ target }) => setPassword(target.value)}
+              />
+            </div>
+          </form>
+          <Button
+            className="login-btn"
+            disabled={isDisabled}
+            onClick={handleLogin}
+          >
+            Login
           </Button>
-        </ModalFooter>
-      </Modal>
+        </div>
+        <Modal isOpen={isFailed}>
+          <ModalHeader>Notice</ModalHeader>
+          <ModalBody>
+            <p style={{ color: "red" }}>
+              Username or Password is incorrect. Please try again.
+            </p>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={() => setIsFailed(false)}>
+              Close
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </div>
     </div>
   );
 };
