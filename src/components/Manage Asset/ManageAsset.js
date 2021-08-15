@@ -324,6 +324,10 @@ class ManageAsset extends Component {
             });
 	}
 
+	createAsset(){
+		this.props.history.push(URL.CREATE_ASSET)
+	}
+
 	render() {
 		return (
 			<div>
@@ -479,7 +483,7 @@ class ManageAsset extends Component {
 							width="24px" />
 					</div>
 					<div className="create-asset">
-						<Button color="danger">
+						<Button color="danger" onClick={() => this.createAsset()}>
 							Create new asset
 						</Button>
 					</div>

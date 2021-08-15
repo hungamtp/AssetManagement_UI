@@ -5,7 +5,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, Col, CustomInput } from 'reactstrap';
 import React, { useEffect, useState } from 'react';
 import { get, put } from '../../httpHelper';
-
+import * as URL from "../../constants/URL";
 
 const EditAsset = () => {
   
@@ -101,7 +101,11 @@ const EditAsset = () => {
         }
         console.log(data);
         put(Url, data)
-            .then(() => alert("Edit Aset Successfull!"))
+            .then((result) =>{
+                //  alert("Edit Aset Successfull!")
+                localStorage.setItem("editAsset", JSON.stringify(result.data.data));
+                history.push(URL.MANAGE_ASSET);
+                })
             .catch(err => console.log(err));
     }
 

@@ -9,8 +9,9 @@ import { createAssetFailException } from "../../exceptions/AssetException";
 import * as AssetService from "../../services/AssetService";
 import * as CategoryService from "../../services/CategoryService";
 import * as URL from "../../constants/URL";
+import { withRouter } from "react-router-dom";
 
-export default class index extends Component {
+class index extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -66,7 +67,9 @@ export default class index extends Component {
     }
   }
 
-  cancelClick() {}
+  cancelClick() {
+    this.props.history.push(URL.MANAGE_ASSET);
+  }
 
   saveClick() {
     if (this.state.name.trim() === "") {
@@ -118,11 +121,13 @@ export default class index extends Component {
       this.toggle();
       return;
     }
-    this.setState({
-      notiContent: "Create asset success",
-    });
-    this.toggle();
-    this.clearForm();
+    // this.setState({
+    //   notiContent: "Create asset success",
+    // });
+    // this.toggle();
+    // this.clearForm();
+    localStorage.setItem("newAsset", JSON.stringify(result.data.data));
+    this.props.history.push(URL.MANAGE_ASSET);
   }
 
   clearForm() {
@@ -322,3 +327,4 @@ export default class index extends Component {
     );
   }
 }
+export default withRouter(index);
