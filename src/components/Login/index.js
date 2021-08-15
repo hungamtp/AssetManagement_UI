@@ -42,10 +42,16 @@ const Login = (props) => {
             if (response.data.data.firstLogin === false) {
               history.push("/first");
             }
-            if (response.data.data.firstLogin === true && response.data.data.role === "ROLE_ADMIN") {
+            if (
+              response.data.data.firstLogin === true &&
+              response.data.data.role === "ROLE_ADMIN"
+            ) {
               history.push("/admin");
             }
-            if (response.data.data.firstLogin === true && response.data.data.role === "ROLE_USER") {
+            if (
+              response.data.data.firstLogin === true &&
+              response.data.data.role === "ROLE_USER"
+            ) {
               history.push("/user");
             }
           }
@@ -61,14 +67,18 @@ const Login = (props) => {
     <div>
       <div className="header">
         <span className="logo">
-          <img src={logo} alt="logo company" width="50px"/>
+          <img src={logo} alt="logo company" width="50px" />
         </span>
         <span className="title">
           <b>Online Asset Management</b>
         </span>
       </div>
       <div id="Login" className="Login">
-        {Object.keys(cookies).length === 0 && cookies.constructor === Object ? "" : <Redirect to={URL.FIRST_LOGIN} />}
+        {Object.keys(cookies).length === 0 && cookies.constructor === Object ? (
+          ""
+        ) : (
+          <Redirect to={URL.FIRST_LOGIN} />
+        )}
         <div id="Welcome_to_Online_Asset_Manage">
           <p>Welcome to Online Asset Management</p>
         </div>
@@ -77,30 +87,42 @@ const Login = (props) => {
             <div className="login-data">
               <label htmlFor="username">
                 Username
-                <span style={{ color: 'red', fontSize: '20px'}}>
-                  *
-                </span>
+                <span style={{ color: "red", fontSize: "20px" }}>*</span>
               </label>
-              <input type="text" name="username" value={username} onChange={({ target }) => setUsername(target.value)} />
+              <input
+                type="text"
+                name="username"
+                value={username}
+                onChange={({ target }) => setUsername(target.value)}
+              />
             </div>
             <div className="login-data">
               <label htmlFor="password">
                 Password
-                <span style={{ color: 'red', fontSize: '20px'}}>
-                  *
-                </span>
+                <span style={{ color: "red", fontSize: "20px" }}>*</span>
               </label>
-              <input type="password" name="password" value={password} onChange={({ target }) => setPassword(target.value)} />
+              <input
+                type="password"
+                name="password"
+                value={password}
+                onChange={({ target }) => setPassword(target.value)}
+              />
             </div>
           </form>
-          <Button className="login-btn" disabled={isDisabled} onClick={handleLogin}>
+          <Button
+            className="login-btn"
+            disabled={isDisabled}
+            onClick={handleLogin}
+          >
             Login
           </Button>
         </div>
         <Modal isOpen={isFailed}>
           <ModalHeader>Notice</ModalHeader>
           <ModalBody>
-            <p style={{ color: "red" }}>Username or Password is incorrect. Please try again.</p>
+            <p style={{ color: "red" }}>
+              Username or Password is incorrect. Please try again.
+            </p>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={() => setIsFailed(false)}>

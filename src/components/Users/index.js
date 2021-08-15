@@ -3,16 +3,16 @@ import "./Users.css";
 import User from "./User";
 import searchIcon from "../../images/search.png";
 import Paginations from "./Pagination/Pagination";
-import { MenuItem, Select, FormControl } from "@material-ui/core";
-import { InputLabel } from "@material-ui/core";
+import { Popover } from "@material-ui/core";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { useHistory } from "react-router";
 import { get } from "../../httpHelper";
+import useStyles from "./styles";
+import { InputGroup } from "react-bootstrap";
 
 const Index = () => {
   const [users, setUsers] = useState([]);
-  const [roles, setRoles] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(5);
   const [size, setSize] = useState(15);
@@ -30,19 +30,21 @@ const Index = () => {
   const [isJoinedDateASC, setisJoinedDateASC] = useState(true);
   const [isTypeASC, setIsTypeASC] = useState(true);
   const [locationId, setLocationId] = useState("");
+  const [open, setOpen] = React.useState(false);
+
+  const classes = useStyles();
 
   //const locationId = localStorage.getItem("locationId");
 
   const history = useHistory();
 
-  useEffect(() => {
-    const fetchRoles = async () => {
-      const response = await get("role");
-      const rolesData = response.data.data;
-      setRoles(rolesData);
-    };
-    fetchRoles();
-  }, []);
+  const handleClick = () => {
+    setOpen((prev) => !prev);
+  };
+
+  const handleClickAway = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -73,7 +75,7 @@ const Index = () => {
       }
     };
     fetchUsers();
-  }, [currentPage, size, sort, search]);
+  }, [currentPage, size, sort, search, roleSearch]);
 
   const handleOnClickSearchButton = (e) => {
     e.preventDefault();
@@ -90,33 +92,6 @@ const Index = () => {
         `isDeleted:false,staffCode:,username:${nameSearch},role:${roleSearch},location:${locationId}`
       );
     }
-  };
-
-  const handleRoleChange = async (e) => {
-    const newRole = e.target.value;
-    if (roleSearch.includes(newRole)) {
-      const newRoleSearch = roleSearch.replace(newRole, "");
-      await setRoleSearch(newRoleSearch);
-      const list = search.split(",");
-      const newSearch = `${list[0]},${list[1]},${list[2]},role:,${list[4]}`;
-      setSearch(newSearch);
-    } else if (roleSearch.length === 4) {
-      await setRoleSearch("");
-      const list = search.split(",");
-      const newSearch = `${list[0]},${list[1]},${list[2]},role:,${list[4]}`;
-      setSearch(newSearch);
-    } else {
-      await setRoleSearch(newRole);
-      const list = search.split(",");
-      const newSearch = `${list[0]},${list[1]},${list[2]},role:${newRole},${list[4]}`;
-      await setSearch(newSearch);
-    }
-  };
-  const handlChangeAllRole = async () => {
-    await setRoleSearch("");
-    const list = search.split(",");
-    const newSearch = `${list[0]},${list[1]},${list[2]},role:,${list[4]}`;
-    setSearch(newSearch);
   };
 
   const handleSortByStaffCode = () => {
@@ -175,42 +150,167 @@ const Index = () => {
     setUsers(newUsers);
   };
 
+  const [isAdminSelected, setIsAdminSelected] = useState(false);
+  const [isStaffSelected, setIsStaffSelected] = useState(false);
+  const [isAllSelected, setIsAllSelected] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleTypeFilterClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const openType = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
   return (
     <div id="users">
       <p className="title">User List</p>
       <div id="Search_bar">
-        <FormControl>
-          <InputLabel id="label-type">Type</InputLabel>
-          <Select
-            labelId="label-type"
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={roleSearch}
-            className="roles"
+        <div id="filter_zone">
+          <input placeholder="Type" disabled />
+          <svg
+            class="funnel-fill"
+            viewBox="1.5 1 15 15"
+            onClick={handleTypeFilterClick}
           >
-            <MenuItem value={""}>
-              <input type="checkbox" value={""} onChange={handlChangeAllRole} />
-              All
-            </MenuItem>
-            {roles.map((role) => {
-              if (!role.name.includes("_LOCKED")) {
-                return (
-                  <>
-                    <MenuItem value={role.id}>
-                      <input
-                        type="checkbox"
-                        value={role.id}
-                        onChange={(e) => handleRoleChange(e)}
-                      />
-                      {role.name.replace("ROLE_", "")}
-                    </MenuItem>
-                  </>
-                );
-              }
-            })}
-          </Select>
-        </FormControl>
-
+            <path
+              id="funnel-fill"
+              d="M 1.49999988079071 1.535728693008423 C 1.49999988079071 1.239854097366333 1.758297204971313 0.9999999403953552 2.076923131942749 1 L 15.92307758331299 1 C 16.24170112609863 1 16.49999809265137 1.239854097366333 16.49999809265137 1.535728693008423 L 16.49999809265137 3.678643465042114 C 16.49999809265137 3.81066632270813 16.44742393493652 3.938126087188721 16.35237503051758 4.036438941955566 L 11.307692527771 9.24165153503418 L 11.307692527771 14.39321804046631 C 11.30750370025635 14.62370872497559 11.14857292175293 14.8282527923584 10.91307735443115 14.90108776092529 L 7.451538562774658 15.9725456237793 C 7.275689601898193 16.02693367004395 7.08240795135498 15.99955558776855 6.932019710540771 15.89895534515381 C 6.781630516052246 15.79835605621338 6.692448616027832 15.63678741455078 6.692307472229004 15.464674949646 L 6.692307472229004 9.24165153503418 L 1.647692322731018 4.036510467529297 C 1.552624702453613 3.93821382522583 1.500025510787964 3.810762882232666 1.49999988079071 3.678643465042114 L 1.49999988079071 1.535728693008423 Z"
+            ></path>
+          </svg>
+          <Popover
+            id={id}
+            open={openType}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+          >
+            <div id="type_popover">
+              {isAllSelected ? (
+                <div className="type-item">
+                  <input
+                    type="checkbox"
+                    id="all"
+                    value=""
+                    checked
+                    onChange={() => {
+                      setRoleSearch("");
+                      setIsAllSelected(false);
+                      setIsAdminSelected(false);
+                      setIsStaffSelected(false);
+                    }}
+                  />
+                  <label for="all">All</label>
+                </div>
+              ) : (
+                <div className="type-item">
+                  <input
+                    type="checkbox"
+                    id="all"
+                    value=""
+                    name="all"
+                    onChange={() => {
+                      setRoleSearch("");
+                      setIsAllSelected(true);
+                      setIsAdminSelected(true);
+                      setIsStaffSelected(true);
+                    }}
+                  />
+                  <label for="all">All</label>
+                </div>
+              )}
+              {isAdminSelected ? (
+                <div className="type-item">
+                  <input
+                    type="checkbox"
+                    id="admin"
+                    value="1002"
+                    checked
+                    onChange={() => {
+                      if (isStaffSelected) {
+                        setRoleSearch("1001");
+                      } else {
+                        setRoleSearch("");
+                      }
+                      setIsAdminSelected(false);
+                      setIsAllSelected(false);
+                    }}
+                  />
+                  <label for="admin">Admin</label>
+                </div>
+              ) : (
+                <div className="type-item">
+                  <input
+                    type="checkbox"
+                    id="admin"
+                    value="1002"
+                    onChange={() => {
+                      if (isStaffSelected) {
+                        setIsAdminSelected(true);
+                        setIsAllSelected(true);
+                        setRoleSearch("");
+                      } else {
+                        setRoleSearch("1002");
+                      }
+                    }}
+                  />
+                  <label for="admin">Admin</label>
+                </div>
+              )}
+              {isStaffSelected ? (
+                <div className="type-item">
+                  <input
+                    type="checkbox"
+                    id="staff"
+                    value="1001"
+                    name="Staff"
+                    checked
+                    onChange={() => {
+                      if (isAdminSelected) {
+                        setRoleSearch("1002");
+                      } else {
+                        setRoleSearch("");
+                      }
+                      setIsStaffSelected(false);
+                      setIsAllSelected(false);
+                    }}
+                  />
+                  <label for="staff">Staff</label>
+                </div>
+              ) : (
+                <div className="type-item">
+                  <input
+                    type="checkbox"
+                    id="staff"
+                    value="1001"
+                    name="Staff"
+                    onChange={() => {
+                      if (isAdminSelected) {
+                        setIsStaffSelected(true);
+                        setIsAllSelected(true);
+                        setRoleSearch("");
+                      } else {
+                        setIsStaffSelected(true);
+                        setRoleSearch("1001");
+                      }
+                    }}
+                  />
+                  <label for="staff">Staff</label>
+                </div>
+              )}
+            </div>
+          </Popover>
+        </div>
         <div id="right_search_bar">
           <input
             type="text"

@@ -54,3 +54,28 @@ input {
   padding-bottom: 10px;
   border-bottom: 1px solid lightgrey;
 }
+#filter_zone {
+  position: relative;
+  width: 100px;
+}
+#funnel-fill {
+  fill: rgba(0, 0, 0, 1);
+}
+.funnel-fill {
+  overflow: visible;
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  left: 175.064px;
+  top: 5px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}
+#type_popover {
+  width: 150px;
+  padding: 20px;
+}
+.type-item {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
