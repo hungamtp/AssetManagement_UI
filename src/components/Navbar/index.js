@@ -7,12 +7,16 @@ import { useHistory } from "react-router-dom";
 
 const Navbar = (props) => {
   const [isShowLogout, setIsShowLogout] = useState(false);
+  const [disabled, setDisabled] = useState(true);
   const [user, setUser] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(['user']);
   let history = useHistory();
 
   useEffect(() => {
     setUser(cookies.user);
+    if (cookies.user.firstLogin)
+      setDisabled(false)
+    else setDisabled(true);
   }, [])
 
   const handleLogoutShow = () => {
@@ -39,7 +43,7 @@ const Navbar = (props) => {
         <DropdownMenu right>
           <DropdownItem onClick={handleLogoutShow}>Log Out</DropdownItem>
           <DropdownItem divider />
-          <DropdownItem onClick={handleChangpassword}>Change Password</DropdownItem>
+          <DropdownItem onClick={handleChangpassword} disabled={disabled}>Change Password</DropdownItem>
         </DropdownMenu>
       </UncontrolledButtonDropdown>
       <Logout isShowLogout={isShowLogout} handleLogoutShow={handleLogoutShow}/>
