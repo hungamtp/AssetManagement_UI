@@ -54,47 +54,9 @@ input {
   padding-bottom: 10px;
   border-bottom: 1px solid lightgrey;
 }
-#Group_199 {
+#filter_zone {
   position: relative;
-  width: 129px;
-  height: 35px;
-  left: 0px;
-  top: 0px;
-  overflow: visible;
-}
-#Rectangle_336_wj {
-  fill: rgba(255, 255, 255, 1);
-  stroke: rgba(112, 112, 112, 1);
-  stroke-width: 1px;
-  stroke-linejoin: miter;
-  stroke-linecap: butt;
-  stroke-miterlimit: 4;
-  shape-rendering: auto;
-}
-.Rectangle_336_wj {
-  overflow: visible;
-  width: 129px;
-  height: 35px;
-  left: 0px;
-  top: 0px;
-}
-#Line_5_wk {
-  fill: transparent;
-  stroke: rgba(112, 112, 112, 1);
-  stroke-width: 1px;
-  stroke-linejoin: miter;
-  stroke-linecap: butt;
-  stroke-miterlimit: 4;
-  shape-rendering: auto;
-}
-.Line_5_wk {
-  overflow: visible;
-  position: absolute;
-  width: 1px;
-  height: 33px;
-  left: 100.564px;
-  top: 0.5px;
-  transform: matrix(1, 0, 0, 1, 0, 0);
+  width: 100px;
 }
 #funnel-fill {
   fill: rgba(0, 0, 0, 1);
@@ -102,25 +64,18 @@ input {
 .funnel-fill {
   overflow: visible;
   position: absolute;
-  width: 15px;
-  height: 15px;
-  left: 610px;
-  top: 270px;
+  width: 17px;
+  height: 17px;
+  left: 175.064px;
+  top: 5px;
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
-#Type_wm {
-  position: relative;
-  z-index: 1;
-  left: 11px;
-  top: 4px;
-  overflow: visible;
-  width: 34px;
-  line-height: 24px;
-  margin-left: -490px;
-  text-align: left;
-  font-family: Segoe UI, Arial;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  color: rgba(33, 37, 41, 1);
+#type_popover {
+  width: 150px;
+  padding: 20px;
+}
+.type-item {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
 }
