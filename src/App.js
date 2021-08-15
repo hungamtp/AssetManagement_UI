@@ -18,6 +18,7 @@ import ProtectedRouteForFirstLogin from "./components/ProtectedRouteForFirstLogi
 import ChangePassword_Page from "./pages/Change password";
 import EditAsset_Page from "./pages/Edit asset";
 import ManageUser_Page from "./pages/ManageUser";
+import Create_Assignment_Page from "./pages/Create assignment";
 import DeleteAsset from "./components/Delete Asset";
 
 class App extends Component {
@@ -38,7 +39,7 @@ class App extends Component {
         <Router>
           <Switch>
             {/* CHANGEPASS */}
-            <ProtectedRouteForFirstLogin exact path={URL.FIRST_LOGIN} role={role.ROLE_ADMIN + role.ROLE_STAFF} component={FirstLogin} /> {/* ROLE?????? */}
+            <ProtectedRouteForFirstLogin exact path={URL.FIRST_LOGIN} role={role.ROLE_ADMIN + role.ROLE_STAFF} component={FirstLogin} />
             <ProtectedRoute exact path={URL.CHANGE_PASS} role={role.ROLE_ADMIN + role.ROLE_STAFF} component={ChangePassword_Page} />
             {/* HOME */}
             <ProtectedRoute exact path={URL.HOME_ADMIN} role={role.ROLE_ADMIN} component={Home} />
