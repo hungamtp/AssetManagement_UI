@@ -255,7 +255,9 @@ class ManageAsset extends Component {
 	}
 
 	changePage(page) {
-		this.setState({ currentPage: page }, () => {
+		this.setState({ 
+			currentPage: page,
+		}, () => {
 			this.loadData();
 			this.returnPageList();
 		})
@@ -465,12 +467,16 @@ class ManageAsset extends Component {
 								</div>
 								{
 									this.state.categoryList.map((category) => {
+										let isSelected = this.state.selectedCategory.findIndex(
+											(selected) => selected === category.categoryCode
+										);
 										return (
 											<div key={category.categoryCode}>
 												<input
 													style={{ marginRight: '10px', marginLeft: '10px' }}
 													type="checkbox"
 													value={category.categoryCode}
+													checked={isSelected > -1}
 													onChange={(e) => {
 														this.handleSelectCategory(e);
 														this.reloadPage();
@@ -590,11 +596,12 @@ class ManageAsset extends Component {
 					{
 						this.state.pageList.length > 1 &&
 						this.state.pageList.map((page) => {
+							let isActive = this.state.currentPage === page;
 							return (
 								<div
 									key={page}
-									className={this.state.currentPage === page ? "paging-page current-page" : "paging-page"}
-									onClick={() => this.changePage(`${page}`)}
+									className={isActive ? "current-page" : "paging-page"}
+									onClick={() => this.changePage(page)}
 								>
 									{page}
 								</div>
@@ -602,6 +609,14 @@ class ManageAsset extends Component {
 						})
 					}
 				</div>
+				{
+					this.state.assetList.length === 0 &&
+					<div className="fail">
+						<Alert color="secondary">
+							No results.
+						</Alert>
+					</div>
+				}
 				{
 					this.state.isFail === true &&
 					<div className="fail">
