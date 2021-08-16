@@ -30,13 +30,14 @@ const ChangePassword = () => {
 	}, [newPassword, oldPassword])
 
 	const handleChangePassword = () => {
-		let Url = "admin/password/" + username;
+		let Url = "admin/password/" + username;	
 		let data = {
 			oldPassword, newPassword
 		}
 		put(Url, data)
 		.then(() => alert("Change Password Successfull!"))
-		.catch(err => console.log(err));			
+		.catch(err => console.log(err));
+		history.push("/admin");			
 	}
 	const handleUserChangePassword = () => {
 		let Url = "user/password/" + username;
