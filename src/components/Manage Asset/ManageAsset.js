@@ -319,7 +319,7 @@ class ManageAsset extends Component {
                     this.handleDeleteAssetYES();
             })
             .catch(error => {
-                if (error.response.data.message === "ERR_ASSET_ALREADY_HAVE_ASSIGNMENT")
+                if (error.response.data.errorCode === "ERR_ASSET_ALREADY_HAVE_ASSIGNMENT")
                     this.handleDeleteAssetNO();
             });
 	}
