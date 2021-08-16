@@ -83,7 +83,7 @@ const Index = () => {
         `isDeleted:false,staffCode:${nameSearch},username:,role:${roleSearch},location:${locationId}`
       );
     } else {
-      setName(nameSearch);
+      setName(nameSearch.toLocaleLowerCase());
       setStaffCode("");
       setSearch(
         `isDeleted:false,staffCode:,username:${nameSearch},role:${roleSearch},location:${locationId}`
