@@ -1,11 +1,12 @@
 import "./create.css";
 import React, { useState, useEffect } from "react";
-import { Dialog, Slide, Button } from "@material-ui/core";
+import { Dialog, Slide, Button, TextareaAutosize } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { get, post } from "../../httpHelper";
 import Paginations from "../Users/Pagination/Pagination";
+import { useHistory } from "react-router";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -33,6 +34,8 @@ const Index = () => {
   const [assetCode, setAssetCode] = useState("");
   const [assetCodeSelected, setAssetCodeSelected] = useState("");
   const [assetNameSelected, setAssetNamelected] = useState("");
+
+  const history = useHistory();
 
   const handleSelectUser = () => {
     setUsername(NameSelected);
@@ -128,6 +131,7 @@ const Index = () => {
   }, [currentAssetPage, assetSort, nameAssetSearch, assetCodeSearch]);
   const handleUserSearch = (e) => {
     e.preventDefault();
+    setCurrentPage(0);
     if (boxusersearch.toUpperCase().startsWith("SD")) {
       setStaffCodeSearch(boxusersearch);
       setUsernameSearch("");
@@ -137,6 +141,32 @@ const Index = () => {
     }
   };
 
+  var date = new Date();
+
+  var day = date.getDate();
+  var month = date.getMonth() + 1;
+  var year = date.getFullYear();
+
+  if (month < 10) month = "0" + month;
+  if (day < 10) day = "0" + day;
+
+  var today = year + "-" + month + "-" + day + " 00:00";
+  var date = year + "-" + month + "-" + day;
+  const handleCreateAssignment = async () => {
+    const url = "assignment";
+    const repsonse = await post(url, {
+      assignedBy: localStorage.getItem("staffcode"),
+      assignedTo: staffCode,
+      assetCode: assetCode,
+      assignedDate: assignedDate === "" ? today : assignedDate,
+      note: note,
+    });
+    if (repsonse.data.errorCode === null) {
+      // redirect to manage assignment
+      alert("Create New Assignment Successfully!");
+      history.push("/manageassignment");
+    }
+  };
   const [assetSearch, setAssetSearch] = useState("");
   return (
     <div id="Form_es">
@@ -323,7 +353,7 @@ const Index = () => {
             onClick={() => {
               setIsOpenAssetDialog(false);
               setAsset(assetNameSelected);
-              setAssetCode(setAssetCodeSelected);
+              setAssetCode(assetCodeSelected);
             }}
           >
             Save
@@ -362,19 +392,21 @@ const Index = () => {
           <label>Asigned Date</label>
           <input
             type="date"
-            min="2021-05-11"
+            min={date}
             className="input_field"
+            defaultValue={date}
             onChange={(e) => {
-              setAssignedDate(e.target.value);
-              console.log(e.target.value);
+              setAssignedDate(e.target.value + " 00:00");
             }}
           />
         </div>
         <div className="field">
           <label>Note</label>
-          <input
+          <textarea
             id="note"
             className="input_field"
+            rows="5"
+            maxLength="250"
             onChange={(e) => setNote(e.target.value)}
           />
         </div>
@@ -396,15 +428,20 @@ const Index = () => {
             color="secondary"
             size="medium"
             id="bt_save"
-            onClick={() => {
-              const url = "assignment";
-            }}
+            onClick={handleCreateAssignment}
           >
             Save
           </Button>
         )}
 
-        <Button variant="outlined" color="secondary" size="medium">
+        <Button
+          variant="outlined"
+          color="secondary"
+          size="medium"
+          onClick={() => {
+            history.push("/manageassignment");
+          }}
+        >
           Cancel
         </Button>
       </div>

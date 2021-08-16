@@ -31,7 +31,7 @@ label {
   width: 250px;
 }
 #note {
-  height: 50px;
+  height: 70px;
 }
 #button-zone {
   margin-top: 20px;
@@ -45,10 +45,6 @@ label {
 #search_icon {
   position: absolute;
   left: 320px;
-}
-#user_dialog {
-  width: 1000px;
-  padding: 50px;
 }
 #name-dialog {
   color: red;
@@ -89,4 +85,10 @@ tr {
   justify-content: flex-end;
   margin-bottom: 20px;
   margin-right: 20px;
+}
+textarea {
+  border: 1px solid black;
+}
+.pagination {
+  align-items: center;
 }
