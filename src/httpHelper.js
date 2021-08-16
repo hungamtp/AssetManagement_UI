@@ -3,11 +3,9 @@ import * as URL from "./constants/URL";
 import * as errorCode from "./constants/ErrorCode";
 const endpoint = URL.EndPoint;
 
-let token = getCookie("user") !== "" ? JSON.parse(getCookie("user")).token : "";
-
-setInterval(() => {
-  token = getCookie("user") !== "" ? JSON.parse(getCookie("user")).token : "";
-}, 5000);
+function getToken(){
+  return getCookie("user") !== "" ? JSON.parse(getCookie("user")).token : "";
+}
 
 function getCookie(cname) {
   let name = cname + "=";
@@ -48,6 +46,7 @@ function handleError(error) {
 }
 
 export function get(url) {
+  let token = getToken()
   var config = {
     method: "get",
     url: `${endpoint}/${url}`,
@@ -65,6 +64,7 @@ export function get(url) {
 }
 
 export function post(url, body) {
+  let token = getToken()
   var config = {
     method: "post",
     url: `${endpoint}/${url}`,
@@ -83,6 +83,7 @@ export function post(url, body) {
 }
 
 export function put(url, body) {
+  let token = getToken()
   var config = {
     method: "put",
     url: `${endpoint}/${url}`,
@@ -100,6 +101,7 @@ export function put(url, body) {
 }
 
 export function del(url) {
+  let token = getToken()
   var config = {
     method: "delete",
     url: `${endpoint}/${url}`,
