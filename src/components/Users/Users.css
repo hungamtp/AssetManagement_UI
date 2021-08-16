@@ -14,11 +14,12 @@
   position: absolute;
   display: inline-block;
   width: 100px;
-  left: -50px;
+  left: -35px;
   top: 5px;
 }
 
 #Search_bar {
+  margin-left: 20px;
   display: flex;
   justify-content: space-between;
 }
@@ -26,15 +27,13 @@
 #right_search_bar {
   display: flex;
   margin-left: 200px;
+  margin-right: 100px;
 }
 
 #create_button {
-  margin-left: 30px;
   background-color: red;
   color: white;
-  padding: 5px;
   border-radius: 5px;
-  float: right;
 }
 
 input {
@@ -73,7 +72,7 @@ input {
   width: 17px;
   height: 17px;
   left: 175.064px;
-  top: 5px;
+  top: 8px;
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
 #type_popover {
@@ -84,4 +83,9 @@ input {
   display: flex;
   justify-content: space-between;
   margin-top: 5px;
+}
+#search_icon1 {
+  position: absolute;
+  left: 170px;
+  top: 5px;
 }
