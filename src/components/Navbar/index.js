@@ -1,38 +1,46 @@
 import React, { Component, useEffect, useState } from "react";
 import "./Navbar.css";
-import { UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
+import { UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from "reactstrap";
 import Logout from "../Logout";
 import { useCookies } from "react-cookie";
 import { useHistory } from "react-router-dom";
+import Change_Password from "../Change Password";
 
 const Navbar = (props) => {
   const [isShowLogout, setIsShowLogout] = useState(false);
   const [disabledPass, setDisabledPass] = useState(true);
   const [disabledLogout, setDisabledLogout] = useState(false);
   const [user, setUser] = useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies(['user']);
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   let history = useHistory();
+  const [isShowChangePass, setIsShowChangePass] = useState(false);
 
   useEffect(() => {
     setUser(cookies.user);
     //change password
-    if (cookies.user.firstLogin)
-      setDisabledPass(false)
+    if (cookies.user.firstLogin) setDisabledPass(false);
     else setDisabledPass(true);
     //logout
-    if (window.location.pathname === "/first")
-      setDisabledLogout(true)
+    if (window.location.pathname === "/first") setDisabledLogout(true);
     else setDisabledLogout(false);
-  }, [])
+  }, []);
 
   const handleLogoutShow = () => {
-    setIsShowLogout(isShowLogout => !isShowLogout);
-  }
+    setIsShowLogout((isShowLogout) => true);
+    setIsShowChangePass((isShowChangePass) => false);
+  };
 
   const handleChangpassword = () => {
-    history.push("/changepassword")
-  }
+    setIsShowChangePass((isShowChangePass) => true);
+    setIsShowLogout((isShowLogout) => false);
+  };
 
+  const handleLogoutCancel = () => {
+    setIsShowLogout((isShowLogout) => false);
+  };
+  const handleChangpasswordCancel = () => {
+    setIsShowChangePass((isShowChangePass) => false);
+  };
   return (
     <div id="narbav_ecg">
       <svg className="Rectangle_329_ech">
@@ -47,14 +55,19 @@ const Navbar = (props) => {
           {user.username}
         </DropdownToggle>
         <DropdownMenu right>
-          <DropdownItem onClick={handleLogoutShow} disabled={disabledLogout}>Log Out</DropdownItem>
+          <DropdownItem onClick={handleLogoutShow} disabled={disabledLogout}>
+            Log Out
+          </DropdownItem>
           <DropdownItem divider />
-          <DropdownItem onClick={handleChangpassword} disabled={disabledPass}>Change Password</DropdownItem>
+          <DropdownItem onClick={handleChangpassword} disabled={disabledPass}>
+            Change Password
+          </DropdownItem>
         </DropdownMenu>
       </UncontrolledButtonDropdown>
-      <Logout isShowLogout={isShowLogout} handleLogoutShow={handleLogoutShow}/>
+      <Logout isShowLogout={isShowLogout} handleLogoutCancel={handleLogoutCancel} />
+      <Change_Password isShowChangePass={isShowChangePass} handleChangpasswordCancel={handleChangpasswordCancel} />
     </div>
   );
-}
+};
 
 export default Navbar;

@@ -13,7 +13,7 @@ const Logout = (props) => {
     }
 
     const handleCancel = () => {
-        props.handleLogoutShow();
+        props.handleLogoutCancel();
     }
 
     return (
