@@ -3,7 +3,7 @@ import * as URL from "./constants/URL";
 import * as errorCode from "./constants/ErrorCode";
 const endpoint = URL.EndPoint;
 
-function getToken(){
+function getToken() {
   return getCookie("user") !== "" ? JSON.parse(getCookie("user")).token : "";
 }
 
@@ -33,7 +33,12 @@ function setCookie(cname, cvalue, exdays) {
 function handleError(error) {
   if (error.response !== undefined) {
     if (error.response.data !== undefined) {
-      if (error.response.data.error === errorCode.ERR_ROLE_DONT_HAVE_PERMISSION || error.response.data.error === errorCode.ERR_USER_UNAUTHORIZED) {
+      if (
+        error.response.data.error === errorCode.ERR_ROLE_DONT_HAVE_PERMISSION ||
+        error.response.data.error === errorCode.ERR_USER_UNAUTHORIZED ||
+        error.response.data.errorCode === errorCode.ERR_ACCESS_IS_DENIED ||
+        error.response.data.errorCode === errorCode.ERR_BAD_CREDENTIALS
+      ) {
         console.log(error.response.data.error);
         if (getCookie("user") !== "") {
           setCookie("user", "", 0);
@@ -46,7 +51,7 @@ function handleError(error) {
 }
 
 export function get(url) {
-  let token = getToken()
+  let token = getToken();
   var config = {
     method: "get",
     url: `${endpoint}/${url}`,
@@ -64,7 +69,7 @@ export function get(url) {
 }
 
 export function post(url, body) {
-  let token = getToken()
+  let token = getToken();
   var config = {
     method: "post",
     url: `${endpoint}/${url}`,
@@ -83,7 +88,7 @@ export function post(url, body) {
 }
 
 export function put(url, body) {
-  let token = getToken()
+  let token = getToken();
   var config = {
     method: "put",
     url: `${endpoint}/${url}`,
@@ -101,7 +106,7 @@ export function put(url, body) {
 }
 
 export function del(url) {
-  let token = getToken()
+  let token = getToken();
   var config = {
     method: "delete",
     url: `${endpoint}/${url}`,

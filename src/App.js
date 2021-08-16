@@ -15,7 +15,6 @@ import * as role from "./constants/Business";
 import EditUser_Page from "./pages/Edit user";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProtectedRouteForFirstLogin from "./components/ProtectedRouteForFirstLogin";
-import ChangePassword_Page from "./pages/Change password";
 import EditAsset_Page from "./pages/Edit asset";
 import ManageUser_Page from "./pages/ManageUser";
 import Create_Assignment_Page from "./pages/Create assignment";
@@ -41,7 +40,6 @@ class App extends Component {
           <Switch>
             {/* CHANGEPASS */}
             <ProtectedRouteForFirstLogin exact path={URL.FIRST_LOGIN} role={role.ROLE_ADMIN + role.ROLE_STAFF} component={FirstLogin} />
-            <ProtectedRoute exact path={URL.CHANGE_PASS} role={role.ROLE_ADMIN + role.ROLE_STAFF} component={ChangePassword_Page} />
             {/* HOME */}
             <ProtectedRoute exact path={URL.HOME_ADMIN} role={role.ROLE_ADMIN} component={Home} />
             <ProtectedRoute exact path={URL.HOME_USER} role={role.ROLE_STAFF} component={StaffHome} />
