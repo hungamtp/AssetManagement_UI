@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as business from "../../constants/Business";
 import Menu from "../../components/Menu";
-import Index from "../../components/Create Assignment";
+import CreateAssignment from "../../components/Create Assignment";
 import Navbar from "../../components/Navbar";
 
 const Create_Assignment_Page = () => {
@@ -11,7 +11,7 @@ const Create_Assignment_Page = () => {
       <Menu business={business.MANAGE_ASSIGNMENT} />
       {/* menu co prop là business tương ứng HOME, MANAGE_USER, ... mn xem them trong const */}
       {/* layout mẫu mn cu v mà làm nha */}
-      <Index />
+      <CreateAssignment />
     </div>
   );
 };
