@@ -7,16 +7,22 @@ import { useHistory } from "react-router-dom";
 
 const Navbar = (props) => {
   const [isShowLogout, setIsShowLogout] = useState(false);
-  const [disabled, setDisabled] = useState(true);
+  const [disabledPass, setDisabledPass] = useState(true);
+  const [disabledLogout, setDisabledLogout] = useState(false);
   const [user, setUser] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(['user']);
   let history = useHistory();
 
   useEffect(() => {
     setUser(cookies.user);
+    //change password
     if (cookies.user.firstLogin)
-      setDisabled(false)
-    else setDisabled(true);
+      setDisabledPass(false)
+    else setDisabledPass(true);
+    //logout
+    if (window.location.pathname === "/first")
+      setDisabledLogout(true)
+    else setDisabledLogout(false);
   }, [])
 
   const handleLogoutShow = () => {
@@ -41,9 +47,9 @@ const Navbar = (props) => {
           {user.username}
         </DropdownToggle>
         <DropdownMenu right>
-          <DropdownItem onClick={handleLogoutShow}>Log Out</DropdownItem>
+          <DropdownItem onClick={handleLogoutShow} disabled={disabledLogout}>Log Out</DropdownItem>
           <DropdownItem divider />
-          <DropdownItem onClick={handleChangpassword} disabled={disabled}>Change Password</DropdownItem>
+          <DropdownItem onClick={handleChangpassword} disabled={disabledPass}>Change Password</DropdownItem>
         </DropdownMenu>
       </UncontrolledButtonDropdown>
       <Logout isShowLogout={isShowLogout} handleLogoutShow={handleLogoutShow}/>
