@@ -9,7 +9,7 @@ export const CREATE_ASSET = "/create-asset";
 export const EDIT_ASSET = "/editasset/:assetCode";
 //Assignment
 export const MANAGE_ASSIGNMENT = "/manageassignment";
-export const CREATE_ASSIGNMENT = "/createassignment";
+export const CREATE_ASSIGNMENT = "/creatnewasssignment";
 
 // USER
 export const MANAGE_USER = "/manageuser";

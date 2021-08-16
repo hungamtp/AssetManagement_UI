@@ -11,7 +11,7 @@ import { useHistory } from "react-router";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-const Index = () => {
+const CreateAssignment = () => {
   const [username, setUsername] = useState("");
   const [asset, setAsset] = useState("");
   const [assignedDate, setAssignedDate] = useState("");
@@ -449,4 +449,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default CreateAssignment;
