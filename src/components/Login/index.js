@@ -34,6 +34,7 @@ const Login = (props) => {
         if (response.status === 200) {
           if (response.data.successCode === "USER_LOGIN_SUCCESS") {
             setCookie("user", JSON.stringify(response.data.data), {
+              expires: new Date(new Date().valueOf() + 1000 * 3600 * 24),
               path: "/",
             });
             localStorage.setItem("jwtToken", response.data.data.token);
