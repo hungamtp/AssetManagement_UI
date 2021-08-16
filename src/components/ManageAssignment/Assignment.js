@@ -127,10 +127,26 @@ const Assignment = () => {
     }
   };
   const handleSortByAssignedDate = () => {
-
+ if (isAssignedDateASC) {
+      setSortField("assignedDate");
+      setSortType("ASC");
+      setIsAssignedDateASC(!isAssignedDateASC);
+    } else {
+      setSortField("assignedDate");
+      setSortType("ASC");
+      setIsAssignedDateASC(!isAssignedDateASC);
+    }
   };
   const handleSortByState = () => {
-
+ if (isStateASC) {
+      setSortField("state");
+      setSortType("ASC");
+      setIsStateASC(!isStateASC);
+    } else {
+      setSortField("state");
+      setSortType("ASC");
+      setIsStateASC(!isStateASC);
+    }
   };
 
   const handleSeachKeyWord = () => {
