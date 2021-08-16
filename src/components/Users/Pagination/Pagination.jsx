@@ -1,5 +1,6 @@
 import React from "react";
 import Pagination from "@material-ui/lab/Pagination";
+import { Button } from "@material-ui/core";
 import "./pagination.css";
 
 const Paginations = ({ totalPages, setCurrentPage }) => {
@@ -7,8 +8,9 @@ const Paginations = ({ totalPages, setCurrentPage }) => {
     <div className="pagination">
       <Pagination
         count={totalPages}
-        variant="outlined"
-        color="primary"
+        variant="text"
+        shape="rounded"
+        color="secondary"
         onChange={(event, value) => setCurrentPage(value - 1)}
       />
     </div>

@@ -8,8 +8,6 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { useHistory } from "react-router";
 import { get } from "../../httpHelper";
-import useStyles from "./styles";
-import { InputGroup } from "react-bootstrap";
 
 const Index = () => {
   const [users, setUsers] = useState([]);
@@ -31,8 +29,6 @@ const Index = () => {
   const [isTypeASC, setIsTypeASC] = useState(true);
   const [locationId, setLocationId] = useState("");
   const [open, setOpen] = React.useState(false);
-
-  const classes = useStyles();
 
   //const locationId = localStorage.getItem("locationId");
 
@@ -79,6 +75,7 @@ const Index = () => {
 
   const handleOnClickSearchButton = (e) => {
     e.preventDefault();
+    setCurrentPage(0);
     if (nameSearch.toUpperCase().startsWith("SD")) {
       setStaffCode(nameSearch);
       setName("");
@@ -204,6 +201,7 @@ const Index = () => {
                     value=""
                     checked
                     onChange={() => {
+                      setCurrentPage(0);
                       setRoleSearch("");
                       setIsAllSelected(false);
                       setIsAdminSelected(false);
@@ -220,6 +218,7 @@ const Index = () => {
                     value=""
                     name="all"
                     onChange={() => {
+                      setCurrentPage(0);
                       setRoleSearch("");
                       setIsAllSelected(true);
                       setIsAdminSelected(true);
@@ -237,6 +236,7 @@ const Index = () => {
                     value="1002"
                     checked
                     onChange={() => {
+                      setCurrentPage(0);
                       if (isStaffSelected) {
                         setRoleSearch("1001");
                       } else {
@@ -255,12 +255,14 @@ const Index = () => {
                     id="admin"
                     value="1002"
                     onChange={() => {
+                      setCurrentPage(0);
                       if (isStaffSelected) {
                         setIsAdminSelected(true);
                         setIsAllSelected(true);
                         setRoleSearch("");
                       } else {
                         setRoleSearch("1002");
+                        setIsAdminSelected(true);
                       }
                     }}
                   />
@@ -276,6 +278,7 @@ const Index = () => {
                     name="Staff"
                     checked
                     onChange={() => {
+                      setCurrentPage(0);
                       if (isAdminSelected) {
                         setRoleSearch("1002");
                       } else {
@@ -295,6 +298,7 @@ const Index = () => {
                     value="1001"
                     name="Staff"
                     onChange={() => {
+                      setCurrentPage(0);
                       if (isAdminSelected) {
                         setIsStaffSelected(true);
                         setIsAllSelected(true);
@@ -360,6 +364,7 @@ const Index = () => {
       </table>
 
       <Paginations
+        currentPage={currentPage}
         totalPages={totalPage}
         setCurrentPage={(current) => setCurrentPage(current)}
         className="pagination"
