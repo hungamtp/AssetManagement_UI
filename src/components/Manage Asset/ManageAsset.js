@@ -132,7 +132,7 @@ class ManageAsset extends Component {
 								this.setState({assetList:assetList})
 							}else if(editAsset!==null){
 								editAsset = JSON.parse(editAsset)
-								let categoryFound = this.state.categoryList.filter(e=>e.categoryCode ===editAsset.categoryId)
+								let categoryFound = this.state.categoryList.find(e=>e.categoryCode ===editAsset.categoryId)
 								editAsset.category = categoryFound
 								assetList[0] = editAsset
 								localStorage.removeItem("editAsset");
