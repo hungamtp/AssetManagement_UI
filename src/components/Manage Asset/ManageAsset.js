@@ -37,7 +37,7 @@ class ManageAsset extends Component {
 			categoryList: [],
 			pageList: [],
 
-			sizeInPage: 3,
+			sizeInPage: 15,
 			currentPage: 1,
 
 			sortField: "assetCode",
@@ -300,8 +300,10 @@ class ManageAsset extends Component {
 		})
 	}
 
-	handleEditAsset(assetCode) {
-		this.props.history.push(`editasset/${assetCode}`);
+	handleEditAsset(assetCode, assetState) {
+		if(assetState !== 3){
+			this.props.history.push(`editasset/${assetCode}`);
+		}
 	}
 
 	handleDeleteAssetShow = () => {
@@ -573,9 +575,9 @@ class ManageAsset extends Component {
 												{asset.state === 4 && <span>Waiting for recycling</span>}
 												{asset.state === 5 && <span>Recycled</span>}
 											</td>
-											<td onClick={() => this.handleEditAsset(`${asset.assetCode}`)}>
+											<td onClick={() => this.handleEditAsset(`${asset.assetCode}`, asset.state)}>
 												<img 
-													className="edit-icon button-img"
+													className={asset.state === 3 ? "disable-icon" : "edit-icon"}
 													src={UpdateIcon}
 													width="20px"/>
 											</td>
