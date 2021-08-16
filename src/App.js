@@ -5,8 +5,6 @@ import Home from "./components/Home";
 import StaffHome from "./components/StaffHome";
 import FirstLogin from "./components/FirstLogin";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { instanceOf } from "prop-types";
-import { withCookies, Cookies } from "react-cookie";
 import ManageAsset from "./components/Manage Asset/ManageAsset";
 import CreateNewUser_Page from "./pages/Create new user";
 import CreateAsset from "./pages/CreateAsset";
@@ -18,21 +16,9 @@ import ProtectedRouteForFirstLogin from "./components/ProtectedRouteForFirstLogi
 import EditAsset_Page from "./pages/Edit asset";
 import ManageUser_Page from "./pages/ManageUser";
 import Create_Assignment_Page from "./pages/Create assignment";
-import DeleteAsset from "./components/Delete Asset";
 import ManageAssignment_Page from "./pages/ManageAssignment"
 
-class App extends Component {
-  static propTypes = {
-    cookies: instanceOf(Cookies).isRequired,
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentDidMount() {}
-
+export default class App extends Component {
   render() {
     return (
       <div>
@@ -64,5 +50,3 @@ class App extends Component {
     );
   }
 }
-
-export default withCookies(App);

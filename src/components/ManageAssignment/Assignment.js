@@ -5,11 +5,11 @@ import { InputLabel } from "@material-ui/core";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { useHistory } from "react-router";
-import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 import { get, post } from "../../httpHelper";
 import "./Assignment.css";
 import Assign from "./Assign";
 import Paginations from "./Pagination/Pagination";
+import * as STATE from "../../constants/State";
 
 const Assignment = () => {
   const history = useHistory();
@@ -36,6 +36,7 @@ const Assignment = () => {
   const [stateDeclined, setStateDeclined] = useState(false);
   //date
   const [localDateTime, setLocalDateTime] = useState("");
+  const [tempList, setTempList] = useState([]);
 
   const handleClickCreateNew = () => {
     history.push("/creatnewasssignment");
@@ -59,15 +60,11 @@ const Assignment = () => {
     const url = `assignment/filter-search-sort?page=${currentPage}&size=${size}`;
     const data = {
       states: stateList,
-      localDateTime:
-        localDateTime === ""
-          ? localDateTime
-          : new Date(localDateTime).toISOString().slice(0, 19),
+      localDateTime: localDateTime === "" ? localDateTime : new Date(localDateTime).toISOString().slice(0, 19),
       sortField,
       sortType,
       searchKeyWord,
     };
-    console.log(data);
     post(url, data)
       .then((response) => {
         setAssignments(response.data.data);
@@ -139,7 +136,7 @@ const Assignment = () => {
       setIsAssignedDateASC(!isAssignedDateASC);
     } else {
       setSortField("assignedDate");
-      setSortType("ASC");
+      setSortType("DSC");
       setIsAssignedDateASC(!isAssignedDateASC);
     }
   };
@@ -150,7 +147,7 @@ const Assignment = () => {
       setIsStateASC(!isStateASC);
     } else {
       setSortField("state");
-      setSortType("ASC");
+      setSortType("DSC");
       setIsStateASC(!isStateASC);
     }
   };
@@ -159,10 +156,7 @@ const Assignment = () => {
     const url = `assignment/filter-search-sort?page=${currentPage}&size=${size}`;
     const data = {
       states: stateList,
-      localDateTime:
-        localDateTime === ""
-          ? localDateTime
-          : new Date(localDateTime).toISOString().slice(0, 19),
+      localDateTime: localDateTime === "" ? localDateTime : new Date(localDateTime).toISOString().slice(0, 19),
       sortField,
       sortType,
       searchKeyWord,
@@ -176,18 +170,78 @@ const Assignment = () => {
   };
 
   useEffect(() => {
+   
+      const list = [];
+      if (stateAccepted) {
+        list.push(STATE.ACCEPTED);
+      } else {
+        let tempList = [];
+        if (stateWaiting) {
+          tempList.push(STATE.WAITING_FOR_ACCEPTANCE);
+        }
+        if (stateDeclined) {
+          tempList.push(STATE.DECLINED);
+        }
+        setTempList(tempList);
+        setStateAll(false);
+      }
+      if (stateWaiting) {
+        list.push(STATE.WAITING_FOR_ACCEPTANCE);
+      } else {
+        let tempList = [];
+        if (stateAccepted) {
+          tempList.push(STATE.ACCEPTED);
+        }
+        if (stateDeclined) {
+          tempList.push(STATE.DECLINED);
+        }
+        setTempList(tempList);
+        setStateAll(false);
+      }
+      if (stateDeclined) {
+        list.push(STATE.DECLINED);
+      } else {
+        let tempList = [];
+        if (stateWaiting) {
+          tempList.push(STATE.WAITING_FOR_ACCEPTANCE);
+        }
+        if (stateAccepted) {
+          tempList.push(STATE.ACCEPTED);
+        }
+        setTempList(tempList);
+        setStateAll(false);
+      }
+      setStateList(list);
+  }, [stateAccepted, stateDeclined, stateWaiting]);
+
+  useEffect(() => {
     const list = [];
     if (stateAll) {
       list.push(1);
       list.push(2);
       list.push(3);
+      setStateAccepted(true);
+      setStateWaiting(true);
+      setStateDeclined(true);
+      setTempList([]);
+      setStateList(list);
     } else {
-      if (stateAccepted) list.push(1);
-      if (stateWaiting) list.push(2);
-      if (stateDeclined) list.push(3);
+      if (tempList.length <= 0) {
+        setStateAccepted(false);
+        setStateWaiting(false);
+        setStateDeclined(false);
+        setStateList([]);
+      } else {
+        tempList.forEach((e) => {
+          if (e === STATE.ACCEPTED) setStateAccepted(true);
+          if (e === STATE.WAITING_FOR_ACCEPTANCE) setStateWaiting(true);
+          if (e === STATE.DECLINED) setStateDeclined(true);
+        });
+        setTempList([]);
+        setStateList(tempList);
+      }
     }
-    setStateList(list);
-  }, [stateAll, stateAccepted, stateDeclined, stateWaiting]);
+  }, [stateAll]);
 
   return (
     <div id="assgignemts">
@@ -195,69 +249,30 @@ const Assignment = () => {
       <div id="Search_bar">
         <FormControl>
           <InputLabel id="label-type">State</InputLabel>
-          <Select
-            labelId="label-type"
-            labelId="demo-simple-select-label"
-            id="simple-select"
-            className="state"
-          >
+          <Select labelId="label-type" labelId="demo-simple-select-label" id="simple-select" className="state">
             <MenuItem>
-              <input
-                type="checkbox"
-                value="all"
-                checked={stateAll}
-                onChange={() => setStateAll(!stateAll)}
-              />
+              <input type="checkbox" value="all" checked={stateAll} onChange={() => setStateAll(!stateAll)} />
               All
             </MenuItem>
             <MenuItem>
-              <input
-                type="checkbox"
-                value="accepted"
-                checked={stateAccepted}
-                onChange={() => setStateAccepted(!stateAccepted)}
-              />
+              <input type="checkbox" value="accepted" checked={stateAccepted} onChange={() => setStateAccepted(!stateAccepted)} />
               Accepted
             </MenuItem>
             <MenuItem>
-              <input
-                type="checkbox"
-                value="wating for acceptance"
-                checked={stateWaiting}
-                onChange={() => setStateWaiting(!stateWaiting)}
-              />
+              <input type="checkbox" value="wating for acceptance" checked={stateWaiting} onChange={() => setStateWaiting(!stateWaiting)} />
               Waiting for acceptance
             </MenuItem>
             <MenuItem>
-              <input
-                type="checkbox"
-                value="declined"
-                checked={stateDeclined}
-                onChange={() => setStateDeclined(!stateDeclined)}
-              />
+              <input type="checkbox" value="declined" checked={stateDeclined} onChange={() => setStateDeclined(!stateDeclined)} />
               Declined
             </MenuItem>
           </Select>
         </FormControl>
-        <input
-          type="date"
-          className="date"
-          value={localDateTime}
-          onChange={(e) => setLocalDateTime(e.target.value)}
-        />
+        <input type="date" className="date" value={localDateTime} onChange={(e) => setLocalDateTime(e.target.value)} />
         <div id="right_search_bar">
-          <input
-            type="text"
-            placeholder="search"
-            value={searchKeyWord}
-            onChange={(e) => setSearchKeyWord(e.target.value)}
-          />
+          <input type="text" placeholder="search" value={searchKeyWord} onChange={(e) => setSearchKeyWord(e.target.value)} />
           <button id="searchbtn">
-            <img
-              id="btn-search"
-              src={searchIcon}
-              onClick={handleSeachKeyWord}
-            />
+            <img id="btn-search" src={searchIcon} onClick={handleSeachKeyWord} />
           </button>
           <button id="create_button" onClick={handleClickCreateNew}>
             Create new Assignment
@@ -304,10 +319,7 @@ const Assignment = () => {
           })}
         </tbody>
       </table>
-      <Paginations
-        setCurrentPage={(current) => setCurrentPage(current)}
-        className="pagination"
-      />
+      <Paginations setCurrentPage={(current) => setCurrentPage(current)} className="pagination" />
     </div>
   );
 };
