@@ -8,6 +8,7 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { useHistory } from "react-router";
 import { get } from "../../httpHelper";
+import SearchIcon from "@material-ui/icons/Search";
 
 const Index = () => {
   const [users, setUsers] = useState([]);
@@ -77,13 +78,13 @@ const Index = () => {
     e.preventDefault();
     setCurrentPage(0);
     if (nameSearch.toUpperCase().startsWith("SD")) {
-      setStaffCode(nameSearch);
+      setStaffCode(nameSearch.toUpperCase());
       setName("");
       setSearch(
         `isDeleted:false,staffCode:${nameSearch},username:,role:${roleSearch},location:${locationId}`
       );
     } else {
-      setName(nameSearch);
+      setName(nameSearch.toLocaleLowerCase());
       setStaffCode("");
       setSearch(
         `isDeleted:false,staffCode:,username:${nameSearch},role:${roleSearch},location:${locationId}`
@@ -319,11 +320,10 @@ const Index = () => {
           <input
             type="text"
             placeholder="search"
+            id="name_search_zone"
             onChange={(e) => setNameSearch(e.target.value)}
           />
-          <button onClick={handleOnClickSearchButton}>
-            <img src={searchIcon} height="35px" />
-          </button>
+          <SearchIcon id="search_icon1" onClick={handleOnClickSearchButton} />
           <button id="create_button" onClick={handleClickCreateNew}>
             Create new user
           </button>
