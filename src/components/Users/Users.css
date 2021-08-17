@@ -26,14 +26,6 @@
 
 #right_search_bar {
   display: flex;
-  margin-left: 200px;
-  margin-right: 100px;
-}
-
-#create_button {
-  background-color: red;
-  color: white;
-  border-radius: 5px;
 }
 
 input {
@@ -60,8 +52,11 @@ input {
 }
 #filter_zone {
   position: relative;
-  width: 100px;
+  width: 50px;
   top: 15px;
+}
+#type-input {
+  width: 120px;
 }
 #funnel-fill {
   fill: rgba(0, 0, 0, 1);
@@ -71,7 +66,7 @@ input {
   position: absolute;
   width: 17px;
   height: 17px;
-  left: 175.064px;
+  left: 95px;
   top: 8px;
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
@@ -88,4 +83,15 @@ input {
   position: absolute;
   left: 170px;
   top: 5px;
+}
+.check-box-type {
+  width: 20px;
+}
+#create_button1 {
+  background-color: #e30c18;
+  margin-left: 20px;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 5px;
 }

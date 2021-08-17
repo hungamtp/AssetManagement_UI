@@ -3,7 +3,7 @@ import "./Users.css";
 import User from "./User";
 import searchIcon from "../../images/search.png";
 import Paginations from "./Pagination/Pagination";
-import { Popover } from "@material-ui/core";
+import { Popover, Button } from "@material-ui/core";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { useHistory } from "react-router";
@@ -168,7 +168,7 @@ const Index = () => {
       <p className="title">User List</p>
       <div id="Search_bar">
         <div id="filter_zone">
-          <input placeholder="Type" disabled />
+          <input id="type-input" placeholder="Type" disabled />
           <svg
             class="funnel-fill"
             viewBox="1.5 1 15 15"
@@ -190,7 +190,7 @@ const Index = () => {
             }}
             transformOrigin={{
               vertical: "top",
-              horizontal: "right",
+              horizontal: "center",
             }}
           >
             <div id="type_popover">
@@ -200,6 +200,7 @@ const Index = () => {
                     type="checkbox"
                     id="all"
                     value=""
+                    className="check-box-type"
                     checked
                     onChange={() => {
                       setCurrentPage(0);
@@ -215,6 +216,7 @@ const Index = () => {
                 <div className="type-item">
                   <input
                     type="checkbox"
+                    className="check-box-type"
                     id="all"
                     value=""
                     name="all"
@@ -233,6 +235,7 @@ const Index = () => {
                 <div className="type-item">
                   <input
                     type="checkbox"
+                    className="check-box-type"
                     id="admin"
                     value="1002"
                     checked
@@ -253,6 +256,7 @@ const Index = () => {
                 <div className="type-item">
                   <input
                     type="checkbox"
+                    className="check-box-type"
                     id="admin"
                     value="1002"
                     onChange={() => {
@@ -274,6 +278,7 @@ const Index = () => {
                 <div className="type-item">
                   <input
                     type="checkbox"
+                    className="check-box-type"
                     id="staff"
                     value="1001"
                     name="Staff"
@@ -295,6 +300,7 @@ const Index = () => {
                 <div className="type-item">
                   <input
                     type="checkbox"
+                    className="check-box-type"
                     id="staff"
                     value="1001"
                     name="Staff"
@@ -319,12 +325,11 @@ const Index = () => {
         <div id="right_search_bar">
           <input
             type="text"
-            placeholder="search"
             id="name_search_zone"
             onChange={(e) => setNameSearch(e.target.value)}
           />
           <SearchIcon id="search_icon1" onClick={handleOnClickSearchButton} />
-          <button id="create_button" onClick={handleClickCreateNew}>
+          <button id="create_button1" onClick={handleClickCreateNew}>
             Create new user
           </button>
         </div>
