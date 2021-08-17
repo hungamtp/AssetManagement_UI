@@ -37,7 +37,7 @@ class ManageAsset extends Component {
 			categoryList: [],
 			pageList: [],
 
-			sizeInPage: 3,
+			sizeInPage: 15,
 			currentPage: 1,
 
 			sortField: "assetCode",
@@ -132,7 +132,7 @@ class ManageAsset extends Component {
 								this.setState({assetList:assetList})
 							}else if(editAsset!==null){
 								editAsset = JSON.parse(editAsset)
-								let categoryFound = this.state.categoryList.filter(e=>e.categoryCode ===editAsset.categoryId)
+								let categoryFound = this.state.categoryList.find(e=>e.categoryCode ===editAsset.categoryId)
 								editAsset.category = categoryFound
 								assetList[0] = editAsset
 								localStorage.removeItem("editAsset");
@@ -300,8 +300,10 @@ class ManageAsset extends Component {
 		})
 	}
 
-	handleEditAsset(assetCode) {
-		this.props.history.push(`editasset/${assetCode}`);
+	handleEditAsset(assetCode, assetState) {
+		if(assetState !== 3){
+			this.props.history.push(`editasset/${assetCode}`);
+		}
 	}
 
 	handleDeleteAssetShow = () => {
@@ -337,7 +339,7 @@ class ManageAsset extends Component {
                     this.handleDeleteAssetYES();
             })
             .catch(error => {
-                if (error.response.data.message === "ERR_ASSET_ALREADY_HAVE_ASSIGNMENT")
+                if (error.response.data.errorCode === "ERR_ASSET_ALREADY_HAVE_ASSIGNMENT")
                     this.handleDeleteAssetNO();
             });
 	}
@@ -573,9 +575,9 @@ class ManageAsset extends Component {
 												{asset.state === 4 && <span>Waiting for recycling</span>}
 												{asset.state === 5 && <span>Recycled</span>}
 											</td>
-											<td onClick={() => this.handleEditAsset(`${asset.assetCode}`)}>
+											<td onClick={() => this.handleEditAsset(`${asset.assetCode}`, asset.state)}>
 												<img 
-													className="edit-icon button-img"
+													className={asset.state === 3 ? "disable-icon" : "edit-icon"}
 													src={UpdateIcon}
 													width="20px"/>
 											</td>

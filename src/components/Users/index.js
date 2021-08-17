@@ -196,127 +196,124 @@ const Index = () => {
             <div id="type_popover">
               {isAllSelected ? (
                 <div className="type-item">
-                  <input
-                    type="checkbox"
-                    id="all"
-                    value=""
-                    className="check-box-type"
-                    checked
-                    onChange={() => {
-                      setCurrentPage(0);
-                      setRoleSearch("");
-                      setIsAllSelected(false);
-                      setIsAdminSelected(false);
-                      setIsStaffSelected(false);
-                    }}
-                  />
-                  <label for="all">All</label>
+                  <label class="container">
+                    All
+                    <input
+                      type="checkbox"
+                      checked
+                      onChange={() => {
+                        setCurrentPage(0);
+                        setRoleSearch("");
+                        setIsAllSelected(false);
+                        setIsAdminSelected(false);
+                        setIsStaffSelected(false);
+                      }}
+                    />
+                    <span class="checkmark"></span>
+                  </label>
                 </div>
               ) : (
                 <div className="type-item">
-                  <input
-                    type="checkbox"
-                    className="check-box-type"
-                    id="all"
-                    value=""
-                    name="all"
-                    onChange={() => {
-                      setCurrentPage(0);
-                      setRoleSearch("");
-                      setIsAllSelected(true);
-                      setIsAdminSelected(true);
-                      setIsStaffSelected(true);
-                    }}
-                  />
-                  <label for="all">All</label>
+                  <label class="container">
+                    All
+                    <input
+                      type="checkbox"
+                      onChange={() => {
+                        setCurrentPage(0);
+                        setRoleSearch("");
+                        setIsAllSelected(true);
+                        setIsAdminSelected(true);
+                        setIsStaffSelected(true);
+                      }}
+                    />
+                    <span class="checkmark"></span>
+                  </label>
                 </div>
               )}
               {isAdminSelected ? (
                 <div className="type-item">
-                  <input
-                    type="checkbox"
-                    className="check-box-type"
-                    id="admin"
-                    value="1002"
-                    checked
-                    onChange={() => {
-                      setCurrentPage(0);
-                      if (isStaffSelected) {
-                        setRoleSearch("1001");
-                      } else {
-                        setRoleSearch("");
-                      }
-                      setIsAdminSelected(false);
-                      setIsAllSelected(false);
-                    }}
-                  />
-                  <label for="admin">Admin</label>
+                  <label class="container">
+                    Admin
+                    <input
+                      type="checkbox"
+                      checked
+                      onChange={() => {
+                        setCurrentPage(0);
+                        if (isStaffSelected) {
+                          setRoleSearch("1001");
+                        } else {
+                          setRoleSearch("");
+                        }
+                        setIsAdminSelected(false);
+                        setIsAllSelected(false);
+                      }}
+                    />
+                    <span class="checkmark"></span>
+                  </label>
                 </div>
               ) : (
                 <div className="type-item">
-                  <input
-                    type="checkbox"
-                    className="check-box-type"
-                    id="admin"
-                    value="1002"
-                    onChange={() => {
-                      setCurrentPage(0);
-                      if (isStaffSelected) {
-                        setIsAdminSelected(true);
-                        setIsAllSelected(true);
-                        setRoleSearch("");
-                      } else {
-                        setRoleSearch("1002");
-                        setIsAdminSelected(true);
-                      }
-                    }}
-                  />
-                  <label for="admin">Admin</label>
+                  <label class="container">
+                    Admin
+                    <input
+                      type="checkbox"
+                      onChange={() => {
+                        setCurrentPage(0);
+                        if (isStaffSelected) {
+                          setIsAdminSelected(true);
+                          setIsAllSelected(true);
+                          setRoleSearch("");
+                        } else {
+                          setRoleSearch("1002");
+                          setIsAdminSelected(true);
+                        }
+                      }}
+                    />
+                    <span class="checkmark"></span>
+                  </label>
                 </div>
               )}
               {isStaffSelected ? (
                 <div className="type-item">
-                  <input
-                    type="checkbox"
-                    className="check-box-type"
-                    id="staff"
-                    value="1001"
-                    name="Staff"
-                    checked
-                    onChange={() => {
-                      setCurrentPage(0);
-                      if (isAdminSelected) {
-                        setRoleSearch("1002");
-                      } else {
-                        setRoleSearch("");
-                      }
-                      setIsStaffSelected(false);
-                      setIsAllSelected(false);
-                    }}
-                  />
-                  <label for="staff">Staff</label>
+                  <label class="container">
+                    Staff
+                    <input
+                      type="checkbox"
+                      checked="checked"
+                      onChange={() => {
+                        setCurrentPage(0);
+                        if (isAdminSelected) {
+                          setRoleSearch("1002");
+                        } else {
+                          setRoleSearch("");
+                        }
+                        setIsStaffSelected(false);
+                        setIsAllSelected(false);
+                      }}
+                    />
+                    <span class="checkmark"></span>
+                  </label>
                 </div>
               ) : (
                 <div className="type-item">
-                  <input
-                    type="checkbox"
-                    className="check-box-type"
-                    id="staff"
-                    value="1001"
-                    name="Staff"
-                    onChange={() => {
-                      setCurrentPage(0);
-                      if (isAdminSelected) {
-                        setIsStaffSelected(true);
-                        setIsAllSelected(true);
-                        setRoleSearch("");
-                      } else {
-                        setIsStaffSelected(true);
-                        setRoleSearch("1001");
-                      }
-                    }}
-                  />
-                  <label for="staff">Staff</label>
+                  <label class="container">
+                    Staff
+                    <input
+                      type="checkbox"
+                      onChange={() => {
+                        setCurrentPage(0);
+                        if (isAdminSelected) {
+                          setIsStaffSelected(true);
+                          setIsAllSelected(true);
+                          setRoleSearch("");
+                        } else {
+                          setIsStaffSelected(true);
+                          setRoleSearch("1001");
+                        }
+                      }}
+                    />
+                    <span class="checkmark"></span>
+                  </label>
                 </div>
               )}
             </div>
