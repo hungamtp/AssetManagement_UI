@@ -103,7 +103,7 @@ const Index = ({ user, onDelete }) => {
           </div>
         </div>
       </Dialog>
-      <tr>
+      <tr id={user.staffCode}>
         <td onClick={showUserDetail}>{user.staffCode}</td>
         <td onClick={showUserDetail}>{user.fullName}</td>
         <td onClick={showUserDetail}>{user.username}</td>

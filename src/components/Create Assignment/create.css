@@ -44,7 +44,8 @@ label {
 }
 #search_icon {
   position: absolute;
-  left: 320px;
+  left: 325px;
+  top: 5px;
 }
 #name-dialog {
   color: red;

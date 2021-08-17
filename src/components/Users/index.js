@@ -3,7 +3,7 @@ import "./Users.css";
 import User from "./User";
 import searchIcon from "../../images/search.png";
 import Paginations from "./Pagination/Pagination";
-import { Popover } from "@material-ui/core";
+import { Popover, Button } from "@material-ui/core";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { useHistory } from "react-router";
@@ -168,7 +168,7 @@ const Index = () => {
       <p className="title">User List</p>
       <div id="Search_bar">
         <div id="filter_zone">
-          <input placeholder="Type" disabled />
+          <input id="type-input" placeholder="Type" disabled />
           <svg
             class="funnel-fill"
             viewBox="1.5 1 15 15"
@@ -190,127 +190,130 @@ const Index = () => {
             }}
             transformOrigin={{
               vertical: "top",
-              horizontal: "right",
+              horizontal: "center",
             }}
           >
             <div id="type_popover">
               {isAllSelected ? (
                 <div className="type-item">
-                  <input
-                    type="checkbox"
-                    id="all"
-                    value=""
-                    checked
-                    onChange={() => {
-                      setCurrentPage(0);
-                      setRoleSearch("");
-                      setIsAllSelected(false);
-                      setIsAdminSelected(false);
-                      setIsStaffSelected(false);
-                    }}
-                  />
-                  <label for="all">All</label>
+                  <label class="container">
+                    All
+                    <input
+                      type="checkbox"
+                      checked
+                      onChange={() => {
+                        setCurrentPage(0);
+                        setRoleSearch("");
+                        setIsAllSelected(false);
+                        setIsAdminSelected(false);
+                        setIsStaffSelected(false);
+                      }}
+                    />
+                    <span class="checkmark"></span>
+                  </label>
                 </div>
               ) : (
                 <div className="type-item">
-                  <input
-                    type="checkbox"
-                    id="all"
-                    value=""
-                    name="all"
-                    onChange={() => {
-                      setCurrentPage(0);
-                      setRoleSearch("");
-                      setIsAllSelected(true);
-                      setIsAdminSelected(true);
-                      setIsStaffSelected(true);
-                    }}
-                  />
-                  <label for="all">All</label>
+                  <label class="container">
+                    All
+                    <input
+                      type="checkbox"
+                      onChange={() => {
+                        setCurrentPage(0);
+                        setRoleSearch("");
+                        setIsAllSelected(true);
+                        setIsAdminSelected(true);
+                        setIsStaffSelected(true);
+                      }}
+                    />
+                    <span class="checkmark"></span>
+                  </label>
                 </div>
               )}
               {isAdminSelected ? (
                 <div className="type-item">
-                  <input
-                    type="checkbox"
-                    id="admin"
-                    value="1002"
-                    checked
-                    onChange={() => {
-                      setCurrentPage(0);
-                      if (isStaffSelected) {
-                        setRoleSearch("1001");
-                      } else {
-                        setRoleSearch("");
-                      }
-                      setIsAdminSelected(false);
-                      setIsAllSelected(false);
-                    }}
-                  />
-                  <label for="admin">Admin</label>
+                  <label class="container">
+                    Admin
+                    <input
+                      type="checkbox"
+                      checked
+                      onChange={() => {
+                        setCurrentPage(0);
+                        if (isStaffSelected) {
+                          setRoleSearch("1001");
+                        } else {
+                          setRoleSearch("");
+                        }
+                        setIsAdminSelected(false);
+                        setIsAllSelected(false);
+                      }}
+                    />
+                    <span class="checkmark"></span>
+                  </label>
                 </div>
               ) : (
                 <div className="type-item">
-                  <input
-                    type="checkbox"
-                    id="admin"
-                    value="1002"
-                    onChange={() => {
-                      setCurrentPage(0);
-                      if (isStaffSelected) {
-                        setIsAdminSelected(true);
-                        setIsAllSelected(true);
-                        setRoleSearch("");
-                      } else {
-                        setRoleSearch("1002");
-                        setIsAdminSelected(true);
-                      }
-                    }}
-                  />
-                  <label for="admin">Admin</label>
+                  <label class="container">
+                    Admin
+                    <input
+                      type="checkbox"
+                      onChange={() => {
+                        setCurrentPage(0);
+                        if (isStaffSelected) {
+                          setIsAdminSelected(true);
+                          setIsAllSelected(true);
+                          setRoleSearch("");
+                        } else {
+                          setRoleSearch("1002");
+                          setIsAdminSelected(true);
+                        }
+                      }}
+                    />
+                    <span class="checkmark"></span>
+                  </label>
                 </div>
               )}
               {isStaffSelected ? (
                 <div className="type-item">
-                  <input
-                    type="checkbox"
-                    id="staff"
-                    value="1001"
-                    name="Staff"
-                    checked
-                    onChange={() => {
-                      setCurrentPage(0);
-                      if (isAdminSelected) {
-                        setRoleSearch("1002");
-                      } else {
-                        setRoleSearch("");
-                      }
-                      setIsStaffSelected(false);
-                      setIsAllSelected(false);
-                    }}
-                  />
-                  <label for="staff">Staff</label>
+                  <label class="container">
+                    Staff
+                    <input
+                      type="checkbox"
+                      checked="checked"
+                      onChange={() => {
+                        setCurrentPage(0);
+                        if (isAdminSelected) {
+                          setRoleSearch("1002");
+                        } else {
+                          setRoleSearch("");
+                        }
+                        setIsStaffSelected(false);
+                        setIsAllSelected(false);
+                      }}
+                    />
+                    <span class="checkmark"></span>
+                  </label>
                 </div>
               ) : (
                 <div className="type-item">
-                  <input
-                    type="checkbox"
-                    id="staff"
-                    value="1001"
-                    name="Staff"
-                    onChange={() => {
-                      setCurrentPage(0);
-                      if (isAdminSelected) {
-                        setIsStaffSelected(true);
-                        setIsAllSelected(true);
-                        setRoleSearch("");
-                      } else {
-                        setIsStaffSelected(true);
-                        setRoleSearch("1001");
-                      }
-                    }}
-                  />
-                  <label for="staff">Staff</label>
+                  <label class="container">
+                    Staff
+                    <input
+                      type="checkbox"
+                      onChange={() => {
+                        setCurrentPage(0);
+                        if (isAdminSelected) {
+                          setIsStaffSelected(true);
+                          setIsAllSelected(true);
+                          setRoleSearch("");
+                        } else {
+                          setIsStaffSelected(true);
+                          setRoleSearch("1001");
+                        }
+                      }}
+                    />
+                    <span class="checkmark"></span>
+                  </label>
                 </div>
               )}
             </div>
@@ -319,12 +322,11 @@ const Index = () => {
         <div id="right_search_bar">
           <input
             type="text"
-            placeholder="search"
             id="name_search_zone"
             onChange={(e) => setNameSearch(e.target.value)}
           />
           <SearchIcon id="search_icon1" onClick={handleOnClickSearchButton} />
-          <button id="create_button" onClick={handleClickCreateNew}>
+          <button id="create_button1" onClick={handleClickCreateNew}>
             Create new user
           </button>
         </div>
