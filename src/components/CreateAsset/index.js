@@ -227,7 +227,7 @@ class index extends Component {
             <div id="Installed_Date_fh">
               <span>Installed Date</span>
             </div>
-            <Input
+            <input
               type="date"
               name="installDate"
               value={this.state.installDate}

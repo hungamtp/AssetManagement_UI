@@ -37,6 +37,7 @@ const Assignment = () => {
   //date
   const [localDateTime, setLocalDateTime] = useState("");
   const [tempList, setTempList] = useState([]);
+  const [stateAllTemp, setStateAllTemp] = useState(false);
 
   const handleClickCreateNew = () => {
     history.push("/creatnewasssignment");
@@ -170,48 +171,51 @@ const Assignment = () => {
   };
 
   useEffect(() => {
-   
-      const list = [];
-      if (stateAccepted) {
-        list.push(STATE.ACCEPTED);
-      } else {
-        let tempList = [];
-        if (stateWaiting) {
-          tempList.push(STATE.WAITING_FOR_ACCEPTANCE);
-        }
-        if (stateDeclined) {
-          tempList.push(STATE.DECLINED);
-        }
-        setTempList(tempList);
-        setStateAll(false);
-      }
+    const list = [];
+    if (stateAccepted) {
+      list.push(STATE.ACCEPTED);
+    } else {
+      let tempList = [];
       if (stateWaiting) {
-        list.push(STATE.WAITING_FOR_ACCEPTANCE);
-      } else {
-        let tempList = [];
-        if (stateAccepted) {
-          tempList.push(STATE.ACCEPTED);
-        }
-        if (stateDeclined) {
-          tempList.push(STATE.DECLINED);
-        }
-        setTempList(tempList);
-        setStateAll(false);
+        tempList.push(STATE.WAITING_FOR_ACCEPTANCE);
       }
       if (stateDeclined) {
-        list.push(STATE.DECLINED);
-      } else {
-        let tempList = [];
-        if (stateWaiting) {
-          tempList.push(STATE.WAITING_FOR_ACCEPTANCE);
-        }
-        if (stateAccepted) {
-          tempList.push(STATE.ACCEPTED);
-        }
-        setTempList(tempList);
-        setStateAll(false);
+        tempList.push(STATE.DECLINED);
       }
-      setStateList(list);
+      setTempList(tempList);
+      setStateAll(false);
+    }
+    if (stateWaiting) {
+      list.push(STATE.WAITING_FOR_ACCEPTANCE);
+    } else {
+      let tempList = [];
+      if (stateAccepted) {
+        tempList.push(STATE.ACCEPTED);
+      }
+      if (stateDeclined) {
+        tempList.push(STATE.DECLINED);
+      }
+      setTempList(tempList);
+      setStateAll(false);
+    }
+    if (stateDeclined) {
+      list.push(STATE.DECLINED);
+    } else {
+      let tempList = [];
+      if (stateWaiting) {
+        tempList.push(STATE.WAITING_FOR_ACCEPTANCE);
+      }
+      if (stateAccepted) {
+        tempList.push(STATE.ACCEPTED);
+      }
+      setTempList(tempList);
+      setStateAll(false);
+    }
+    if (stateAccepted && stateWaiting && stateDeclined) {
+      setStateAllTemp(true);
+      setStateAll(true);
+    }
+    setStateList(list);
   }, [stateAccepted, stateDeclined, stateWaiting]);
 
   useEffect(() => {
@@ -220,9 +224,13 @@ const Assignment = () => {
       list.push(1);
       list.push(2);
       list.push(3);
-      setStateAccepted(true);
-      setStateWaiting(true);
-      setStateDeclined(true);
+      if (stateAllTemp) {
+        setStateAllTemp(false);
+      } else {
+        setStateAccepted(true);
+        setStateWaiting(true);
+        setStateDeclined(true);
+      }
       setTempList([]);
       setStateList(list);
     } else {
