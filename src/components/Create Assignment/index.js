@@ -7,6 +7,7 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { get, post } from "../../httpHelper";
 import Paginations from "../Users/Pagination/Pagination";
 import { useHistory } from "react-router";
+import { ASSET_IS_NOT_AVAILABLE } from "../../constants/ErrorCode";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -163,8 +164,11 @@ const CreateAssignment = () => {
     });
     if (repsonse.data.errorCode === null) {
       // redirect to manage assignment
+      localStorage.setItem("newAssignment", JSON.stringify(repsonse.data.data));
       alert("Create New Assignment Successfully!");
       history.push("/manageassignment");
+    } else if (repsonse.data.errorCode === ASSET_IS_NOT_AVAILABLE) {
+      alert("Asset is not available");
     }
   };
   const [assetSearch, setAssetSearch] = useState("");
