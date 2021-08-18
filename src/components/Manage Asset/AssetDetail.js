@@ -144,7 +144,7 @@ export default class AssetDetail extends Component {
                                                     }
                                                     else {
                                                         return (
-                                                            <tr>
+                                                            <tr key={assignment.assignmentId}>
                                                                 <td>{assignment.assignedDate.split('T')[0]}</td>
                                                                 <td>{assignment.assignedTo.username}</td>
                                                                 <td>{assignment.assignedBy.username}</td>

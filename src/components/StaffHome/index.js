@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import Navbar from "../Navbar";
+import Menu from "../Menu";
+import * as business from "../../constants/Business";
 import { withRouter } from "react-router-dom";
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
+import OwnAssignment from "../OwnAssignment";
 
 class index extends Component {
 
@@ -25,6 +28,8 @@ class index extends Component {
         return (
             <div>
                 <Navbar businessName="Staff Home Page" />
+                <Menu business={business.HOME} />
+                <OwnAssignment/>
                 {
                     this.state.user === '' &&
                     this.props.history.push('/')
