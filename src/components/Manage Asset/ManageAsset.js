@@ -567,7 +567,7 @@ class ManageAsset extends Component {
 							{
 								this.state.assetList.map((asset) => {
 									return (
-										<tr key={asset.assetCode} >
+										<tr key={asset.assetCode} id={asset.assetCode}>
 											<td onClick={() => this.toggleShowButton(`${asset.assetCode}`)} >{asset.assetCode}</td>
 											<td onClick={() => this.toggleShowButton(`${asset.assetCode}`)} >{asset.assetName}</td>
 											<td onClick={() => this.toggleShowButton(`${asset.assetCode}`)} >{asset.category.categoryName}</td>
