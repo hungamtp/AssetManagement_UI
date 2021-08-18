@@ -64,10 +64,10 @@ class index extends Component {
             })
             .catch(err => {
                 if(err.response){
-                    if(err.response.data.message === 'USER_NOT_FOUND'){
+                    if(err.response.data.errorCode === 'USER_NOT_FOUND'){
                         this.setState({messageFail: 'User not found.'});
                     }
-                    else if(err.response.data.message === 'USER_IS_DISABLED'){
+                    else if(err.response.data.errorCode === 'USER_IS_DISABLED'){
                         this.setState({messageFail: 'User is disabled.'});
                     }
                     else{

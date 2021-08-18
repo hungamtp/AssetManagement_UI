@@ -47,7 +47,7 @@ class index extends Component {
         })
         .catch((err) => {
           if (err.response) {
-            switch (err.response.data.message) {
+            switch (err.response.data.errorCode) {
               case "USER_NOT_FOUND":
                 this.setState({ messageFail: "User not found." });
                 break;
@@ -85,7 +85,7 @@ class index extends Component {
         })
         .catch((err) => {
           if (err.response) {
-            switch (err.response.data.message) {
+            switch (err.response.data.errorCode) {
               case "USER_NOT_FOUND":
                 this.setState({ messageFail: "User not found." });
                 break;

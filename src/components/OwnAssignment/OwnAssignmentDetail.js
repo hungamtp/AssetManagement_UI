@@ -33,13 +33,13 @@ export default class OwnAssignmentDetail extends Component {
             })
             .catch(err => {
                 if (err.response) {
-                    if (err.response.data.message === 'ASSIGNMENT_NOT_FOUND') {
+                    if (err.response.data.errorCode === 'ASSIGNMENT_NOT_FOUND') {
                         this.setState({ messageFail: 'Assignment not found.' });
                     }
-                    else if (err.response.data.message === 'ASSIGNMENT_IS_DELETED') {
+                    else if (err.response.data.errorCode === 'ASSIGNMENT_IS_DELETED') {
                         this.setState({ messageFail: 'Assignment is deleted.' });
                     }
-                    else if (err.response.data.message === 'ASSIGNMENT_IS_DECLINED') {
+                    else if (err.response.data.errorCode === 'ASSIGNMENT_IS_DECLINED') {
                         this.setState({ messageFail: 'Assignment is declined.' });
                     }
                     else {
