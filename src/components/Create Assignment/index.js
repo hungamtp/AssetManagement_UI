@@ -194,7 +194,7 @@ const CreateAssignment = () => {
               className="search_user"
               onChange={(e) => setBoxUserSearch(e.target.value)}
             />
-            <SearchIcon id="search_user_icon" onClick={handleUserSearch} />
+            <SearchIcon id="search_user_icon1" onClick={handleUserSearch} />
           </div>
         </div>
         <div>
@@ -293,7 +293,7 @@ const CreateAssignment = () => {
               onChange={(e) => setAssetSearch(e.target.value)}
             />
             <SearchIcon
-              id="search_user_icon"
+              id="search_user_icon2"
               onClick={() => {
                 if (!isNaN(assetSearch[2])) {
                   setAssetCodeSearch(assetSearch.toUpperCase());
