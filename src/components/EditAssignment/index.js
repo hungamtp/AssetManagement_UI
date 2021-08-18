@@ -36,6 +36,7 @@ const EditAssignment = () => {
   const [assetCode, setAssetCode] = useState("");
   const [assetCodeSelected, setAssetCodeSelected] = useState("");
   const [assetNameSelected, setAssetNamelected] = useState("");
+  const [loadNotDone, setLoadNotDone] = useState(true);
 
   const history = useHistory();
 
@@ -195,6 +196,7 @@ const EditAssignment = () => {
         setAssetCode(assignment.asset.assetCode);
         setNote(assignment.note);
         setAssignedDate(assignment.assignedDate <= today ? date : assignment.assignedDate.split("T")[0]);
+        setLoadNotDone(false)
       }
     };
     fetchAssignment();
@@ -412,7 +414,7 @@ const EditAssignment = () => {
         </div>
       </div>
       <div id="button-zone-edit-assignment">
-        {username === "" || asset === "" || note.trim() === "" || assignedDate === "" ? (
+        {username === "" || asset === "" || note.trim() === "" || assignedDate === "" || loadNotDone ? (
           <Button variant="contained" color="secondary" size="medium" id="bt_save-edit-assignment" disabled>
             Save
           </Button>
