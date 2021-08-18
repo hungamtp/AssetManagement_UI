@@ -46,3 +46,9 @@
   top: 16px;
   overflow: visible;
 }
+
+#narbav_ecg .username {
+  color: white;
+  font-weight: bolder;
+  font-size: 18px;
+}

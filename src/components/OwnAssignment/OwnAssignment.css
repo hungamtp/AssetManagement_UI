@@ -54,3 +54,7 @@
 .icon-disabled {
     opacity: 0.5;
 }
+
+.click-button {
+    background-color: transparent;
+}

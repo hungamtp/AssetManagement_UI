@@ -9,6 +9,7 @@ import DropdownIcon from '../../images/dropdown-icon.png';
 import TickIcon from '../../images/tick-icon.svg';
 import XIcon from '../../images/x-icon.png';
 import RefreshIcon from '../../images/refresh-icon.jpg';
+import { AcceptAssignment, DeclineAssignment } from '../Response Assignment';
 
 class index extends Component {
 
@@ -33,7 +34,12 @@ class index extends Component {
             modal: false,
 
             isFail: false,
-            messageFail: ''
+            messageFail: '',
+
+            isShowAcceptAssignment: false,
+            isShowDeclineAssignment: false,
+
+            responseAssignmentId: ""
         };
     }
 
@@ -159,6 +165,28 @@ class index extends Component {
         })
     }
 
+    handleAcceptAssignmentShow = (assignmentId) => {
+        if (assignmentId === undefined) {
+            this.loadOwnAssignments();
+        } 
+        this.setState({
+            isShowAcceptAssignment: !this.state.isShowAcceptAssignment,
+            isShowDeclineAssignment: false,
+            responseAssignmentId: assignmentId
+        })
+    }
+
+    handleDeclineAssignmentShow = (assignmentId) => {
+        if (assignmentId === undefined) {
+            this.loadOwnAssignments();
+        }
+        this.setState({
+            isShowAcceptAssignment: false,
+            isShowDeclineAssignment: !this.state.isShowDeclineAssignment,
+            responseAssignmentId: assignmentId
+        })
+    }
+
     render() {
         return (
             <div>
@@ -223,20 +251,26 @@ class index extends Component {
                                             <td onClick={() => this.toggleShowButton(assignment.assignmentId)}>{assignment.assignedDate}</td>
                                             <td onClick={() => this.toggleShowButton(assignment.assignmentId)}>{assignment.state}</td>
                                             <td>
-                                                <img 
-                                                    src={TickIcon}
-                                                    alt="tick-icon"
-                                                    className={assignment.state === 'Accepted' ? 'icon-disabled' : 'icon-normal'}
-                                                    width="14px"
-                                                />
+                                                <button className="click-button" disabled={assignment.state === 'Accepted' ? false : false}
+                                                        onClick={() => this.handleAcceptAssignmentShow(assignment.assignmentId)}>
+                                                    <img 
+                                                        src={TickIcon}
+                                                        alt="tick-icon"
+                                                        className={assignment.state === 'Accepted' ? 'icon-disabled' : 'icon-normal'}
+                                                        width="14px"
+                                                    />
+                                                </button>
                                             </td>
                                             <td>
-                                                <img
-                                                    src={XIcon}
-                                                    alt="x-icon"
-                                                    className={assignment.state === 'Accepted' ? 'icon-disabled' : 'icon-normal'}
-                                                    width="14px"
-                                                />
+                                                <button className="click-button" disabled={assignment.state === 'Accepted' ? true : false}
+                                                    onClick={() => this.handleDeclineAssignmentShow(assignment.assignmentId)}>
+                                                    <img
+                                                        src={XIcon}
+                                                        alt="x-icon"
+                                                        className={assignment.state === 'Accepted' ? 'icon-disabled' : 'icon-normal'}
+                                                        width="14px"
+                                                    />
+                                                </button>
                                             </td>
                                             <td>
                                                 <img
@@ -298,6 +332,8 @@ class index extends Component {
                         </Button>
                     </ModalFooter>
                 </Modal>
+                <AcceptAssignment assignmentId={this.state.responseAssignmentId} isShowAcceptAssignment={this.state.isShowAcceptAssignment} handleAcceptAssignmentShow={this.handleAcceptAssignmentShow}/>
+                <DeclineAssignment assignmentId={this.state.responseAssignmentId} isShowDeclineAssignment={this.state.isShowDeclineAssignment} handleDeclineAssignmentShow={this.handleDeclineAssignmentShow}/>
             </div>
         )
     }
