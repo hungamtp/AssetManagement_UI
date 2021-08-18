@@ -266,7 +266,7 @@ class index extends Component {
                 Choose here
               </option>
               {this.state.categoryList.map((cat) => (
-                <option id={cat.categoryCode + cat.categoryName} value={cat.categoryCode}>
+                <option key={cat.categoryCode + cat.categoryName} id={cat.categoryCode} value={cat.categoryCode}>
                   {cat.categoryName}
                 </option>
               ))}

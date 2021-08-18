@@ -89,7 +89,7 @@ const Index = ({ assignment }) => {
           </div>
         </div>
       </Dialog>
-      <tr>
+      <tr id={assignment.assignmentId}>
         <td onClick={showAssignmentDetail}>{assignment.assignmentId}</td>
         <td onClick={showAssignmentDetail}>{assignment.asset.assetCode}</td>
         <td onClick={showAssignmentDetail}>{assignment.asset.assetName}</td>

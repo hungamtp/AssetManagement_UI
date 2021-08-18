@@ -327,7 +327,7 @@ const CreateAssignment = () => {
           <tbody>
             {assets.map((asset) => {
               return (
-                <tr>
+                <tr id={asset.code}>
                   <label class="container">
                     <input
                       type="radio"

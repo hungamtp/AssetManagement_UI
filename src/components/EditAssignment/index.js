@@ -245,7 +245,7 @@ const EditAssignment = () => {
             <tbody>
               {users.map((user) => {
                 return (
-                  <tr className="tr-edit-assignment">
+                  <tr className="tr-edit-assignment" id={user.staffCode}>
                     <input
                       type="radio"
                       name="user"
@@ -331,7 +331,7 @@ const EditAssignment = () => {
           <tbody>
             {assets.map((asset) => {
               return (
-                <tr className="tr-edit-assignment">
+                <tr className="tr-edit-assignment" id={asset.code}>
                   <input
                     type="radio"
                     name="asset"
