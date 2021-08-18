@@ -70,8 +70,12 @@ input {
   top: 8px;
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
+.popover-type {
+  position: absolute;
+  margin-top: 15px;
+  margin-left: -35px;
+}
 #type_popover {
-  width: 150px;
   padding: 20px;
 }
 .type-item {
@@ -101,7 +105,7 @@ input {
   border-radius: 5px;
   margin-right: 60px;
 }
-.container {
+.container1 {
   position: relative;
   padding-left: 35px;
   margin-bottom: 12px;
@@ -116,7 +120,7 @@ input {
 }
 
 /* Hide the browser's default checkbox */
-.container input {
+.container1 input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -125,7 +129,7 @@ input {
 }
 
 /* Create a custom checkbox */
-.checkmark {
+.checkmark1 {
   position: absolute;
   top: 0;
   left: 0;
@@ -136,24 +140,24 @@ input {
 }
 
 /* When the checkbox is checked, add a blue background */
-.container input:checked ~ .checkmark {
+.container1 input:checked ~ .checkmark1 {
   background-color: white;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
+.checkmark1:after {
   content: "";
   position: absolute;
   display: none;
 }
 
 /* Show the checkmark when checked */
-.container input:checked ~ .checkmark:after {
+.container1 input:checked ~ .checkmark1:after {
   display: block;
 }
 
 /* Style the checkmark/indicator */
-.container .checkmark:after {
+.container1 .checkmark1:after {
   left: 5px;
   top: 1px;
   width: 5px;

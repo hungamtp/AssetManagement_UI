@@ -181,6 +181,7 @@ const Index = () => {
           </svg>
           <Popover
             id={id}
+            className="popover-type"
             open={openType}
             anchorEl={anchorEl}
             onClose={handleClose}
@@ -196,7 +197,7 @@ const Index = () => {
             <div id="type_popover">
               {isAllSelected ? (
                 <div className="type-item">
-                  <label class="container">
+                  <label class="container1">
                     All
                     <input
                       type="checkbox"
@@ -209,12 +210,12 @@ const Index = () => {
                         setIsStaffSelected(false);
                       }}
                     />
-                    <span class="checkmark"></span>
+                    <span class="checkmark1"></span>
                   </label>
                 </div>
               ) : (
                 <div className="type-item">
-                  <label class="container">
+                  <label class="container1">
                     All
                     <input
                       type="checkbox"
@@ -226,13 +227,13 @@ const Index = () => {
                         setIsStaffSelected(true);
                       }}
                     />
-                    <span class="checkmark"></span>
+                    <span class="checkmark1"></span>
                   </label>
                 </div>
               )}
               {isAdminSelected ? (
                 <div className="type-item">
-                  <label class="container">
+                  <label class="container1">
                     Admin
                     <input
                       type="checkbox"
@@ -248,12 +249,12 @@ const Index = () => {
                         setIsAllSelected(false);
                       }}
                     />
-                    <span class="checkmark"></span>
+                    <span class="checkmark1"></span>
                   </label>
                 </div>
               ) : (
                 <div className="type-item">
-                  <label class="container">
+                  <label class="container1">
                     Admin
                     <input
                       type="checkbox"
@@ -269,13 +270,13 @@ const Index = () => {
                         }
                       }}
                     />
-                    <span class="checkmark"></span>
+                    <span class="checkmark1"></span>
                   </label>
                 </div>
               )}
               {isStaffSelected ? (
                 <div className="type-item">
-                  <label class="container">
+                  <label class="container1">
                     Staff
                     <input
                       type="checkbox"
@@ -291,12 +292,12 @@ const Index = () => {
                         setIsAllSelected(false);
                       }}
                     />
-                    <span class="checkmark"></span>
+                    <span class="checkmark1"></span>
                   </label>
                 </div>
               ) : (
                 <div className="type-item">
-                  <label class="container">
+                  <label class="container1">
                     Staff
                     <input
                       type="checkbox"
@@ -312,7 +313,7 @@ const Index = () => {
                         }
                       }}
                     />
-                    <span class="checkmark"></span>
+                    <span class="checkmark1"></span>
                   </label>
                 </div>
               )}
