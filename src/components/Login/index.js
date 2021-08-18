@@ -39,20 +39,10 @@ const Login = (props) => {
             });
             localStorage.setItem("jwtToken", response.data.data.token);
             localStorage.setItem("locationId", response.data.data.idLocation);
-            // props.onLogin();
-            if (response.data.data.firstLogin === false) {
-              history.push("/first");
-            }
-            if (
-              response.data.data.firstLogin === true &&
-              response.data.data.role === "ROLE_ADMIN"
-            ) {
+            if (response.data.data.role === "ROLE_ADMIN") {
               history.push("/admin");
             }
-            if (
-              response.data.data.firstLogin === true &&
-              response.data.data.role === "ROLE_USER"
-            ) {
+            if (response.data.data.role === "ROLE_USER") {
               history.push("/user");
             }
           }
@@ -75,16 +65,11 @@ const Login = (props) => {
         </span>
       </div>
       <div id="Login" className="Login">
-        {Object.keys(cookies).length === 0 && cookies.constructor === Object ? (
-          ""
-        ) : (
-          <Redirect to={URL.FIRST_LOGIN} />
-        )}
         <div id="Welcome_to_Online_Asset_Manage">
           <p>Welcome to Online Asset Management</p>
         </div>
         <div id="login-form">
-          <form>
+          <form onSubmit={handleLogin}>
             <div className="login-data">
               <label htmlFor="username">
                 Username
@@ -109,14 +94,13 @@ const Login = (props) => {
                 onChange={({ target }) => setPassword(target.value)}
               />
             </div>
+            <Button
+              className="login-btn"
+              disabled={isDisabled}
+            >
+              Login
+            </Button>
           </form>
-          <Button
-            className="login-btn"
-            disabled={isDisabled}
-            onClick={handleLogin}
-          >
-            Login
-          </Button>
         </div>
         <Modal isOpen={isFailed}>
           <ModalHeader>Notice</ModalHeader>
