@@ -7,6 +7,7 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { get, post } from "../../httpHelper";
 import Paginations from "../Users/Pagination/Pagination";
 import { useHistory } from "react-router";
+import { ASSET_IS_NOT_AVAILABLE } from "../../constants/ErrorCode";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -133,10 +134,10 @@ const CreateAssignment = () => {
     e.preventDefault();
     setCurrentPage(0);
     if (boxusersearch.toUpperCase().startsWith("SD")) {
-      setStaffCodeSearch(boxusersearch);
+      setStaffCodeSearch(boxusersearch.toUpperCase());
       setUsernameSearch("");
     } else {
-      setUsernameSearch(boxusersearch);
+      setUsernameSearch(boxusersearch.toLowerCase());
       setStaffCodeSearch("");
     }
   };
@@ -163,8 +164,11 @@ const CreateAssignment = () => {
     });
     if (repsonse.data.errorCode === null) {
       // redirect to manage assignment
+      localStorage.setItem("newAssignment", JSON.stringify(repsonse.data.data));
       alert("Create New Assignment Successfully!");
       history.push("/manageassignment");
+    } else if (repsonse.data.errorCode === ASSET_IS_NOT_AVAILABLE) {
+      alert("Asset is not available");
     }
   };
   const [assetSearch, setAssetSearch] = useState("");
@@ -219,15 +223,19 @@ const CreateAssignment = () => {
             <tbody>
               {users.map((user) => {
                 return (
-                  <tr>
-                    <input
-                      type="radio"
-                      name="user"
-                      onChange={() => {
-                        setStaffCodeSelected(user.staffCode);
-                        setNamelected(user.fullName);
-                      }}
-                    />
+                  <tr id={user.staffCode} className="user">
+                    <label class="container">
+                      <input
+                        type="radio"
+                        name="radio"
+                        onChange={() => {
+                          setStaffCodeSelected(user.staffCode);
+                          setNamelected(user.fullName);
+                        }}
+                      />
+                      <span class="checkmark"></span>
+                    </label>
+
                     <td>{user.staffCode}</td>
                     <td>{user.fullName}</td>
                     <td>{user.role}</td>
@@ -288,7 +296,7 @@ const CreateAssignment = () => {
               id="search_user_icon"
               onClick={() => {
                 if (!isNaN(assetSearch[2])) {
-                  setAssetCodeSearch(assetSearch);
+                  setAssetCodeSearch(assetSearch.toUpperCase());
                   setNameAssetSearch("");
                 } else {
                   setNameAssetSearch(assetSearch);
@@ -320,14 +328,17 @@ const CreateAssignment = () => {
             {assets.map((asset) => {
               return (
                 <tr>
-                  <input
-                    type="radio"
-                    name="asset"
-                    onChange={() => {
-                      setAssetCodeSelected(asset.code);
-                      setAssetNamelected(asset.name);
-                    }}
-                  />
+                  <label class="container">
+                    <input
+                      type="radio"
+                      name="radio"
+                      onChange={() => {
+                        setAssetCodeSelected(asset.code);
+                        setAssetNamelected(asset.name);
+                      }}
+                    />
+                    <span class="checkmark"></span>
+                  </label>
                   <td>{asset.code}</td>
                   <td>{asset.name}</td>
                   <td>{asset.category}</td>
