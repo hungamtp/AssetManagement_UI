@@ -1,0 +1,14 @@
+#report {
+  margin: 200px 500px;
+  width: 100vh;
+}
+
+#report table {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 100%;
+}
+#report tr {
+  border-style: dashed;
+  border-bottom: 1px solid violet;
+}

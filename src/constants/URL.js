@@ -7,6 +7,7 @@ export const EndPoint =
 export const MANAGE_ASSET = "/manageasset";
 export const CREATE_ASSET = "/create-asset";
 export const EDIT_ASSET = "/editasset/:assetCode";
+export const ASSET_REPORT = "/report";
 //Assignment
 export const MANAGE_ASSIGNMENT = "/manageassignment";
 export const CREATE_ASSIGNMENT = "/creatnewasssignment";
