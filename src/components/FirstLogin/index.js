@@ -1,16 +1,11 @@
 import React, { Component } from "react";
-import Navbar from "../Navbar";
-import Menu from "../Menu";
 import "./FirstLogin.css";
-import { Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { withRouter, Redirect } from "react-router-dom";
-import * as business from "../../constants/Business";
-import axios from "axios";
+import { Button, Form, FormGroup, Label, Input, 
+  Alert } from "reactstrap";
+import { withRouter } from "react-router-dom";
 import { instanceOf } from "prop-types";
 import { withCookies, Cookies } from "react-cookie";
 import { put } from "../../httpHelper";
-import * as URL from "../../constants/URL";
-import * as role from "../../constants/Business";
 
 class index extends Component {
   static propTypes = {
@@ -42,6 +37,7 @@ class index extends Component {
             if (response.data.successCode === "CHANGE_PASSWORD_SUCCESS") {
               this.props.cookies.set("user", JSON.stringify(response.data.data), { path: "/" });
               this.props.history.push("/admin");
+              this.props.reload();
             }
           }
         })
@@ -80,6 +76,7 @@ class index extends Component {
             if (response.data.successCode === "CHANGE_PASSWORD_SUCCESS") {
               this.props.cookies.set("user", JSON.stringify(response.data.data), { path: "/" });
               this.props.history.push("/user");
+              this.props.reload();
             }
           }
         })
@@ -119,74 +116,32 @@ class index extends Component {
     });
   }
 
-  componentDidMount() {
-    if (this.state.user.role === role.ROLE_ADMIN && this.state.user.firstLogin === true) {
-      this.props.history.push(URL.HOME_ADMIN);
-    } else if (this.state.user.role === role.ROLE_STAFF && this.state.user.firstLogin === true) {
-      this.props.history.push(URL.HOME_USER);
-    }
-  }
-
   render() {
     return (
-      <div>
-        <Navbar businessName="Home" />
-        <div id="Login_the_first_time">
-          <div id="Login_mph" className="Login">
-            <svg className="header_mpi">
-              <rect id="header_mpi" rx={10} ry={10} x={0} y={0} width="465.649" height={64}></rect>
-            </svg>
-            <svg className="background_mpj" viewBox="0 0 465.648 228.959">
-              <path
-                id="background_mpj"
-                d="M 0 0 L 465.6484680175781 0 L 465.6484680175781 222.9495544433594 C 465.6484680175781 226.2684936523438 461.30517578125 228.958984375 455.9474182128906 228.958984375 L 9.701008796691895 228.958984375 C 4.343289375305176 228.958984375 0 226.2684936523438 0 222.9495544433594 L 0 0 Z"
-              ></path>
-            </svg>
-            <Form inline onSubmit={(e) => this.changePassword(e)}>
-              <div id="Save_btn_mpk" className="Save_btn">
-                <div id="Primary__#CF2338_mpl" className="Save_btn">
-                  <Button className=" btn-block" color="danger" disabled={this.state.isDisabled}>
-                    Save
-                  </Button>
-                </div>
-              </div>
-              <div id="PW_mpn">
-                <div id="New_password_">
-                  <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                    <span style={{ color: "rgba(233,66,77,1)" }}>*</span>
-                    <Label className="mr-sm-2" for="pw">
-                      New password
-                    </Label>
-                    <Input type="password" name="password" id="pw" onChange={(e) => this.handleChange(e, "password")} />
-                  </FormGroup>
-                </div>
-              </div>
-            </Form>
-            <div id="username_mpt">
-              <div id="This_is_the_first_time_you_log">
-                <span>
-                  This is the first time you logged in.
-                  <br />
-                  You have to change your password to continue.
-                </span>
-              </div>
-            </div>
-            <div id="Change_password_mpv">
-              <span>Change password</span>
-            </div>
-          </div>
+      <div className="first-login">
+        <div className="text">
+          <p>This is the first time you logged in.</p>
+          <p>You have to change your password to continue.</p>
         </div>
-        <Modal isOpen={this.state.isFailed}>
-          <ModalHeader>Notice</ModalHeader>
-          <ModalBody>
-            <p style={{ color: "red" }}>{this.state.messageFail}</p>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={() => this.setState({ isFailed: false })}>
-              Close
+        <div className="input">
+          <Form inline onSubmit={(e) => this.changePassword(e)}>
+            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+              <Label for="password" className="mr-sm-2">New password</Label>
+              <Input type="password" name="password" id="password" onChange={(e) => this.handleChange(e, "password")}/>
+            </FormGroup>
+            <Button color="danger" disabled={this.state.isDisabled}>
+              Save
             </Button>
-          </ModalFooter>
-        </Modal>
+          </Form>
+        </div>
+        {
+          this.state.isFailed &&
+          <div style={{marginTop: '20px'}}>
+            <Alert color="danger">
+              {this.state.messageFail}
+            </Alert>
+        </div>
+        }
       </div>
     );
   }

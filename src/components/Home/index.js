@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import Navbar from "../Navbar";
 import Menu from "../Menu";
+import "./Home.css";
 import * as business from "../../constants/Business";
 import { withRouter } from "react-router-dom";
 import { instanceOf } from "prop-types";
 import { withCookies, Cookies } from "react-cookie";
 import OwnAssignment from "../OwnAssignment";
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
+import FirstLogin from "../FirstLogin";
 
 class index extends Component {
   static propTypes = {
@@ -19,6 +22,16 @@ class index extends Component {
     };
   }
 
+  componentDidMount() {
+    
+  }
+
+  reload() {
+    this.setState({
+      user: this.props.cookies.get("user") || "",
+    })
+  }
+
   render() {
     return (
       <div>
@@ -26,7 +39,15 @@ class index extends Component {
         <Menu business={business.HOME} />
         {/* menu co prop là business tương ứng HOME, MANAGE_USER, ... mn xem them trong const */}
         {/* layout mẫu mn cu v mà làm nha */}
-        <OwnAssignment/>
+        <OwnAssignment />
+        <Modal isOpen={this.state.user.firstLogin === false}>
+          <ModalHeader style={{backgroundColor: 'lightgrey'}}>
+            <span style={{ color: 'red' }}>Change password</span>
+          </ModalHeader>
+          <ModalBody>
+            <FirstLogin reload={() => this.reload()}/>
+          </ModalBody>
+        </Modal>
       </div>
     );
   }
