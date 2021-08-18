@@ -17,6 +17,7 @@ import EditAsset_Page from "./pages/Edit asset";
 import ManageUser_Page from "./pages/ManageUser";
 import Create_Assignment_Page from "./pages/Create assignment";
 import ManageAssignment_Page from "./pages/ManageAssignment"
+import EditAssignment from "./pages/EditAssignment"
 
 export default class App extends Component {
   render() {
@@ -40,6 +41,7 @@ export default class App extends Component {
             {/* ASSIGNMENT */}
             <ProtectedRoute exact path={URL.MANAGE_ASSIGNMENT} role={role.ROLE_ADMIN} component={ManageAssignment_Page} />
             <ProtectedRoute exact path={URL.CREATE_ASSIGNMENT} role={role.ROLE_ADMIN} component={Create_Assignment_Page} />
+            <ProtectedRoute exact path={URL.EDIT_ASSIGNMENT} role={role.ROLE_ADMIN} component={EditAssignment} />
             <Route exact path="/**">
               <Login />
             </Route>
