@@ -1,18 +1,19 @@
-import "./create.css";
+import "./EditAssignment.css";
 import React, { useState, useEffect } from "react";
 import { Dialog, Slide, Button, TextareaAutosize } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
-import { get, post } from "../../httpHelper";
+import { get, put } from "../../httpHelper";
 import Paginations from "../Users/Pagination/Pagination";
-import { useHistory } from "react-router";
-import { ASSET_IS_NOT_AVAILABLE } from "../../constants/ErrorCode";
+import { useHistory, useParams } from "react-router-dom";
+import * as URL from "../../constants/URL";
+import * as STATE from "../../constants/State";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-const CreateAssignment = () => {
+const EditAssignment = () => {
   const [username, setUsername] = useState("");
   const [asset, setAsset] = useState("");
   const [assignedDate, setAssignedDate] = useState("");
@@ -35,6 +36,7 @@ const CreateAssignment = () => {
   const [assetCode, setAssetCode] = useState("");
   const [assetCodeSelected, setAssetCodeSelected] = useState("");
   const [assetNameSelected, setAssetNamelected] = useState("");
+  const [loadNotDone, setLoadNotDone] = useState(true);
 
   const history = useHistory();
 
@@ -134,10 +136,10 @@ const CreateAssignment = () => {
     e.preventDefault();
     setCurrentPage(0);
     if (boxusersearch.toUpperCase().startsWith("SD")) {
-      setStaffCodeSearch(boxusersearch.toUpperCase());
+      setStaffCodeSearch(boxusersearch);
       setUsernameSearch("");
     } else {
-      setUsernameSearch(boxusersearch.toLowerCase());
+      setUsernameSearch(boxusersearch);
       setStaffCodeSearch("");
     }
   };
@@ -151,29 +153,56 @@ const CreateAssignment = () => {
   if (month < 10) month = "0" + month;
   if (day < 10) day = "0" + day;
 
-  var today = year + "-" + month + "-" + day + " 00:00";
+  var today = year + "-" + month + "-" + day + "T00:00:00";
   var date = year + "-" + month + "-" + day;
-  const handleCreateAssignment = async () => {
+  const handleEditAssignment = async () => {
     const url = "assignment";
-    const repsonse = await post(url, {
-      assignedBy: localStorage.getItem("staffcode"),
-      assignedTo: staffCode,
-      assetCode: assetCode,
-      assignedDate: assignedDate === "" ? today : assignedDate,
-      note: note,
-    });
-    if (repsonse.data.errorCode === null) {
-      // redirect to manage assignment
-      localStorage.setItem("newAssignment", JSON.stringify(repsonse.data.data));
-      alert("Create New Assignment Successfully!");
-      history.push("/manageassignment");
-    } else if (repsonse.data.errorCode === ASSET_IS_NOT_AVAILABLE) {
-      alert("Asset is not available");
+    let repsonse;
+    try {
+      repsonse = await put(url, {
+        assignedToUserId: staffCode,
+        assetCode: assetCode,
+        assignedDate: assignedDate + "T00:00:00",
+        note: note.trim(),
+        assignmentId: parseInt(assignmentId),
+      });
+    } catch (error) {
+      alert(error.response.data.errorCode);
     }
+    localStorage.setItem("editAssignment", JSON.stringify(repsonse.data.data));
+    history.push(URL.MANAGE_ASSIGNMENT);
   };
   const [assetSearch, setAssetSearch] = useState("");
+
+  // load data
+  let { assignmentId } = useParams();
+  useEffect(() => {
+    const fetchAssignment = async () => {
+      const url = `assignment/${assignmentId}`;
+      let response = undefined;
+      try {
+        response = await get(url);
+      } catch (error) {
+        if (error.response.data.errorCode === "ERR_ASSIGNMENT_ID_NOT_FOUND") {
+          history.push(URL.MANAGE_ASSIGNMENT);
+        }
+      }
+      if (response !== undefined) {
+        if (response.data.data.state !== STATE.WAITING_FOR_ACCEPTANCE) history.push(URL.MANAGE_ASSIGNMENT);
+        let assignment = response.data.data;
+        setStaffCode(assignment.assignedTo.staffCode);
+        setUsername(`${assignment.assignedTo.firstName} ${assignment.assignedTo.lastName}`);
+        setAsset(assignment.asset.assetName);
+        setAssetCode(assignment.asset.assetCode);
+        setNote(assignment.note);
+        setAssignedDate(assignment.assignedDate <= today ? date : assignment.assignedDate.split("T")[0]);
+        setLoadNotDone(false)
+      }
+    };
+    fetchAssignment();
+  }, []);
   return (
-    <div id="Form_es">
+    <div id="Form-edit-assignment">
       <Dialog
         id="user_dialog"
         open={isOpenUserDialog}
@@ -185,36 +214,29 @@ const CreateAssignment = () => {
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <div id="dialog-title">
-          <div id="name-dialog">
+        <div id="dialog-title-edit-assignment">
+          <div id="name-dialog-edit-assignment">
             <b>Select User</b>
           </div>
           <div className="field">
-            <input
-              className="search_user"
-              onChange={(e) => setBoxUserSearch(e.target.value)}
-            />
-            <SearchIcon id="search_user_icon1" onClick={handleUserSearch} />
+            <input className="search_user" onChange={(e) => setBoxUserSearch(e.target.value)} />
+            <SearchIcon id="search_user_icon-edit-assignment" onClick={handleUserSearch} />
           </div>
         </div>
         <div>
           <table id="users-table">
             <thead>
-              <tr>
-                <th></th>
-                <th onClick={handleSortByStaffCode}>
+              <tr className="tr-edit-assignment">
+                <th className="th-edit-assignment"></th>
+                <th className="th-edit-assignment" onClick={handleSortByStaffCode}>
                   Staff Code
                   {isStaffCodeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
                 </th>
-                <th onClick={handleSortByFullName}>
+                <th className="th-edit-assignment" onClick={handleSortByFullName}>
                   Full Name
-                  {isFullNameCodeASC ? (
-                    <ArrowDropDownIcon />
-                  ) : (
-                    <ArrowDropUpIcon />
-                  )}
+                  {isFullNameCodeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
                 </th>
-                <th onClick={handleSortType}>
+                <th className="th-edit-assignment" onClick={handleSortType}>
                   Type
                   {isTypeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
                 </th>
@@ -223,19 +245,15 @@ const CreateAssignment = () => {
             <tbody>
               {users.map((user) => {
                 return (
-                  <tr id={user.staffCode} className="user">
-                    <label class="container">
-                      <input
-                        type="radio"
-                        name="radio"
-                        onChange={() => {
-                          setStaffCodeSelected(user.staffCode);
-                          setNamelected(user.fullName);
-                        }}
-                      />
-                      <span class="checkmark"></span>
-                    </label>
-
+                  <tr className="tr-edit-assignment" id={user.staffCode}>
+                    <input
+                      type="radio"
+                      name="user"
+                      onChange={() => {
+                        setStaffCodeSelected(user.staffCode);
+                        setNamelected(user.fullName);
+                      }}
+                    />
                     <td>{user.staffCode}</td>
                     <td>{user.fullName}</td>
                     <td>{user.role}</td>
@@ -250,24 +268,13 @@ const CreateAssignment = () => {
           setCurrentPage={(currentPage) => {
             setCurrentPage(currentPage);
           }}
-          className="pagination"
+          className="pagination-edit-assignment"
         />
-        <div id="button-zone1">
-          <Button
-            variant="contained"
-            color="secondary"
-            size="medium"
-            id="bt_save"
-            onClick={handleSelectUser}
-          >
+        <div id="button-zone1-edit-assignment">
+          <Button variant="contained" color="secondary" size="medium" id="bt_save-edit-assignment" onClick={handleSelectUser}>
             Save
           </Button>
-          <Button
-            variant="outlined"
-            color="secondary"
-            size="medium"
-            onClick={() => setIsOpenUserDialog(false)}
-          >
+          <Button variant="outlined" color="secondary" size="medium" onClick={() => setIsOpenUserDialog(false)}>
             Cancel
           </Button>
         </div>
@@ -283,20 +290,17 @@ const CreateAssignment = () => {
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <div id="dialog-title">
-          <div id="name-dialog">
+        <div id="dialog-title-edit-assignment">
+          <div id="name-dialog-edit-assignment">
             <b>Select Asset</b>
           </div>
           <div className="field">
-            <input
-              className="search_user"
-              onChange={(e) => setAssetSearch(e.target.value)}
-            />
+            <input className="search_user" onChange={(e) => setAssetSearch(e.target.value)} />
             <SearchIcon
-              id="search_user_icon2"
+              id="search_user_icon-edit-assignment"
               onClick={() => {
                 if (!isNaN(assetSearch[2])) {
-                  setAssetCodeSearch(assetSearch.toUpperCase());
+                  setAssetCodeSearch(assetSearch);
                   setNameAssetSearch("");
                 } else {
                   setNameAssetSearch(assetSearch);
@@ -306,19 +310,19 @@ const CreateAssignment = () => {
             />
           </div>
         </div>
-        <table id="users-table">
+        <table id="users-table" className="table-edit-assignment">
           <thead>
-            <tr>
-              <th></th>
-              <th onClick={handleSortByAssetCode}>
+            <tr className="tr-edit-assignment">
+              <th className="th-edit-assignment"></th>
+              <th className="th-edit-assignment" onClick={handleSortByAssetCode}>
                 Asset Code
                 {isAssetCodeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
               </th>
-              <th onClick={handleSortByAssetName}>
+              <th className="th-edit-assignment" onClick={handleSortByAssetName}>
                 Asset Name
                 {isAssetNameASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
               </th>
-              <th onClick={handleSortByCategory}>
+              <th className="th-edit-assignment" onClick={handleSortByCategory}>
                 Category
                 {isCategoryASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
               </th>
@@ -327,18 +331,15 @@ const CreateAssignment = () => {
           <tbody>
             {assets.map((asset) => {
               return (
-                <tr id={asset.code}>
-                  <label class="container">
-                    <input
-                      type="radio"
-                      name="radio"
-                      onChange={() => {
-                        setAssetCodeSelected(asset.code);
-                        setAssetNamelected(asset.name);
-                      }}
-                    />
-                    <span class="checkmark"></span>
-                  </label>
+                <tr className="tr-edit-assignment" id={asset.code}>
+                  <input
+                    type="radio"
+                    name="asset"
+                    onChange={() => {
+                      setAssetCodeSelected(asset.code);
+                      setAssetNamelected(asset.name);
+                    }}
+                  />
                   <td>{asset.code}</td>
                   <td>{asset.name}</td>
                   <td>{asset.category}</td>
@@ -355,12 +356,12 @@ const CreateAssignment = () => {
           className="pagination"
         />
 
-        <div id="button-zone2">
+        <div id="button-zone2-edit-assignment">
           <Button
             variant="contained"
             color="secondary"
             size="medium"
-            id="bt_save"
+            id="bt_save-edit-assignment"
             onClick={() => {
               setIsOpenAssetDialog(false);
               setAsset(assetNameSelected);
@@ -369,78 +370,56 @@ const CreateAssignment = () => {
           >
             Save
           </Button>
-          <Button
-            variant="outlined"
-            color="secondary"
-            size="medium"
-            onClick={() => setIsOpenAssetDialog(false)}
-          >
+          <Button variant="outlined" color="secondary" size="medium" onClick={() => setIsOpenAssetDialog(false)}>
             Cancel
           </Button>
         </div>
       </Dialog>
-      <h5 id="title_form">
-        <b>Create New Assignment</b>
+      <h5 id="title_form-edit-assignment">
+        <b>Edit Assignment</b>
       </h5>
-      <div id="form">
-        <div className="field">
-          <label>User</label>
-          <input disabled value={username} className="input_field" />
-          <SearchIcon
-            id="search_icon"
-            onClick={() => setIsOpenUserDialog(true)}
-          />
+      <div id="form-edit-assignment-2">
+        <div className="field-edit-assignment">
+          <label className="edit-assignment-label">User</label>
+          <input disabled value={username} className="input-field-edit-assignment" />
+          <SearchIcon id="search_icon-edit-assignment" onClick={() => setIsOpenUserDialog(true)} />
         </div>
-        <div className="field">
-          <label>Asset</label>
-          <input value={asset} className="input_field" disabled />
-          <SearchIcon
-            id="search_icon"
-            onClick={() => setIsOpenAssetDialog(true)}
-          />
+        <div className="field-edit-assignment">
+          <label className="edit-assignment-label">Asset</label>
+          <input value={asset} className="input-field-edit-assignment" disabled />
+          <SearchIcon id="search_icon-edit-assignment" onClick={() => setIsOpenAssetDialog(true)} />
         </div>
-        <div className="field">
-          <label>Asigned Date</label>
+        <div className="field-edit-assignment">
+          <label className="edit-assignment-label">Asigned Date</label>
           <input
             type="date"
             min={date}
-            className="input_field"
-            defaultValue={date}
+            className="input-field-edit-assignment"
+            value={assignedDate}
             onChange={(e) => {
-              setAssignedDate(e.target.value + " 00:00");
+              setAssignedDate(e.target.value);
             }}
           />
         </div>
-        <div className="field">
-          <label>Note</label>
+        <div className="field-edit-assignment">
+          <label className="edit-assignment-label">Note</label>
           <textarea
-            id="note"
-            className="input_field"
+            id="note-edit-assignment"
+            className="input-field-edit-assignment textarea-edit-assignment"
             rows="5"
             maxLength="250"
+            value={note}
             onChange={(e) => setNote(e.target.value)}
           />
         </div>
       </div>
-      <div id="button-zone">
-        {username === "" || asset === "" || note === "" ? (
-          <Button
-            variant="contained"
-            color="secondary"
-            size="medium"
-            id="bt_save"
-            disabled
-          >
+      <div id="button-zone-edit-assignment">
+        {username === "" || asset === "" || note.trim() === "" || assignedDate === "" || loadNotDone ? (
+          <Button variant="contained" color="secondary" size="medium" id="bt_save-edit-assignment" disabled>
             Save
           </Button>
         ) : (
-          <Button
-            variant="contained"
-            color="secondary"
-            size="medium"
-            id="bt_save"
-            onClick={handleCreateAssignment}
-          >
+          <Button variant="contained" color="secondary" size="medium" id="bt_save-edit-assignment" onClick={handleEditAssignment}>
             Save
           </Button>
         )}
@@ -460,4 +439,4 @@ const CreateAssignment = () => {
   );
 };
 
-export default CreateAssignment;
+export default EditAssignment;

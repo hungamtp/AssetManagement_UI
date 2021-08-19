@@ -19,7 +19,7 @@ const Navbar = (props) => {
     setUser(cookies.user);
     //change password
     if (cookies.user.firstLogin) setDisabledPass(false);
-    else setDisabledPass(true);
+    else setDisabledPass(false);
     //logout
     if (window.location.pathname === "/first") setDisabledLogout(true);
     else setDisabledLogout(false);

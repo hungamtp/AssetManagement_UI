@@ -18,6 +18,8 @@ import ManageUser_Page from "./pages/ManageUser";
 import Create_Assignment_Page from "./pages/Create assignment";
 import ManageAssignment_Page from "./pages/ManageAssignment";
 import Report_Page from "./pages/Report Page";
+import ManageAssignment_Page from "./pages/ManageAssignment";
+import EditAssignment from "./pages/EditAssignment";
 
 export default class App extends Component {
   render() {
@@ -26,7 +28,7 @@ export default class App extends Component {
         <Router>
           <Switch>
             {/* CHANGEPASS */}
-            <ProtectedRouteForFirstLogin exact path={URL.FIRST_LOGIN} role={role.ROLE_ADMIN + role.ROLE_STAFF} component={FirstLogin} />
+            {/* <ProtectedRouteForFirstLogin exact path={URL.FIRST_LOGIN} role={role.ROLE_ADMIN + role.ROLE_STAFF} component={FirstLogin} /> */}
             {/* HOME */}
             <ProtectedRoute exact path={URL.HOME_ADMIN} role={role.ROLE_ADMIN} component={Home} />
             <ProtectedRoute exact path={URL.HOME_USER} role={role.ROLE_STAFF} component={StaffHome} />
@@ -42,6 +44,7 @@ export default class App extends Component {
             <ProtectedRoute exact path={URL.MANAGE_ASSIGNMENT} role={role.ROLE_ADMIN} component={ManageAssignment_Page} />
             <ProtectedRoute exact path={URL.CREATE_ASSIGNMENT} role={role.ROLE_ADMIN} component={Create_Assignment_Page} />
             <ProtectedRoute exact path={URL.ASSET_REPORT} role={role.ROLE_ADMIN} component={Report_Page} />
+            <ProtectedRoute exact path={URL.EDIT_ASSIGNMENT} role={role.ROLE_ADMIN} component={EditAssignment} />
             <Route exact path="/**">
               <Login />
             </Route>

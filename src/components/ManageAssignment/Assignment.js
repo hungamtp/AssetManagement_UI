@@ -47,6 +47,27 @@ const Assignment = () => {
     e.preventDefault();
   };
 
+  const loadNewOrEditData = (AssignmentListTemp) => {
+    let newAssignment = localStorage.getItem("newAssignment");
+    let editAssignment = localStorage.getItem("editAssignment");
+    let AssignmentList = JSON.parse(JSON.stringify(AssignmentListTemp));
+    if (newAssignment !== null) {
+      newAssignment = JSON.parse(newAssignment);
+      AssignmentList = AssignmentList.filter((e) => e.assignmentId !== newAssignment.assignmentId);
+      AssignmentList[0] = newAssignment;
+      localStorage.removeItem("newAssignment");
+      setAssignments(AssignmentList);
+    } else if (editAssignment !== null) {
+      editAssignment = JSON.parse(editAssignment);
+      AssignmentList = AssignmentList.filter((e) => e.assignmentId !== editAssignment.assignmentId);
+      AssignmentList[0] = editAssignment;
+      localStorage.removeItem("editAssignment");
+      setAssignments(AssignmentList);
+    } else {
+      setAssignments(AssignmentList);
+    }
+  };
+
   useEffect(() => {
     const fetchAssignments = async () => {
       const url = `assignment?page=${currentPage}&size=${size}`;
@@ -68,7 +89,7 @@ const Assignment = () => {
     };
     post(url, data)
       .then((response) => {
-        setAssignments(response.data.data);
+        loadNewOrEditData(response.data.data);
       })
       .catch((err) => console.log(err));
   }, [stateList, localDateTime, sortField, sortType]);
