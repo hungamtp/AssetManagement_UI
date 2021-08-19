@@ -7,6 +7,7 @@ import { put } from "../../httpHelper";
 import { changePassFailException } from "../../exceptions/ChangePassException";
 import * as ROLE from "../../constants/Business";
 
+
 const ChangePassword = (props) => {
   const [user, setUser] = useState(false);
   const [username, setUsername] = useState("");
@@ -15,6 +16,7 @@ const ChangePassword = (props) => {
   const [oldPassword, setOldPassword] = useState("");
   const [isDisabled, setIsDisable] = useState(true);
   const [message, setMessage] = useState("");
+  const [notification, setnotification] = useState(false);
 
   let history = useHistory();
 
@@ -45,14 +47,16 @@ const ChangePassword = (props) => {
     };
     put(Url, data)
       .then(() => {
-        props.handleChangpasswordCancel();
+          setnotification(true);
+          
       })
       .catch((err) => {
         setMessage(changePassFailException(err));
         clearMessage();
       });
+      
   };
-  const handleUserChangePassword = () => {
+   const handleUserChangePassword = () => {
     let Url = "user/password/" + username;
     let data = {
       oldPassword,
@@ -60,23 +64,26 @@ const ChangePassword = (props) => {
     };
     put(Url, data)
       .then(() => {
-        props.handleChangpasswordCancel();
+        setnotification(true);
+        
       })
       .catch((err) => {
         setMessage(changePassFailException(err));
         clearMessage();
-      });
+      }); 
+      
   };
-
   const clearMessage = () => {
     setTimeout(() => {
       setMessage("");
     }, 3000);
   };
-
+ 
   const handleCancelChangePassword = () => {
     //cancel
+    setnotification(false);
     props.handleChangpasswordCancel();
+    
   };
 
   return (
@@ -100,11 +107,23 @@ const ChangePassword = (props) => {
           <Button className="save-btn" disabled={isDisabled} onClick={handleChangePassword}>
             SAVE
           </Button>
-          <button className="cancel-btn" onClick={handleCancelChangePassword}>
+          <button className="cancel-btn" onClick={handleCancelChangePassword} >
             CANCEL
           </button>
         </div>
-      </div>
+        {notification &&  <div id="notification" >
+        <div className="delete-asset-header" >
+                <p>Change Password</p>
+            </div>
+            <div className="delete-asset-body">
+              <br></br>
+                <p>Password has been Changed  successfully!</p>
+                <Button id="cancel-changepasss" onClick={handleCancelChangePassword} outline color="secondary" >Cancel</Button>{' '}
+                <br></br>
+                <br></br>
+            </div>
+          </div> } 
+        </div>
     </div>
   );
 };
