@@ -18,7 +18,6 @@ import ManageUser_Page from "./pages/ManageUser";
 import Create_Assignment_Page from "./pages/Create assignment";
 import ManageAssignment_Page from "./pages/ManageAssignment";
 import Report_Page from "./pages/Report Page";
-import ManageAssignment_Page from "./pages/ManageAssignment";
 import EditAssignment from "./pages/EditAssignment";
 
 export default class App extends Component {
