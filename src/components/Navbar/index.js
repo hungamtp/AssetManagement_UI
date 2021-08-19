@@ -51,7 +51,7 @@ const Navbar = (props) => {
         <span>{props.businessName}</span>
       </div>
       <UncontrolledButtonDropdown className="dropdown">
-        <DropdownToggle caret color="#CF2338">
+        <DropdownToggle caret color="#CF2338" className="username">
           {user.username}
         </DropdownToggle>
         <DropdownMenu right>
