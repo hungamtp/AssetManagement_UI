@@ -1,7 +1,7 @@
-export const EndPoint = "http://localhost:9994/asset-management";
-/*export const EndPoint =
+/*export const EndPoint = "http://localhost:9994/asset-management";*/
+export const EndPoint =
   process.env.REACT_APP_BACKEND_URL ||
-  "https://java-backend-group3-test.azurewebsites.net/asset-management";*/
+  "https://java-backend-group3-test.azurewebsites.net/asset-management";
 
 // ASSET
 export const MANAGE_ASSET = "/manageasset";
