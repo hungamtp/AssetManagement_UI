@@ -101,3 +101,11 @@
   top: 0px;
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
+#header_jp{
+  color:red;
+  font-size: larger;
+  }
+  #button_zone{
+    position: relative;
+    right: 30px;
+  }
