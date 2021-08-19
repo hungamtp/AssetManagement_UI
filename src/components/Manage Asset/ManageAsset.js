@@ -6,14 +6,14 @@ import './Manageasset.css';
 import {
 	Table, Button, UncontrolledDropdown,
 	DropdownToggle, DropdownMenu,
-	Modal, ModalHeader, ModalBody, ModalFooter, Alert
+	Modal, ModalHeader, ModalBody, ModalFooter, Alert, Input
 }
 from "reactstrap";
 import SearchIcon from '../../images/search.png';
 import FilterIcon from '../../images/filter-icon.png';
 import DropdownIcon from '../../images/dropdown-icon.png';
-import UpdateIcon from '../../images/update-icon.png';
-import DeleteIcon from '../../images/delete-icon.png';
+import EditIcon from '../../images/edit-asset-icon.png';
+import DeleteIcon from '../../images/delete-asset-icon.png';
 import { post, get, del } from "../../httpHelper";
 import { withRouter } from "react-router-dom";
 import { instanceOf } from "prop-types";
@@ -39,6 +39,7 @@ class ManageAsset extends Component {
 
 			sizeInPage: 15,
 			currentPage: 1,
+			totalPages: 1,
 
 			sortField: "assetCode",
 			sortType: "ASC",
@@ -199,7 +200,18 @@ class ManageAsset extends Component {
 								page.push(i + 1);
 							}
 						}
-						this.setState({ pageList: page });
+						if(page.length === 0) {
+							this.setState({ 
+								pageList: page,
+								totalPages: 1
+							});
+						}
+						else{
+							this.setState({ 
+								pageList: page,
+								totalPages: page.length 
+							});
+						}
 					}
 				}
 			})
@@ -351,6 +363,26 @@ class ManageAsset extends Component {
 		this.props.history.push(URL.CREATE_ASSET)
 	}
 
+	prePage() {
+		if(this.state.currentPage - 1 >= 1){
+			this.setState({
+				currentPage: this.state.currentPage - 1
+			}, () => {
+				this.loadData();
+			})
+		}
+	}
+
+	nextPage() {
+		if(this.state.currentPage + 1 <= this.state.totalPages){
+			this.setState({
+				currentPage: this.state.currentPage + 1
+			}, () => {
+				this.loadData();
+			})
+		}
+	}
+
 	render() {
 		return (
 			<div>
@@ -362,10 +394,27 @@ class ManageAsset extends Component {
 				<div className="filter">
 					<div className="filter-state">
 						<UncontrolledDropdown>
-							<DropdownToggle caret>
+							<DropdownToggle 
+								style={{
+									backgroundColor: 'white', 
+									color: 'grey', 
+									width: '200px',
+									textAlign: 'left'
+								}}
+							>
 								State
+								<span 
+									style={{
+										float: 'right', 
+										borderLeft: '1px solid #6c757d',
+										paddingLeft: '8px',
+									}}
+								>
+									<img src={FilterIcon}
+									width="20px"/>
+								</span>
 							</DropdownToggle>
-							<DropdownMenu>
+							<DropdownMenu style={{width: '200px', backgroundColor: 'rgba(239,241,245,1)'}}>
 								<div>
 									<input
 										style={{ marginRight: '10px', marginLeft: '10px' }}
@@ -447,16 +496,29 @@ class ManageAsset extends Component {
 							</DropdownMenu>
 						</UncontrolledDropdown>
 					</div>
-					<div className="filter-state-icon">
-						<img src={FilterIcon}
-							width="20px" />
-					</div>
 					<div className="filter-category">
 						<UncontrolledDropdown>
-							<DropdownToggle caret>
+							<DropdownToggle 
+								style={{
+									backgroundColor: 'white', 
+									color: 'grey', 
+									width: '200px',
+									textAlign: 'left'
+								}}
+							>
 								Category
+								<span 
+									style={{
+										float: 'right', 
+										borderLeft: '1px solid #6c757d',
+										paddingLeft: '8px',
+									}}
+								>
+									<img src={FilterIcon}
+									width="20px"/>
+								</span>
 							</DropdownToggle>
-							<DropdownMenu>
+							<DropdownMenu style={{width: '200px', backgroundColor: 'rgba(239,241,245,1)'}}>
 								<div>
 									<input
 										style={{ marginRight: '10px', marginLeft: '10px' }}
@@ -476,7 +538,7 @@ class ManageAsset extends Component {
 											(selected) => selected === category.categoryCode
 										);
 										return (
-											<div key={category.categoryCode}>
+											<div key={category.categoryCode} id={category.categoryCode}>
 												<input
 													style={{ marginRight: '10px', marginLeft: '10px' }}
 													type="checkbox"
@@ -495,19 +557,13 @@ class ManageAsset extends Component {
 							</DropdownMenu>
 						</UncontrolledDropdown>
 					</div>
-					<div className="filter-category-icon">
-						<img src={FilterIcon}
-							width="20px" />
-					</div>
 					<div className="search">
-						<input
-							type="text"
-							onChange={(e) => this.search(e)}
-						/>
-					</div>
-					<div className="search-icon">
-						<img src={SearchIcon}
-							width="24px" />
+						<Input type="text" style={{width: '200px', height: '34px', paddingRight: '36px'}}
+							onChange={(e) => this.search(e)}/>
+						<div className="search-icon">
+							<img src={SearchIcon}
+								width="20px" />
+						</div>
 					</div>
 					<div className="create-asset">
 						<Button color="danger" onClick={() => this.createAsset()}>
@@ -581,7 +637,7 @@ class ManageAsset extends Component {
 											<td onClick={() => this.handleEditAsset(`${asset.assetCode}`, asset.state)}>
 												<img 
 													className={asset.state === 3 ? "disable-icon" : "edit-icon"}
-													src={UpdateIcon}
+													src={EditIcon}
 													width="20px"/>
 											</td>
 											<td onClick={() => this.handleDeleteAsset(asset.assetCode)}>
@@ -599,11 +655,21 @@ class ManageAsset extends Component {
 				</div>
 				<div className="paging">
 					{
+						this.state.assetList.length > 0 &&
+						<div 
+							className={this.state.currentPage === 1 ? "pre-next pre-next-disabled" : "pre-next"}
+							onClick={() => this.prePage()}
+						>
+							Previous
+						</div>
+					}
+					{
 						this.state.pageList.length > 1 &&
 						this.state.pageList.map((page) => {
 							let isActive = this.state.currentPage === page;
 							return (
 								<div
+									id={page}
 									key={page}
 									className={isActive ? "current-page" : "paging-page"}
 									onClick={() => this.changePage(page)}
@@ -612,6 +678,22 @@ class ManageAsset extends Component {
 								</div>
 							)
 						})
+						
+					}
+					{
+						this.state.totalPages < 2 && this.state.assetList.length > 0 &&
+						<div className="current-page">
+							1
+						</div>
+					}
+					{
+						this.state.assetList.length > 0 &&
+						<div 
+							className={this.state.currentPage === this.state.totalPages ? "pre-next pre-next-disabled" : "pre-next"}
+							onClick={() => this.nextPage()}
+						>
+							Next
+						</div>
 					}
 				</div>
 				{
@@ -639,7 +721,9 @@ class ManageAsset extends Component {
 					this.props.history.push(URL.LOGIN)
 				}
 				<Modal size="lg" isOpen={this.state.modal} toggle={() => this.toggleShow()}>
-					<ModalHeader>Detailed Asset Information</ModalHeader>
+					<ModalHeader style={{backgroundColor: 'lightgrey', color: 'red'}}>
+						Detailed Asset Information
+					</ModalHeader>
 					<ModalBody>
 						<AssetDetail id={this.state.assetId} />
 					</ModalBody>
