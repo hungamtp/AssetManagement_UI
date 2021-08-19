@@ -15,11 +15,22 @@ const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isFailed, setIsFailed] = useState(false);
+  const [role, setRole] = useState("");
   let history = useHistory();
 
   useEffect(() => {
     if (username.length > 0 && password.length > 0) setIsDisabled(false);
     else setIsDisabled(true);
+
+    if(cookies.user){
+      if(cookies.user.role === "ROLE_ADMIN"){
+        setRole("ROLE_ADMIN");
+      }
+      else if(cookies.user.role === "ROLE_USER"){
+        setRole("ROLE_USER");
+      }
+    }
+    console.log(role);
   }, [username, password]);
 
   const handleLogin = (e) => {
@@ -56,6 +67,14 @@ const Login = (props) => {
 
   return (
     <div>
+      {
+        role === 'ROLE_ADMIN' &&
+        history.push("/admin")
+      }
+      {
+        role === 'ROLE_USER' &&
+        history.push("/user")
+      }
       <div className="header">
         <span className="logo">
           <img src={logo} alt="logo company" width="50px" />

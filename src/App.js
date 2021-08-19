@@ -29,8 +29,8 @@ export default class App extends Component {
             {/* CHANGEPASS */}
             {/* <ProtectedRouteForFirstLogin exact path={URL.FIRST_LOGIN} role={role.ROLE_ADMIN + role.ROLE_STAFF} component={FirstLogin} /> */}
             {/* HOME */}
-            <ProtectedRoute exact path={URL.HOME_ADMIN} role={role.ROLE_ADMIN} component={Home} />
-            <ProtectedRoute exact path={URL.HOME_USER} role={role.ROLE_STAFF} component={StaffHome} />
+            <ProtectedRouteForFirstLogin exact path={URL.HOME_ADMIN} role={role.ROLE_ADMIN} component={Home} />
+            <ProtectedRouteForFirstLogin exact path={URL.HOME_USER} role={role.ROLE_STAFF} component={StaffHome} />
             {/* USER */}
             <ProtectedRoute exact path={URL.MANAGE_USER} role={role.ROLE_ADMIN} component={ManageUser_Page} />
             <ProtectedRoute exact path={URL.CREATE_USER} role={role.ROLE_ADMIN} component={CreateNewUser_Page} />
