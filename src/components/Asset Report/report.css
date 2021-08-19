@@ -8,7 +8,14 @@
   margin-bottom: 30px;
   width: 100%;
 }
-#report tr {
-  border-style: dashed;
-  border-bottom: 1px solid violet;
+.head-title {
+  border-bottom: 1px solid black;
+}
+#title {
+  color: red;
+  margin-left: 20px;
+}
+#button_zone {
+  display: flex;
+  justify-content: flex-end;
 }
