@@ -12,7 +12,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Index = ({ assignment, currentPage, size, Abc }) => {
+const Index = ({ assignment, currentPage, size, ReloadAssignment }) => {
   const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [isDisabled, setIsDisable] = useState(false);
@@ -56,13 +56,13 @@ const Index = ({ assignment, currentPage, size, Abc }) => {
   const handleEditIconClick = () => {
     history.push(`/edit-assignment/${assignment.assignmentId}`);
   };
-  const xyz = assignment.state;
+  const CallState = assignment.state;
   const handleDeleteAssignment = async () => {
     let url = `assignment/${assignment.assignmentId}`;
     await del(url)
     const url2 = `assignment?page=${currentPage}&size=${size}`;
     await get(url2).then((response) => {
-      Abc(response.data.data);
+      ReloadAssignment(response.data.data);
     });
     handleCloseDeleteDialog();
 };
@@ -145,7 +145,7 @@ const handleOpenFormDelete =() => {
             )}
           </div>
            <div onClick={handleOpenFormDelete}  disabled={isDisabled} id="x-circle-fill" class="x_circle_fill">
-            <HighlightOffIcon style={{ marginLeft: "15px", color: `${xyz != true? "#DF0101" : "#FA5882" }` }} />
+            <HighlightOffIcon style={{ marginLeft: "15px", color: `${CallState != true? "#DF0101" : "#FA5882" }` }} />
           </div>
           <Dialog open={openDeleteDialog} TransitionComponent={Transition} keepMounted disableEscapeKeyDown disableBackdropClick
             onClose={handleCloseDeleteDialog}
