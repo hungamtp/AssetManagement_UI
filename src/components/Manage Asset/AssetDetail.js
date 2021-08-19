@@ -52,42 +52,42 @@ export default class AssetDetail extends Component {
                     this.state.isFail === false &&
                     <Container>
                         <Row xs="4" className="mb-4">
-                            <Col>
+                            <Col style={{fontSize: '16px'}}>
                                 Asset Code
                             </Col>
-                            <Col xs="9">
+                            <Col xs="9" style={{fontSize: '16px'}}>
                                 {this.state.asset.assetCode}
                             </Col>
                         </Row>
                         <Row xs="4" className="mb-4">
-                            <Col>
+                            <Col style={{fontSize: '16px'}}>
                                 Asset Name
                             </Col>
-                            <Col xs="9">
+                            <Col xs="9" style={{fontSize: '16px'}}>
                                 {this.state.asset.assetName}
                             </Col>
                         </Row>
                         <Row xs="4" className="mb-4">
-                            <Col>
+                            <Col style={{fontSize: '16px'}}>
                                 Category
                             </Col>
-                            <Col xs="9">
+                            <Col xs="9" style={{fontSize: '16px'}}>
                                 {this.state.category.categoryName}
                             </Col>
                         </Row>
                         <Row xs="4" className="mb-4">
-                            <Col>
+                            <Col style={{fontSize: '16px'}}>
                                 Installed Date
                             </Col>
-                            <Col xs="9">
+                            <Col xs="9" style={{fontSize: '16px'}}>
                                 {this.state.asset.installDate}
                             </Col>
                         </Row>
                         <Row xs="4" className="mb-4">
-                            <Col>
+                            <Col style={{fontSize: '16px'}}>
                                 State
                             </Col>
-                            <Col xs="9">
+                            <Col xs="9" style={{fontSize: '16px'}}>
                                 {this.state.asset.state === 1 && <span>Available</span>}
                                 {this.state.asset.state === 2 && <span>Not Available</span>}
                                 {this.state.asset.state === 3 && <span>Assigned</span>}
@@ -96,26 +96,26 @@ export default class AssetDetail extends Component {
                             </Col>
                         </Row>
                         <Row xs="4" className="mb-4">
-                            <Col>
+                            <Col style={{fontSize: '16px'}}>
                                 Location
                             </Col>
-                            <Col xs="9">
+                            <Col xs="9" style={{fontSize: '16px'}}>
                                 {this.state.location.address}
                             </Col>
                         </Row>
                         <Row xs="4" className="mb-4">
-                            <Col>
+                            <Col style={{fontSize: '16px'}}>
                                 Specification
                             </Col>
-                            <Col xs="9">
+                            <Col xs="9" style={{fontSize: '16px'}}>
                                 {this.state.asset.specification}
                             </Col>
                         </Row>
                         <Row xs="4" className="mb-4">
-                            <Col>
+                            <Col style={{fontSize: '16px'}}>
                                 History
                             </Col>
-                            <Col xs="9">
+                            <Col xs="9" style={{fontSize: '16px'}}>
                                 {this.state.assignmentList.length === 0 && <span>No History</span>}
                                 {this.state.assignmentList.length > 0 &&
                                     <Table hover>
