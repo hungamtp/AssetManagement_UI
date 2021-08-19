@@ -118,7 +118,7 @@ const ChangePassword = (props) => {
             <div className="delete-asset-body">
               <br></br>
                 <p>Password has been Changed  successfully!</p>
-                <Button id="cancel-changepasss" onClick={handleCancelChangePassword} outline color="secondary" >Cancel</Button>{' '}
+                <Button id="cancel-changepasss" onClick={handleCancelChangePassword} outline color="secondary" >Close</Button>{' '}
                 <br></br>
                 <br></br>
             </div>
