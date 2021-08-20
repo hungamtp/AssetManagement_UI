@@ -75,29 +75,35 @@
 }
 
 .paging-page {
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
     width: 30px;
     height: 30px;
     text-align: center;
-    color: red;
+    /* color: red; */
+    color: #0c0c0c;
     display: inline-block;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .current-page{
     display: inline-block;
     cursor: pointer;
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
     width: 30px;
     height: 30px;
     text-align: center;
     color: white;
-    background-color: red;
+    /* background-color: red; */
+    background-color: #df146f;
+    border-radius: 5px;
 }
 
 .paging-page:hover {
-    color: white;
-    background-color: red;
+    /* color: white; */
+    /* background-color: red; */
+    background-color: #f0ebed;
+    border-radius: 5px;
 }
 
 .fail{
@@ -111,16 +117,29 @@
 }
 
 .pre-next {
-    border: 1px solid grey;
-    width: 80px;
+    /* border: 1px solid grey; */
+    /* width: 80px; */
+    width: 30px;
     height: 30px;
     text-align: center;
-    color: red;
+    /* color: red; */
+    color: #000000;
     display: inline-block;
     cursor: pointer;
+    font-weight: bold;
+    font-size: large;
+}
+
+.pre-next:hover {
+    background-color: #f0ebed;
+    border-radius: 5px;
+    font-weight: bold;
 }
 
 .pre-next-disabled {
     color: grey;
     cursor: auto;
+    font-weight: bold;
+    font-size: large;
+    pointer-events: none;
 }

@@ -660,7 +660,7 @@ class ManageAsset extends Component {
 							className={this.state.currentPage === 1 ? "pre-next pre-next-disabled" : "pre-next"}
 							onClick={() => this.prePage()}
 						>
-							Previous
+							{"<"}
 						</div>
 					}
 					{
@@ -692,7 +692,7 @@ class ManageAsset extends Component {
 							className={this.state.currentPage === this.state.totalPages ? "pre-next pre-next-disabled" : "pre-next"}
 							onClick={() => this.nextPage()}
 						>
-							Next
+							{">"}
 						</div>
 					}
 				</div>
