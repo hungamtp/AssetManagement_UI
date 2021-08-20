@@ -7,8 +7,9 @@ const Paginations = ({ totalPages, setCurrentPage }) => {
     <div className="pagination">
       <Pagination
         count={totalPages}
-        variant="outlined"
-        color="primary"
+        variant="text"
+        shape="rounded"
+        color="secondary"
         onChange={(event, value) => setCurrentPage(value - 1)}
       />
     </div>

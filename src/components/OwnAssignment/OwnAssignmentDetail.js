@@ -64,38 +64,70 @@ export default class OwnAssignmentDetail extends Component {
                 }
                 {
                     this.state.isFail === false &&
-                    <Container>
+                    <Container style={{fontSize: '16px'}}>
                         <Row xs="3" className="mb-4">
-                            <Col>Asset Code</Col>
-                            <Col xs="8">{this.state.detail.assetCode}</Col>
+                            <Col>
+                                Asset Code
+                            </Col>
+                            <Col xs="8">
+                                {this.state.detail.assetCode}
+                            </Col>
                         </Row>
                         <Row xs="3" className="mb-4">
-                            <Col>Asset Name</Col>
-                            <Col xs="8">{this.state.detail.assetName}</Col>
+                            <Col>
+                                Asset Name
+                            </Col>
+                            <Col xs="8">
+                                {this.state.detail.assetName}
+                            </Col>
                         </Row>
                         <Row xs="3" className="mb-4">
-                            <Col>Specification</Col>
-                            <Col xs="8">{this.state.detail.specification}</Col>
+                            <Col>
+                                Specification
+                            </Col>
+                            <Col xs="8">
+                                {this.state.detail.specification}
+                            </Col>
                         </Row>
                         <Row xs="3" className="mb-4">
-                            <Col>Assigned to</Col>
-                            <Col xs="8">{this.state.detail.assignedTo}</Col>
+                            <Col>
+                                Assigned to
+                            </Col>
+                            <Col xs="8">
+                                {this.state.detail.assignedTo}
+                            </Col>
                         </Row>
                         <Row xs="3" className="mb-4">
-                            <Col>Assigned by</Col>
-                            <Col xs="8">{this.state.detail.assignedBy}</Col>
+                            <Col>
+                                Assigned by
+                            </Col>
+                            <Col xs="8">
+                                {this.state.detail.assignedBy}
+                            </Col>
                         </Row>
                         <Row xs="3" className="mb-4">
-                            <Col>Assigned Date</Col>
-                            <Col xs="8">{this.state.detail.assignedDate}</Col>
+                            <Col>
+                                Assigned Date
+                            </Col>
+                            <Col xs="8">
+                                {this.state.detail.assignedDate}
+                            </Col>
                         </Row>
                         <Row xs="3" className="mb-4">
-                            <Col>State</Col>
-                            <Col xs="8">{this.state.detail.state}</Col>
+                            <Col>
+                                State
+                            </Col>
+                            <Col xs="8">
+                                {this.state.detail.state}
+                            </Col>
                         </Row>
                         <Row xs="3" className="mb-4">
-                            <Col>Note</Col>
-                            <Col xs="8">{this.state.detail.note}</Col>
+                            <Col>
+                                Note
+                            </Col>
+                            <Col xs="8">
+                                {this.state.detail.note}
+                            </Col>
                         </Row>
                     </Container>
                 }

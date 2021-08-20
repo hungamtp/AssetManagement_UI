@@ -46,7 +46,9 @@ const Assignment = () => {
   const handleOnClickSearchButton = (e) => {
     e.preventDefault();
   };
-
+  const ReloadAssignment = (res) =>{
+    setAssignments(res)
+   }
   const loadNewOrEditData = (AssignmentListTemp) => {
     let newAssignment = localStorage.getItem("newAssignment");
     let editAssignment = localStorage.getItem("editAssignment");
@@ -344,7 +346,7 @@ const Assignment = () => {
         </thead>
         <tbody>
           {assignments.map((assignment) => {
-            return <Assign assignment={assignment} />;
+            return <Assign ReloadAssignment={ReloadAssignment} currentPage={currentPage} size={size} assignment={assignment} />;
           })}
         </tbody>
       </table>

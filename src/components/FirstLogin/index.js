@@ -119,17 +119,32 @@ class index extends Component {
   render() {
     return (
       <div className="first-login">
-        <div className="text">
-          <p>This is the first time you logged in.</p>
-          <p>You have to change your password to continue.</p>
+        <div className="text" style={{marginBottom: '12px', marginLeft: '4%'}}>
+          <span>This is the first time you logged in.</span>
+          <br/>
+          <span>You have to change your password to continue.</span>
         </div>
         <div className="input">
-          <Form inline onSubmit={(e) => this.changePassword(e)}>
-            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-              <Label for="password" className="mr-sm-2">New password</Label>
-              <Input type="password" name="password" id="password" onChange={(e) => this.handleChange(e, "password")}/>
+          <Form onSubmit={(e) => this.changePassword(e)}>
+            <FormGroup>
+              <div style={{width: '100%'}}>
+                <Label for="password" style={{ display: 'inline-block', marginLeft: '4%'}}>
+                  New password
+                </Label>
+                <Input 
+                  style={{ display: 'inline-block', width: '50%', marginLeft: '4%'}}
+                  type="password" 
+                  name="password" 
+                  id="password" 
+                  onChange={(e) => this.handleChange(e, "password")}
+                />
+              </div>
             </FormGroup>
-            <Button color="danger" disabled={this.state.isDisabled}>
+            <Button 
+              style={{marginLeft: '68%'}}
+              color="danger" 
+              disabled={this.state.isDisabled}
+            >
               Save
             </Button>
           </Form>

@@ -6,13 +6,16 @@ import { Dialog, Slide, Button } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import ReplayIcon from "@material-ui/icons/Replay";
+import {get, del } from "../../../httpHelper";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Index = ({ assignment }) => {
+const Index = ({ assignment, currentPage, size, ReloadAssignment }) => {
   const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [isDisabled, setIsDisable] = useState(false);
 
   const [state, setState] = useState();
   const classes = useStyles();
@@ -40,6 +43,12 @@ const Index = ({ assignment }) => {
   const handleOpenUpdateForm = () => {
     setOpenUpdateDialog(true);
   };
+  const handleCloseDeleteDialog = () => {
+    setOpenDeleteDialog(false);
+  };
+  const handleOpenDeleteForm = () => {
+    setOpenDeleteDialog(true);
+  };
   const showAssignmentDetail = () => {
     handleOpenUpdateForm();
   };
@@ -47,6 +56,25 @@ const Index = ({ assignment }) => {
   const handleEditIconClick = () => {
     history.push(`/edit-assignment/${assignment.assignmentId}`);
   };
+  const CallState = assignment.state;
+  const handleDeleteAssignment = async () => {
+    let url = `assignment/${assignment.assignmentId}`;
+    await del(url)
+    const url2 = `assignment?page=${currentPage}&size=${size}`;
+    await get(url2).then((response) => {
+      ReloadAssignment(response.data.data);
+    });
+    handleCloseDeleteDialog();
+};
+const handleOpenFormDelete =() => {
+  if( assignment.state!=true){
+    setIsDisable(true);
+    handleOpenDeleteForm();
+    }
+  else {
+    setIsDisable(false);
+  }
+};
   return (
     <>
       <Dialog
@@ -116,9 +144,26 @@ const Index = ({ assignment }) => {
               </svg>
             )}
           </div>
-          <div>
-            <HighlightOffIcon style={{ marginLeft: "15px", color: "red" }} />
+           <div onClick={handleOpenFormDelete}  disabled={isDisabled} id="x-circle-fill" class="x_circle_fill">
+            <HighlightOffIcon style={{ marginLeft: "15px", color: `${CallState != true? "#DF0101" : "#FA5882" }` }} />
           </div>
+          <Dialog open={openDeleteDialog} TransitionComponent={Transition} keepMounted disableEscapeKeyDown disableBackdropClick
+            onClose={handleCloseDeleteDialog}
+            aria-labelledby="alert-dialog-slide-title"
+            aria-describedby="alert-dialog-slide-description" >
+            <div id="Form_jo">
+              <div id="header_jp" ><b>Are you sure?</b></div>
+              <div id="background_jq">
+                <div id="First_Name_jr">
+                  Do you want to delete this Assignment?
+                </div>
+                <div id="button_zone">
+                  <Button variant="contained" color="secondary" size="small"id="delete_btn" onClick={handleDeleteAssignment}> Delete</Button>
+                  <Button size="small" id="cancel_btn" onClick={handleCloseDeleteDialog}>Cancel </Button>
+                </div>
+              </div>
+            </div>
+          </Dialog>    
           <div>
             <ReplayIcon style={{ marginLeft: "15px", color: "blue" }} />
           </div>

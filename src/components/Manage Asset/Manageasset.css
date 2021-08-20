@@ -1,8 +1,8 @@
 
 .table-content {
-    width: 52%;
+    width: 60%;
     margin-top: 20px;
-    margin-left: 550px;
+    margin-left: 530px;
 }
 
 .filter{
@@ -13,14 +13,18 @@
 
 .filter-state{
     display: inline-block;
+    margin-right: 20px;
 }
 
 .filter-category{
     display: inline-block;
+    margin-right: 20px;
 }
 
 .search{
     display: inline-block;
+    position: relative;
+    margin-right: 20px;
 }
 
 .create-asset{
@@ -39,7 +43,11 @@
 
 .search-icon{
     display: inline-block;
-    margin-right: 40px;
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    padding-left: 4px;
+    border-left: 1px solid #6c757d;
 }
 
 .title{
@@ -56,8 +64,10 @@
 }
 
 .paging{
-    margin-left: 550px;
+    float: right;
+    margin-right: 60px;
     margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .edit-icon, .delete-icon{
@@ -98,4 +108,19 @@
 
 .disable-icon {
     opacity: 0.5;
+}
+
+.pre-next {
+    border: 1px solid grey;
+    width: 80px;
+    height: 30px;
+    text-align: center;
+    color: red;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.pre-next-disabled {
+    color: grey;
+    cursor: auto;
 }

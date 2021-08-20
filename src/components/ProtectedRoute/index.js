@@ -10,6 +10,10 @@ export default function ProtectedRoute({ component: Component, ...restOfProps })
     <Route
       {...restOfProps}
       render={(props) =>
+        isAuthenticated && cookies.user.firstLogin === false && cookies.user.role === "ROLE_ADMIN" ?
+        <Redirect to={URL.HOME_ADMIN} /> : 
+        isAuthenticated && cookies.user.firstLogin === false && cookies.user.role === "ROLE_USER" ?
+        <Redirect to={URL.HOME_USER} /> :
         isAuthenticated && restOfProps.role.includes(cookies.user.role) ? (
           <Component {...props} />
         ) : (
