@@ -27,6 +27,7 @@ class index extends Component {
 
             pageNum: 1,
             pageSize: 15,
+            totalPages: 1,
             orderBy: '',
             typeOrder: 'DESC',
 
@@ -62,6 +63,7 @@ class index extends Component {
                     if (response.data.successCode === 'LOAD_OWN_ASSIGNMENT_SUCCESS') {
                         this.setState({
                             ownAssignments: response.data.data.ownAssignments,
+                            totalPages: response.data.data.totalPages,
                             isFail: false
                         })
                         this.handlePageList(response);
@@ -187,6 +189,26 @@ class index extends Component {
         })
     }
 
+    prePage() {
+        if(this.state.pageNum - 1 >= 1){
+			this.setState({
+				pageNum: this.state.pageNum - 1
+			}, () => {
+				this.loadOwnAssignments();
+			})
+		}
+    }
+
+    nextPage() {
+        if(this.state.pageNum + 1 <= this.state.totalPages){
+			this.setState({
+				pageNum: this.state.pageNum + 1
+			}, () => {
+				this.loadOwnAssignments();
+			})
+		}
+    }
+
     render() {
         return (
             <div>
@@ -286,13 +308,23 @@ class index extends Component {
                         </tbody>
                     </Table>
                 </div>
-                <div className="own-assignment-paging">
+                <div className="paging">
+                    {
+						this.state.ownAssignments.length > 0 &&
+						<div 
+							className={this.state.pageNum === 1 ? "pre-next pre-next-disabled" : "pre-next"}
+							onClick={() => this.prePage()}
+						>
+							{"<"}
+						</div>
+					}
                     {
                         this.state.pageList.map((page) => {
                             return (
                                 <div
+                                    id={page}
                                     key={page}
-                                    className={this.state.pageNum === page ? "own-assignment-current-page" : "own-assignment-page"}
+                                    className={this.state.pageNum === page ? "current-page" : "paging-page"}
                                     onClick={() => this.changPage(page)}
                                 >
                                     {page}
@@ -300,6 +332,21 @@ class index extends Component {
                             )
                         })
                     }
+                    {
+						this.state.totalPages < 2 && this.state.ownAssignments.length > 0 &&
+						<div className="current-page">
+							1
+						</div>
+					}
+                    {
+						this.state.ownAssignments.length > 0 &&
+						<div 
+							className={this.state.pageNum === this.state.totalPages ? "pre-next pre-next-disabled" : "pre-next"}
+							onClick={() => this.nextPage()}
+						>
+							{">"}
+						</div>
+					}
                 </div>
                 {
                     this.state.ownAssignments.length === 0 &&
