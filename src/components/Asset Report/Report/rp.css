@@ -1,6 +1,6 @@
 .report-row td {
   padding-top: 10px;
 }
-.col {
+.report-row .col {
   border-bottom: 2px solid lightgray;
 }

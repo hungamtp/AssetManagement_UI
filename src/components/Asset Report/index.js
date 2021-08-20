@@ -5,7 +5,11 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { get } from "../../httpHelper";
 import { Report } from "./Report";
 import { Button } from "@material-ui/core";
-import { useIsRTL } from "react-bootstrap/esm/ThemeProvider";
+import axios from "axios";
+import * as FileSaver from "file-saver";
+
+import * as XLSX from "xlsx";
+import Export from "./Export";
 const Reports = () => {
   const [reports, setReports] = useState([]);
   const [isCategoryASC, setIsCategoryASC] = useState(true);
@@ -221,15 +225,17 @@ const Reports = () => {
     };
     fetchReport();
   }, []);
+
+  const handleExportReport = async () => {};
   return (
     <div id="report">
       <h4 id="title">
         <b>Report</b>
       </h4>
       <div id="button_zone">
-        <Button color="secondary" variant="contained" size="medium">
+        <Export csvData={reports} fileName={"AssetReport"}>
           Export
-        </Button>
+        </Export>
       </div>
       <table>
         <thead>
