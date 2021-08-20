@@ -251,7 +251,7 @@ class index extends Component {
                                             <td onClick={() => this.toggleShowButton(assignment.assignmentId)}>{assignment.assignedDate}</td>
                                             <td onClick={() => this.toggleShowButton(assignment.assignmentId)}>{assignment.state}</td>
                                             <td>
-                                                <button className="click-button" disabled={assignment.state === 'Accepted' ? false : false}
+                                                <button className="click-button" disabled={assignment.state === 'Accepted' ? true : false}
                                                         onClick={() => this.handleAcceptAssignmentShow(assignment.assignmentId)}>
                                                     <img 
                                                         src={TickIcon}
@@ -318,10 +318,8 @@ class index extends Component {
                     </div>
                 }
                 <Modal isOpen={this.state.modal} toggle={() => this.toggleShow()}>
-                    <ModalHeader>
-                        <span style={{ color: "red"}}>
-                            Detailed Assignment Information
-                        </span>
+                    <ModalHeader style={{backgroundColor: 'rgba(239,241,245,1)', color: 'red'}}>
+                        Detailed Assignment Information
                     </ModalHeader>
                     <ModalBody>
                         <OwnAssignmentDetail id={this.state.assignmentId}/>
