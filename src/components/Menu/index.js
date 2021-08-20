@@ -5,6 +5,7 @@ import { instanceOf } from "prop-types";
 import { withCookies, Cookies } from "react-cookie";
 import { withRouter } from "react-router-dom";
 import * as business from "../../constants/Business";
+import * as URL from "../../constants/URL";
 
 class index extends Component {
   static propTypes = {
@@ -87,9 +88,7 @@ class index extends Component {
 
   handleMenuClick(businessName) {
     if (this.state.user !== "") {
-      if (this.state.user.role === business.ROLE_STAFF) {
-        this.setState({});
-      } else if (this.state.user.role === business.ROLE_ADMIN) {
+      if (this.state.user.role === business.ROLE_ADMIN) {
         if (businessName === business.HOME) {
           this.props.history.push("/admin");
         } else if (businessName === business.MANAGE_USER) {
@@ -97,7 +96,7 @@ class index extends Component {
         } else if (businessName === business.MANAGE_ASSIGNMENT) {
           this.props.history.push("/manageassignment");
         } else if (businessName === business.REQUEST_FOR_RETURNING) {
-          this.props.history.push("/home4");
+          this.props.history.push(URL.MANAGE_REQUEST);
         } else if (businessName === business.MANAGE_ASSET) {
           this.props.history.push("/manageasset");
         } else if (businessName === business.REPORT) {

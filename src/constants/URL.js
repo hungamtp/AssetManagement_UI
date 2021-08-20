@@ -27,6 +27,9 @@ export const CHANGE_PASS = "/changepassword";
 export const LOGIN = "/";
 export const FIRST_LOGIN = "/first";
 
+//Request
+export const MANAGE_REQUEST = "/manage-request";
+
 //------------------------ API ---------------------------------
 // CATEGORY
 export const GET_CATEGORY = "category";
