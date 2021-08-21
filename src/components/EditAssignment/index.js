@@ -272,7 +272,7 @@ const EditAssignment = () => {
           className="pagination-edit-assignment"
         />
         <div id="button-zone1-edit-assignment">
-          <Button variant="contained" color="secondary" size="medium" id="bt_save-edit-assignment" onClick={handleSelectUser}>
+          <Button variant="contained" color="secondary" size="medium" id="bt_save-edit-assignment" onClick={handleSelectUser} disabled={staffCodeSelected===""?true:false}>
             Save
           </Button>
           <Button variant="outlined" color="secondary" size="medium" onClick={() => setIsOpenUserDialog(false)}>
@@ -369,6 +369,7 @@ const EditAssignment = () => {
               setAsset(assetNameSelected);
               setAssetCode(assetCodeSelected);
             }}
+            disabled={assetCodeSelected===""?true:false}
           >
             Save
           </Button>
