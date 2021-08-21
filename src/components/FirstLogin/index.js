@@ -119,7 +119,7 @@ class index extends Component {
   render() {
     return (
       <div className="first-login">
-        <div className="text" style={{marginBottom: '12px', marginLeft: '4%'}}>
+        <div className="text" style={{marginBottom: '16px', marginLeft: '10%', marginTop: '8px'}}>
           <span>This is the first time you logged in.</span>
           <br/>
           <span>You have to change your password to continue.</span>
@@ -128,7 +128,7 @@ class index extends Component {
           <Form onSubmit={(e) => this.changePassword(e)}>
             <FormGroup>
               <div style={{width: '100%'}}>
-                <Label for="password" style={{ display: 'inline-block', marginLeft: '4%'}}>
+                <Label for="password" style={{ display: 'inline-block', marginLeft: '10%'}}>
                   New password
                 </Label>
                 <Input 
@@ -141,7 +141,8 @@ class index extends Component {
               </div>
             </FormGroup>
             <Button 
-              style={{marginLeft: '68%'}}
+              id="save"
+              style={{marginLeft: '74%', marginTop: '8px'}}
               color="danger" 
               disabled={this.state.isDisabled}
             >
@@ -151,7 +152,7 @@ class index extends Component {
         </div>
         {
           this.state.isFailed &&
-          <div style={{marginTop: '20px'}}>
+          <div style={{marginTop: '10px'}}>
             <Alert color="danger">
               {this.state.messageFail}
             </Alert>
