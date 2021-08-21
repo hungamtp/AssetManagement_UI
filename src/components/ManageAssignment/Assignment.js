@@ -57,12 +57,18 @@ const Assignment = () => {
     if (newAssignment !== null) {
       newAssignment = JSON.parse(newAssignment);
       AssignmentList = AssignmentList.filter((e) => e.assignmentId !== newAssignment.assignmentId);
+      if(AssignmentList.length===AssignmentListTemp.length){
+        AssignmentList.pop()
+      }
       AssignmentList.unshift(newAssignment);
       setAssignments(AssignmentList);
       // localStorage.removeItem("newAssignment");
     } else if (editAssignment !== null) {
       editAssignment = JSON.parse(editAssignment);
       AssignmentList = AssignmentList.filter((e) => e.assignmentId !== editAssignment.assignmentId);
+      if(AssignmentList.length===AssignmentListTemp.length){
+        AssignmentList.pop()
+      }
       AssignmentList.unshift(editAssignment);
       setAssignments(AssignmentList);
       // localStorage.removeItem("editAssignment");

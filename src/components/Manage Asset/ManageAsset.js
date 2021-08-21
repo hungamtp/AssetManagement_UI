@@ -130,6 +130,9 @@ class ManageAsset extends Component {
 							if(newAsset!==null){
 								newAsset = JSON.parse(newAsset)
 								assetList = assetList.filter(e=>e.assetCode !== newAsset.assetCode)
+								if(assetList.length === this.state.assetList.length){
+									assetList.pop()
+								}
 								assetList.unshift(newAsset)
 								localStorage.removeItem("newAsset");
 								this.setState({assetList:assetList})
@@ -138,6 +141,9 @@ class ManageAsset extends Component {
 								assetList = assetList.filter(e=>e.assetCode !== editAsset.assetCode)
 								let categoryFound = this.state.categoryList.find(e=>e.categoryCode ===editAsset.categoryId)
 								editAsset.category = categoryFound
+								if(assetList.length === this.state.assetList.length){
+									assetList.pop()
+								}
 								assetList.unshift(editAsset)
 								localStorage.removeItem("editAsset");
 								this.setState({assetList:assetList})
