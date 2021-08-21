@@ -219,7 +219,7 @@ const EditAssignment = () => {
             <b>Select User</b>
           </div>
           <div className="field">
-            <input className="search_user" onChange={(e) => setBoxUserSearch(e.target.value)} />
+            <input className="search_user" onChange={(e) => setBoxUserSearch(e.target.value)}  style={{"padding-right":"40px"}}/>
             <SearchIcon id="search_user_icon-edit-assignment" onClick={handleUserSearch} />
           </div>
         </div>
@@ -249,6 +249,7 @@ const EditAssignment = () => {
                     <input
                       type="radio"
                       name="user"
+                      checked={staffCodeSelected===user.staffCode?true:false}
                       onChange={() => {
                         setStaffCodeSelected(user.staffCode);
                         setNamelected(user.fullName);
@@ -295,7 +296,7 @@ const EditAssignment = () => {
             <b>Select Asset</b>
           </div>
           <div className="field">
-            <input className="search_user" onChange={(e) => setAssetSearch(e.target.value)} />
+            <input className="search_user" onChange={(e) => setAssetSearch(e.target.value)} style={{"padding-right":"40px"}}/>
             <SearchIcon
               id="search_user_icon-edit-assignment"
               onClick={() => {
@@ -335,6 +336,7 @@ const EditAssignment = () => {
                   <input
                     type="radio"
                     name="asset"
+                    checked={assetCodeSelected===asset.code?true:false}
                     onChange={() => {
                       setAssetCodeSelected(asset.code);
                       setAssetNamelected(asset.name);
@@ -390,7 +392,7 @@ const EditAssignment = () => {
           <SearchIcon id="search_icon-edit-assignment" onClick={() => setIsOpenAssetDialog(true)} />
         </div>
         <div className="field-edit-assignment">
-          <label className="edit-assignment-label">Asigned Date</label>
+          <label className="edit-assignment-label">Assigned Date</label>
           <input
             type="date"
             min={date}

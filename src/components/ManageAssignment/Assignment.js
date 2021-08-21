@@ -11,6 +11,7 @@ import Assign from "./Assign";
 import Paginations from "./Pagination/Pagination";
 import * as STATE from "../../constants/State";
 
+let timeOfCallUseEffect = 0;
 const Assignment = () => {
   const history = useHistory();
 
@@ -18,8 +19,8 @@ const Assignment = () => {
   const [size, setSize] = useState(15);
   const [currentPage, setCurrentPage] = useState(0);
   const [searchKeyWord, setSearchKeyWord] = useState("");
-  const [sortField, setSortField] = useState("assignmentId");
-  const [sortType, setSortType] = useState("ASC");
+  const [sortField, setSortField] = useState("assignedDate");
+  const [sortType, setSortType] = useState("DSC");
   const [AssetCode, setAssetCode] = useState("");
   const [isNoASC, setIsNoASC] = useState(true);
   const [isAssetCodeASC, setIsAssetCodeASC] = useState(true);
@@ -29,15 +30,14 @@ const Assignment = () => {
   const [isAssignedDateASC, setIsAssignedDateASC] = useState(true);
   const [isStateASC, setIsStateASC] = useState(true);
   //state
-  const [stateList, setStateList] = useState([1, 2, 3]);
-  const [stateAll, setStateAll] = useState(true);
+  const [stateList, setStateList] = useState([]);
+  const [stateAll, setStateAll] = useState(false);
   const [stateAccepted, setStateAccepted] = useState(false);
   const [stateWaiting, setStateWaiting] = useState(false);
   const [stateDeclined, setStateDeclined] = useState(false);
   //date
   const [localDateTime, setLocalDateTime] = useState("");
   const [tempList, setTempList] = useState([]);
-  const [stateAllTemp, setStateAllTemp] = useState(false);
 
   const handleClickCreateNew = () => {
     history.push("/creatnewasssignment");
@@ -46,9 +46,10 @@ const Assignment = () => {
   const handleOnClickSearchButton = (e) => {
     e.preventDefault();
   };
-  const ReloadAssignment = (res) =>{
-    setAssignments(res)
-   }
+  const ReloadAssignment = (res) => {
+    setAssignments(res);
+  };
+
   const loadNewOrEditData = (AssignmentListTemp) => {
     let newAssignment = localStorage.getItem("newAssignment");
     let editAssignment = localStorage.getItem("editAssignment");
@@ -56,18 +57,30 @@ const Assignment = () => {
     if (newAssignment !== null) {
       newAssignment = JSON.parse(newAssignment);
       AssignmentList = AssignmentList.filter((e) => e.assignmentId !== newAssignment.assignmentId);
-      AssignmentList[0] = newAssignment;
-      localStorage.removeItem("newAssignment");
+      AssignmentList.unshift(newAssignment);
       setAssignments(AssignmentList);
+      // localStorage.removeItem("newAssignment");
     } else if (editAssignment !== null) {
       editAssignment = JSON.parse(editAssignment);
       AssignmentList = AssignmentList.filter((e) => e.assignmentId !== editAssignment.assignmentId);
-      AssignmentList[0] = editAssignment;
-      localStorage.removeItem("editAssignment");
+      AssignmentList.unshift(editAssignment);
       setAssignments(AssignmentList);
+      // localStorage.removeItem("editAssignment");
     } else {
       setAssignments(AssignmentList);
     }
+    if (newAssignment !== null || editAssignment !== null) {
+      timeOfCallUseEffect++;
+      if (timeOfCallUseEffect >= 2) {
+        removeLocalStorageAfterShowToFirst();
+        timeOfCallUseEffect = 0;
+      }
+    }
+  };
+
+  const removeLocalStorageAfterShowToFirst = () => {
+    localStorage.removeItem("newAssignment");
+    localStorage.removeItem("editAssignment");
   };
 
   useEffect(() => {
@@ -195,81 +208,76 @@ const Assignment = () => {
 
   useEffect(() => {
     const list = [];
+    const tempList = [];
     if (stateAccepted) {
       list.push(STATE.ACCEPTED);
     } else {
-      let tempList = [];
       if (stateWaiting) {
         tempList.push(STATE.WAITING_FOR_ACCEPTANCE);
       }
       if (stateDeclined) {
         tempList.push(STATE.DECLINED);
       }
-      setTempList(tempList);
-      setStateAll(false);
     }
     if (stateWaiting) {
       list.push(STATE.WAITING_FOR_ACCEPTANCE);
     } else {
-      let tempList = [];
       if (stateAccepted) {
         tempList.push(STATE.ACCEPTED);
       }
       if (stateDeclined) {
         tempList.push(STATE.DECLINED);
       }
-      setTempList(tempList);
-      setStateAll(false);
     }
     if (stateDeclined) {
       list.push(STATE.DECLINED);
     } else {
-      let tempList = [];
-      if (stateWaiting) {
-        tempList.push(STATE.WAITING_FOR_ACCEPTANCE);
-      }
       if (stateAccepted) {
         tempList.push(STATE.ACCEPTED);
       }
-      setTempList(tempList);
-      setStateAll(false);
+      if (stateWaiting) {
+        tempList.push(STATE.WAITING_FOR_ACCEPTANCE);
+      }
+    }
+
+    if (!stateAccepted || !stateWaiting || !stateDeclined) {
+      if (stateAll) {
+        setStateAll(false);
+      }
     }
     if (stateAccepted && stateWaiting && stateDeclined) {
-      setStateAllTemp(true);
-      setStateAll(true);
+      if (!stateAll) {
+        setStateAll(true);
+      }
     }
+    setTempList(tempList);
     setStateList(list);
   }, [stateAccepted, stateDeclined, stateWaiting]);
 
   useEffect(() => {
-    const list = [];
     if (stateAll) {
-      list.push(1);
-      list.push(2);
-      list.push(3);
-      if (stateAllTemp) {
-        setStateAllTemp(false);
-      } else {
-        setStateAccepted(true);
-        setStateWaiting(true);
-        setStateDeclined(true);
-      }
+      if (!stateAccepted) setStateAccepted(true);
+      if (!stateWaiting) setStateWaiting(true);
+      if (!stateDeclined) setStateDeclined(true);
       setTempList([]);
-      setStateList(list);
     } else {
       if (tempList.length <= 0) {
-        setStateAccepted(false);
-        setStateWaiting(false);
-        setStateDeclined(false);
-        setStateList([]);
+        if (stateAccepted) setStateAccepted(false);
+        if (stateWaiting) setStateWaiting(false);
+        if (stateDeclined) setStateDeclined(false);
       } else {
         tempList.forEach((e) => {
-          if (e === STATE.ACCEPTED) setStateAccepted(true);
-          if (e === STATE.WAITING_FOR_ACCEPTANCE) setStateWaiting(true);
-          if (e === STATE.DECLINED) setStateDeclined(true);
+          if (e === STATE.ACCEPTED) {
+            if (!stateAccepted) setStateAccepted(true);
+          }
+          if (e === STATE.WAITING_FOR_ACCEPTANCE) {
+            if (!stateWaiting) setStateWaiting(true);
+          }
+          if (e === STATE.DECLINED) {
+            if (!stateDeclined) setStateDeclined(true);
+          }
         });
         setTempList([]);
-        setStateList(tempList);
       }
     }
   }, [stateAll]);

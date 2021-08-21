@@ -73,7 +73,8 @@ label {
 }
 #search_user_icon-edit-assignment {
   position: absolute;
-  left: 150px;
+  left: 215px;
+  top: 7.5px;
   cursor: pointer;
 }
 #button-zone1-edit-assignment {
@@ -92,7 +93,7 @@ label {
 }
 .textarea-edit-assignment {
   border: 1px solid black;
-  resize: none
+  resize: none;
 }
 .pagination-edit-assignment {
   align-items: center;
