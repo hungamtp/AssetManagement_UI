@@ -39,7 +39,7 @@ class index extends Component {
                 <Menu business={business.HOME} />
                 <OwnAssignment />
                 <Modal isOpen={this.state.user.firstLogin === false}>
-                    <ModalHeader style={{backgroundColor: 'rgba(239,241,245,1)', color: 'red'}}>
+                    <ModalHeader style={{backgroundColor: 'rgba(239,241,245,1)', color: 'red', paddingLeft: '12%'}}>
                         Change password
                     </ModalHeader>
                     <ModalBody>

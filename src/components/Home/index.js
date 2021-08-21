@@ -41,8 +41,8 @@ class index extends Component {
         {/* layout mẫu mn cu v mà làm nha */}
         <OwnAssignment />
         <Modal isOpen={this.state.user.firstLogin === false}>
-          <ModalHeader style={{backgroundColor: 'rgba(239,241,245,1)', color: 'red'}}>
-            Change password
+          <ModalHeader style={{backgroundColor: 'rgba(239,241,245,1)', color: 'red', paddingLeft: '12%'}}>
+              Change password
           </ModalHeader>
           <ModalBody>
             <FirstLogin reload={() => this.reload()}/>
