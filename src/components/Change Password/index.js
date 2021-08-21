@@ -37,6 +37,7 @@ const ChangePassword = (props) => {
     } else if (cookies.user.role === ROLE.ROLE_STAFF) {
       handleUserChangePassword();
     }
+    
   };
 
   const handleAdminChangePassword = () => {
@@ -48,7 +49,7 @@ const ChangePassword = (props) => {
     put(Url, data)
       .then(() => {
           setnotification(true);
-          
+          props.handleChangpasswordCancel();
       })
       .catch((err) => {
         setMessage(changePassFailException(err));
@@ -65,7 +66,7 @@ const ChangePassword = (props) => {
     put(Url, data)
       .then(() => {
         setnotification(true);
-        
+        props.handleChangpasswordCancel();
       })
       .catch((err) => {
         setMessage(changePassFailException(err));
@@ -75,9 +76,9 @@ const ChangePassword = (props) => {
   };
   const clearMessage = () => {
     setTimeout(() => {
-      setMessage("");
-    }, 3000);
-  };
+     setMessage("");
+     }, 6000);
+   };
  
   const handleCancelChangePassword = () => {
     //cancel
@@ -85,8 +86,10 @@ const ChangePassword = (props) => {
     props.handleChangpasswordCancel();
     
   };
+  
 
   return (
+    <>
     <div id="Change-password" className={`${!props.isShowChangePass ? "d-none" : ""}`}>
       <div id="changepassword-title">
         <p>Change Password</p>
@@ -95,7 +98,8 @@ const ChangePassword = (props) => {
         <form>
           <div className="changepassword-data">
             <label htmlFor="old">Old Password</label>
-            <input type="password" name="old" value={oldPassword} onChange={({ target }) => setOldPassword(target.value)} />
+            <input className={message && 'erroldpass'} type="password" name="old" value={oldPassword} onChange={({ target }) => setOldPassword(target.value)}  />
+            <p className="Change-password-alert ">{message}</p>    
           </div>
           <div className="changepassword-data">
             <label htmlFor="new">New Password</label>
@@ -103,7 +107,6 @@ const ChangePassword = (props) => {
           </div>
         </form>
         <div className="changepassword-btn">
-          <p className="Change-password-alert ">{message}</p>
           <Button className="save-btn" disabled={isDisabled} onClick={handleChangePassword}>
             SAVE
           </Button>
@@ -111,20 +114,22 @@ const ChangePassword = (props) => {
             CANCEL
           </button>
         </div>
-        {notification &&  <div id="notification" >
-        <div className="delete-asset-header" >
-                <p>Change Password</p>
-            </div>
-            <div className="delete-asset-body">
-              <br></br>
-                <p>Password has been Changed  successfully!</p>
-                <Button id="cancel-changepasss" onClick={handleCancelChangePassword} outline color="secondary" >Close</Button>{' '}
-                <br></br>
-                <br></br>
-            </div>
-          </div> } 
-        </div>
+      </div>
+
     </div>
+     {notification &&  <div id="notification" >
+     <div className="delete-asset-header" >
+             <p>Change Password</p>
+         </div>
+         <div className="delete-asset-body">
+           <br></br>
+             <p>Your password has been change successfully!</p>
+             <Button id="cancel-changepasss" onClick={handleCancelChangePassword} outline color="secondary" >Close</Button>{' '}
+             <br></br>
+             <br></br>
+         </div>
+       </div> }
+       </> 
   );
 };
 
