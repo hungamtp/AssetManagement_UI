@@ -394,7 +394,7 @@ const EditAssignment = () => {
           <label className="edit-assignment-label">Asset</label>
           <input value={asset} className="input-field-edit-assignment" disabled />
           <SearchIcon id="search_icon-edit-assignment" onClick={() => {
-            setStaffCodeSelected(assetCode)
+            setAssetCodeSelected(assetCode)
             setAssetNameSelected(asset)
             setIsOpenAssetDialog(true)}} />
         </div>
