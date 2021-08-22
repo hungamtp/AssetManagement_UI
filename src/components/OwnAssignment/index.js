@@ -10,6 +10,7 @@ import TickIcon from '../../images/tick-icon.svg';
 import XIcon from '../../images/x-icon.png';
 import RefreshIcon from '../../images/refresh-icon.jpg';
 import { AcceptAssignment, DeclineAssignment } from '../Response Assignment';
+import { ReturnRequest } from '../Return Request';
 
 class index extends Component {
 
@@ -39,6 +40,7 @@ class index extends Component {
 
             isShowAcceptAssignment: false,
             isShowDeclineAssignment: false,
+            isShowReturnRequest: false,
 
             responseAssignmentId: ""
         };
@@ -67,6 +69,7 @@ class index extends Component {
                             isFail: false
                         })
                         this.handlePageList(response);
+                        console.log(response.data.data.ownAssignments);
                     }
                 }
             })
@@ -174,6 +177,7 @@ class index extends Component {
         this.setState({
             isShowAcceptAssignment: !this.state.isShowAcceptAssignment,
             isShowDeclineAssignment: false,
+            isShowReturnRequest: false,
             responseAssignmentId: assignmentId
         })
     }
@@ -184,7 +188,20 @@ class index extends Component {
         }
         this.setState({
             isShowAcceptAssignment: false,
+            isShowReturnRequest: false,
             isShowDeclineAssignment: !this.state.isShowDeclineAssignment,
+            responseAssignmentId: assignmentId
+        })
+    }
+
+    handleReturnRequestShow = (assignmentId) => {
+        if (assignmentId === undefined) {
+            this.loadOwnAssignments();
+        }
+        this.setState({
+            isShowReturnRequest: !this.state.isShowReturnRequest,
+            isShowAcceptAssignment: false,
+            isShowDeclineAssignment: false,
             responseAssignmentId: assignmentId
         })
     }
@@ -295,11 +312,14 @@ class index extends Component {
                                                 </button>
                                             </td>
                                             <td>
-                                                <img
-                                                    src={RefreshIcon}
-                                                    alt="refresh-icon"
-                                                    width="14px"
-                                                />
+                                                <button className="click-button" disabled={assignment.state !== 'Accepted' ? true : assignment.isReturnRequest}
+                                                    onClick={() => this.handleReturnRequestShow(assignment.assignmentId)}>
+                                                    <img
+                                                        src={RefreshIcon}
+                                                        alt="refresh-icon"
+                                                        width="14px"
+                                                    />
+                                                </button>
                                             </td>
                                         </tr>
                                     )
@@ -379,6 +399,7 @@ class index extends Component {
                 </Modal>
                 <AcceptAssignment assignmentId={this.state.responseAssignmentId} isShowAcceptAssignment={this.state.isShowAcceptAssignment} handleAcceptAssignmentShow={this.handleAcceptAssignmentShow}/>
                 <DeclineAssignment assignmentId={this.state.responseAssignmentId} isShowDeclineAssignment={this.state.isShowDeclineAssignment} handleDeclineAssignmentShow={this.handleDeclineAssignmentShow}/>
+                <ReturnRequest assignmentId={this.state.responseAssignmentId} staffCode={this.state.user.staffCode} isShowReturnRequest={this.state.isShowReturnRequest} handleReturnRequestShow={this.handleReturnRequestShow}/>
             </div>
         )
     }
