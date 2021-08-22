@@ -94,17 +94,25 @@ const Index = ({ user, onDelete }) => {
             <div>{user.dateOfBirth}</div>
             <div>{user.gender}</div>
             <div>{user.joinedDate}</div>
-            <div>{user.type.replace("ROLE_", "")}</div>
+            <div>
+              {user.type.includes("USER")
+                ? "STAFF"
+                : user.type.replace("ROLE_", "")}
+            </div>
             <div>{user.location}</div>
           </div>
         </div>
       </Dialog>
-      <tr>
+      <tr id={user.staffCode}>
         <td onClick={showUserDetail}>{user.staffCode}</td>
         <td onClick={showUserDetail}>{user.fullName}</td>
         <td onClick={showUserDetail}>{user.username}</td>
         <td onClick={showUserDetail}>{user.joinedDate}</td>
-        <td onClick={showUserDetail}>{user.type.replace("ROLE_", "")}</td>
+        <td onClick={showUserDetail}>
+          {user.type.includes("USER")
+            ? "STAFF"
+            : user.type.replace("ROLE_", "")}
+        </td>
         <td id="icon_zone">
           <div id="edit_icon" class="edit_icon" onClick={handleEditIconClick}>
             <svg class="edit_icon_kh" viewBox="0 0 16.001 16">

@@ -1,19 +1,14 @@
 
-import Navbar from "../Navbar";
-import Menu from "../Menu";
-import * as business from "../../constants/Business";
 import './Assetedit.css'
-import axios from 'axios';
 import { ButtonToggle } from "reactstrap";
 import { useHistory, useParams } from 'react-router-dom';
-import { useCookies } from "react-cookie";
 import { Button, Form, FormGroup, Label, Input, Col, CustomInput } from 'reactstrap';
 import React, { useEffect, useState } from 'react';
 import { get, put } from '../../httpHelper';
-
+import * as URL from "../../constants/URL";
 
 const EditAsset = () => {
-    const [id, setid] = useState("");
+  
     const [Name, setName] = useState("");
     const [Category, setCategory] = useState("");
     const [Specification, setSpecification] = useState("");
@@ -25,12 +20,26 @@ const EditAsset = () => {
     const [checkedNotAvailable, setCheckedNotAvailable] = useState(true);
     const [checkedWaitingforrecycling, setCheckedWaitingforrecycling] = useState(true);
     const [checkedRecycled, setCheckedRecycled] = useState(false);
+    const [role, setRole] = useState("ROLE_ADMIN");
+    
 
     const [valid, setValid] = useState("");
     const [validIDay, setValidIDay] = useState(true);
     const [isDisabled, setIsDisable] = useState(true);
 
+    const [AssetInfo, setAssetInfo] = useState(null);
+
+
     let history = useHistory();
+    let { assetCode } = useParams();
+
+    useEffect(() => {
+        //get asset info
+        let Url = `asset/${assetCode}`;
+        get(Url)
+            .then((response) => setAssetInfo(response.data.data))
+            .catch(err => console.log(err));
+    }, [])
 
     useEffect(() => {
         //getCategoryList
@@ -43,6 +52,33 @@ const EditAsset = () => {
     useEffect(() => {
         //do something
     }, [valid])
+
+    
+    useEffect(() => {
+        console.log(AssetInfo);
+        if (AssetInfo !== null) {
+            setName(AssetInfo.assetName);
+            setCategory(AssetInfo.category.categoryName);
+            setSpecification(AssetInfo.specification);
+            setInstalledDate(AssetInfo.installDate.slice(0,10));
+            switch (AssetInfo.state) {
+                case 1:
+                    handleChangeAvailable();
+                    break;
+                case 2:
+                    handleChangeNotAvailable();
+                    break;
+                case 4:
+                    handleChangeWaitingforrecycling();
+                    break;
+                case 5:
+                    handleChangeRecycled();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }, [AssetInfo])
 
     useEffect(() => {
         if (Name.length > 0 && Category.length > 0 && Specification.length > 0 &&
@@ -59,41 +95,45 @@ const EditAsset = () => {
     }
 
     const handleEdit = () => {
-        let Url = "asset/edit" + id;
+        let Url = "asset/edit/" + assetCode;
         let data = {
-            Name, Category, Specification, InstalledDate: InstalledDate + " 00:00", State
+            name: Name, specification: Specification, installDate: InstalledDate, state: State
         }
-        //console.log(data);
+        console.log(data);
         put(Url, data)
-            .then(() => alert("Edit Aset Successfull!"))
+            .then((result) =>{
+                //  alert("Edit Aset Successfull!")
+                localStorage.setItem("editAsset", JSON.stringify(result.data.data));
+                history.push(URL.MANAGE_ASSET);
+                })
             .catch(err => console.log(err));
     }
 
     const handleChangeAvailable = () => {
         setState("available");
-        setCheckedAvailalbe(checkedAvailalbe => !checkedAvailalbe);
+        setCheckedAvailalbe(true);
         setCheckedNotAvailable(false);
         setCheckedRecycled(false);
         setCheckedWaitingforrecycling(false);
     };
 
     const handleChangeNotAvailable = () => {
-        setState("Not Available");
-        setCheckedNotAvailable(checkedNotAvailable => !checkedNotAvailable);
+        setState("not available");
+        setCheckedNotAvailable(true);
         setCheckedAvailalbe(false);
         setCheckedRecycled(false);
         setCheckedWaitingforrecycling(false);
     };
     const handleChangeRecycled = () => {
-        setState("Recycled");
-        setCheckedRecycled(checkedRecycled => !checkedRecycled);
+        setState("recycled");
+        setCheckedRecycled(true);
         setCheckedAvailalbe(false);
         setCheckedNotAvailable(false);
         setCheckedWaitingforrecycling(false);
     };
     const handleChangeWaitingforrecycling = () => {
-        setState("Waiting for recycling");
-        setCheckedWaitingforrecycling(checkedWaitingforrecycling => !checkedWaitingforrecycling);
+        setState("waiting for recycling");
+        setCheckedWaitingforrecycling(true);
         setCheckedAvailalbe(false);
         setCheckedNotAvailable(false);
         setCheckedRecycled(false);
@@ -110,9 +150,9 @@ const EditAsset = () => {
             <div id="Form_fsc">
                 <div id="Specification_fsd">
                     <FormGroup row>
-                        <Label htmlFor="specification" sm={2}>Specific</Label>
+                        <Label htmlFor="specification" sm={2}>Specification</Label>
                         <Col md={10}>
-                            <Input type="textarea" id="text" name="text" style={{}} value={Specification}
+                            <Input id="input-specification" type="textarea" id="specification_textarea" name="text" style={{}} value={Specification}
                                 onChange={(event) => setSpecification(event.target.value)} />
                         </Col>
                     </FormGroup>
@@ -120,29 +160,29 @@ const EditAsset = () => {
                 <div id="State_fsh">
                     <FormGroup row>
                         <legend className="col-form-label col-sm-2" sm={2}>State</legend>
-                        <Col sm={10} id="lb">
-                            <FormGroup check>
+                        <Col sm={10} id="state-check" >
+                            <FormGroup  check>
                                 <Label check >
-                                    <Input type="radio" name="customRadio" value={checkedAvailalbe} onClick={handleChangeAvailable} />{' '}
-                                    Available
+                                    <Input id="radiocheck" type="radio" name="customRadio" value={"available"} 
+                                    onClick={handleChangeAvailable} checked={checkedAvailalbe} />{' '}Available
                                 </Label>
                             </FormGroup>
                             <FormGroup check>
                                 <Label check>
-                                    <Input type="radio" name="customRadio" value={checkedNotAvailable} onClick={handleChangeNotAvailable} />{' '}
-                                    Not available
+                                    <Input id="radiocheck" type="radio" name="customRadio" value={"not available"} 
+                                    onClick={handleChangeNotAvailable} checked={checkedNotAvailable} />{' '}Not available
                                 </Label>
                             </FormGroup>
                             <FormGroup check disabled>
                                 <Label check>
-                                    <Input type="radio" name="customRadio" value={checkedWaitingforrecycling} onClick={handleChangeWaitingforrecycling} />{' '}
-                                    Waiting for recycling
+                                    <Input id="radiocheck" type="radio" name="customRadio" value={"waiting for recycling"} 
+                                    onClick={handleChangeWaitingforrecycling} checked={checkedWaitingforrecycling}/>{' '}Waiting for recycling
                                 </Label>
                             </FormGroup>
                             <FormGroup check disabled>
                                 <Label check>
-                                    <Input type="radio" name="customRadio" value={checkedRecycled} onClick={handleChangeRecycled} />{' '}
-                                    Recycled
+                                    <Input id="radiocheck" type="radio" name="customRadio" value={"recycled"} 
+                                    onClick={handleChangeRecycled} checked={checkedRecycled}/>{' '}Recycled
                                 </Label>
                             </FormGroup>
                         </Col>
@@ -150,9 +190,9 @@ const EditAsset = () => {
                 </div>
                 <div id="Installed_Date">
                     <FormGroup row>
-                        <Label htmlFor="date" sm={2}>Date</Label>
+                        <Label id="label-date" htmlFor="date" sm={2}>Installed Date</Label>
                         <Col sm={10}>
-                            <Input className={!validIDay ? "red-input" : "input"}
+                            <Input id="input-Installed_Date" className={!validIDay ? "red-input" : "input"}
                                 value={InstalledDate}
                                 type="date"
                                 name="date"
@@ -162,34 +202,24 @@ const EditAsset = () => {
                     </FormGroup>
 
                 </div>
-                <div id="Category_fs" class="Category">
+                <div id="Category_fs" className="Category">
                     <FormGroup row>
-                        <Label htmlFor="category" sm={2}>Category</Label>
+                        <Label  htmlFor="category" sm={2}>Category</Label>
                         <Col sm={10}>
-                            <Input type="select" name="select" value={Category}
-                                onChange={({ target }) => setCategory(target.value)}>
+                            <Input id="input-category" type="select" name="select" value={Category} disabled>
                                 {categoryList.map(item => <option value={item.categoryName}>{item.categoryName}</option>)}
-
                             </Input>
                         </Col>
                     </FormGroup>
                 </div>
-                <div id="Cancel_btn_fte" class="Cancel_btn">
-                    <div onclick="application.goToTargetView(event)" className="Cancel_btn">
-                        <Button outline color="secondary" onClick={handleCancelEdit}>Cancel</Button>
-                    </div>
-                </div>
-                <div id="Save_btn_fth" class="Save_btn">
-                    <div className="Save_btn" onclick="application.goToTargetView(event)">
-                        <ButtonToggle className=" btn-block" color="danger" onClick={handleEdit} disabled={isDisabled}> Save </ButtonToggle>
-                    </div>
-                </div>
+                <Button id="Cancel_btn_fte" className="Cancel_btn" outline color="secondary" onClick={handleCancelEdit}>Cancel</Button>
+                <ButtonToggle id="Save_btn_fth" className="Save_btn btn-block" color="danger" onClick={handleEdit} disabled={isDisabled}> Save </ButtonToggle>
                 <div id="Name">
                     <Form>
                         <FormGroup row>
                             <Label htmlFor="name" sm={2}>Name </Label>
                             <Col sm={10}>
-                                <Input type="text" name="name" value={Name}
+                                <Input id="input-name" type="text" name="name" value={Name}
                                     onChange={(event) => setName(event.target.value)} />
                             </Col>
                         </FormGroup>

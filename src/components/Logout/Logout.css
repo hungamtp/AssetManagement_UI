@@ -13,6 +13,7 @@
     --web-navigate-on-keypress: true;
     --web-enable-deep-linking: true;
     --web-page-font: Arial;
+    z-index:1
 }
 
 .show-logout {

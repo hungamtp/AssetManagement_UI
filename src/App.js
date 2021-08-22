@@ -1,101 +1,56 @@
 import React, { Component } from "react";
+import "./App.css";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import StaffHome from "./components/StaffHome";
 import FirstLogin from "./components/FirstLogin";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
-import { instanceOf } from "prop-types";
-import { withCookies, Cookies } from "react-cookie";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ManageAsset from "./components/Manage Asset/ManageAsset";
-import LoginFirst from "./components/LoginFirst/LoginFirst";
 import CreateNewUser_Page from "./pages/Create new user";
 import CreateAsset from "./pages/CreateAsset";
 import * as URL from "./constants/URL";
-import Index from "./components/Users";
+import * as role from "./constants/Business";
 import EditUser_Page from "./pages/Edit user";
 import ProtectedRoute from "./components/ProtectedRoute";
-import ChangePassword_Page from "./pages/Change password";
+import ProtectedRouteForFirstLogin from "./components/ProtectedRouteForFirstLogin";
 import EditAsset_Page from "./pages/Edit asset";
-import Users from "./components/Users";
 import ManageUser_Page from "./pages/ManageUser";
-import DeleteAsset from "./components/Delete Asset";
+import Create_Assignment_Page from "./pages/Create assignment";
+import ManageAssignment_Page from "./pages/ManageAssignment";
+import Report_Page from "./pages/Report Page";
+import EditAssignment from "./pages/EditAssignment";
 
-class App extends Component {
-  static propTypes = {
-    cookies: instanceOf(Cookies).isRequired,
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentDidMount() {}
-
+export default class App extends Component {
   render() {
     return (
       <div>
         <Router>
           <Switch>
-            {/* <ProtectedRoute exact path="/manage/category" component={Home} /> */}
-            <Route exact path="/">
+            {/* CHANGEPASS */}
+            {/* <ProtectedRouteForFirstLogin exact path={URL.FIRST_LOGIN} role={role.ROLE_ADMIN + role.ROLE_STAFF} component={FirstLogin} /> */}
+            {/* HOME */}
+            <ProtectedRouteForFirstLogin exact path={URL.HOME_ADMIN} role={role.ROLE_ADMIN} component={Home} />
+            <ProtectedRouteForFirstLogin exact path={URL.HOME_USER} role={role.ROLE_STAFF} component={StaffHome} />
+            {/* USER */}
+            <ProtectedRoute exact path={URL.MANAGE_USER} role={role.ROLE_ADMIN} component={ManageUser_Page} />
+            <ProtectedRoute exact path={URL.CREATE_USER} role={role.ROLE_ADMIN} component={CreateNewUser_Page} />
+            <ProtectedRoute exact path={URL.EDIT_USER} role={role.ROLE_ADMIN} component={EditUser_Page} />
+            {/* ASSET */}
+            <ProtectedRoute exact path={URL.MANAGE_ASSET} role={role.ROLE_ADMIN} component={ManageAsset} />
+            <ProtectedRoute exact path={URL.CREATE_ASSET} role={role.ROLE_ADMIN} component={CreateAsset} />
+            <ProtectedRoute exact path={URL.EDIT_ASSET} role={role.ROLE_ADMIN} component={EditAsset_Page} />
+            {/* ASSIGNMENT */}
+            <ProtectedRoute exact path={URL.MANAGE_ASSIGNMENT} role={role.ROLE_ADMIN} component={ManageAssignment_Page} />
+            <ProtectedRoute exact path={URL.CREATE_ASSIGNMENT} role={role.ROLE_ADMIN} component={Create_Assignment_Page} />
+            <ProtectedRoute exact path={URL.ASSET_REPORT} role={role.ROLE_ADMIN} component={Report_Page} />
+            <ProtectedRoute exact path={URL.EDIT_ASSIGNMENT} role={role.ROLE_ADMIN} component={EditAssignment} />
+            <Route exact path="/**">
               <Login />
             </Route>
-            <Route exact path="/first">
-              <FirstLogin />
-            </Route>
-            <Route exact path="/admin">
-              <Home />
-            </Route>
-            <Route exact path="/user">
-              <StaffHome />
-            </Route>
-            <Route exact path="/manageasset">
-              <ManageAsset />
-            </Route>
-            <Route path="/editasset/:assetCode">
-              <EditAsset_Page />
-            </Route>
-            <Route exact path="/changepassword">
-              <ChangePassword_Page />
-            </Route>
-
-            <Route exact path="/createnewuser">
-              <CreateNewUser_Page />
-            </Route>
-            <Route exact path="/createnewuser">
-              <CreateNewUser_Page />
-            </Route>
-            <Route exact path="/login_first">
-              <LoginFirst />
-            </Route>
-
-            <Route path="/edituser/:staffCode">
-              <EditUser_Page />
-            </Route>
-            <Route path="/manageuser">
-              <ManageUser_Page />
-            </Route>
-
-            <Route exact path={URL.CREATE_ASSET}>
-              <CreateAsset />
-            </Route>
-
-            <Route path="/deleteasset/:assetCode">
-              <DeleteAsset/>
-            </Route>
-
-            <Route path="/**" render={() => <h2>Not found</h2>}></Route>
+            {/* <Route path="/**" render={() => <h2>Not found</h2>}></Route> */}
           </Switch>
         </Router>
       </div>
     );
   }
 }
-
-export default withCookies(App);

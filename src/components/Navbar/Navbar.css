@@ -1,6 +1,6 @@
 #narbav_ecg {
   position: absolute;
-  width: 1920px;
+  width: 1700px;
   height: 151px;
   left: 0px;
   top: 0px;
@@ -18,7 +18,7 @@
 .Rectangle_329_ech {
   position: absolute;
   overflow: visible;
-  width: 1920px;
+  width: 100vh;
   height: 72px;
   left: 0px;
   top: 0px;
@@ -45,4 +45,10 @@
   right: 138px;
   top: 16px;
   overflow: visible;
+}
+
+#narbav_ecg .username {
+  color: white;
+  font-weight: bolder;
+  font-size: 18px;
 }

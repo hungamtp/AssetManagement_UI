@@ -1,0 +1,60 @@
+
+.own-assignment-title {
+    margin-top: 180px;
+    margin-left: 480px;
+    color: red;
+    width: 200px;
+    font-size: 20px;
+}
+
+.own-assignment-content{
+    margin-top: 20px;
+    margin-left: 460px;
+    width: 64%;
+    font-size: 14px;
+}
+
+.own-assignment-paging {
+    float: right;
+    margin-top: 20px;
+    margin-right: 50px;
+}
+
+.own-assignment-page {
+    border: 1px solid grey;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    color: red;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.own-assignment-current-page {
+    display: inline-block;
+    cursor: pointer;
+    border: 1px solid grey;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    color: white;
+    background-color: red;
+}
+
+.own-assignment-notificaton {
+    margin-top: 50px;
+    margin-left: 480px;
+    width: 50%;
+}
+
+.icon-normal {
+    cursor: pointer;
+}
+
+.icon-disabled {
+    opacity: 0.5;
+}
+
+.click-button {
+    background-color: transparent;
+}

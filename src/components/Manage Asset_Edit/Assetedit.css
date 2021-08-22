@@ -145,10 +145,33 @@
     top: 0px;
     overflow: visible;
 }
-#lb{
+#state-check{
     position:relative;
-    left: 20px;
+    left: 70px;
 }
-#text{
+
+#specification_textarea{
     resize: none;
+    height: 4rem;
+    position:relative;
+    left:53px;
+}
+#input-Installed_Date{
+    position: relative;
+    top:-35px;
+    left: 120px;
+}
+#label-date{
+    width: 125px;
+}
+#input-category{
+    position: relative;
+    left: 53px;
+}
+#input-name{
+    position: relative;
+    left: 53px;
+}
+#radiocheck:checked {
+background-color: red;
 }
