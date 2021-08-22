@@ -105,14 +105,14 @@
   color:red;
   font-size: larger;
   }
-  #button_zone{
+  #button_zone-deleteAssignment{
     position: relative;
     right: 190px;
   }
-#btncancel{
+#btncancelAssignment{
   border: 1.5px solid rgb(180, 178, 178);
   color:rgb(109, 107, 107);
 }
-#delete_btn{
+#deleteAssignment_btn{
   background-color:#CF2338;
 }

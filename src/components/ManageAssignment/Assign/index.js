@@ -158,9 +158,9 @@ const handleOpenFormDelete =() => {
                 <div id="First_Name_jr">
                   Do you want to delete this Assignment?
                 </div>
-                <div id="button_zone">
-                  <Button variant="contained" color="secondary" size="small"id="delete_btn" onClick={handleDeleteAssignment}> Delete</Button>
-                 <Button size="small" outline color="secondary" id="btncancel" onClick={handleCloseDeleteDialog}>Cancel </Button>
+                <div id="button_zone-deleteAssignment">
+                  <Button variant="contained" color="secondary" size="small"id="deleteAssignment_btn" onClick={handleDeleteAssignment}> Delete</Button>
+                 <Button size="small" outline color="secondary" id="btncancelAssignment" onClick={handleCloseDeleteDialog}>Cancel </Button>
                 
                 </div>
               </div>
