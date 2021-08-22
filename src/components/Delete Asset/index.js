@@ -43,10 +43,11 @@ const DeleteAsset_No = (props) => {
                 <button className="x-btn" onClick={handleXButton}>X</button>
             </div>
             <div className="delete-asset-body">
-                <p>Cannot delete the asset because it belongs to one or more historical assignments. 
-                    If the asset is not able to be used anymore, please update its state in</p>
+                <p>Cannot delete the asset because it belongs to one or more historical assignments.</p>
                 <div className="link-edit-asset">
-                    <a href={`/editasset/${props.assetCode}`}>Edit Asset page</a>
+                    <p>If the asset is not able to be used anymore, please update its state in
+                        <a href={`/editasset/${props.assetCode}`}>Edit Asset page</a>
+                    </p>
                 </div>
             </div>
         </div>
