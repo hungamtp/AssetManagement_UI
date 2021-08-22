@@ -7,6 +7,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import ReplayIcon from "@material-ui/icons/Replay";
 import {get, del } from "../../../httpHelper";
+import { red } from "@material-ui/core/colors";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -159,7 +160,8 @@ const handleOpenFormDelete =() => {
                 </div>
                 <div id="button_zone">
                   <Button variant="contained" color="secondary" size="small"id="delete_btn" onClick={handleDeleteAssignment}> Delete</Button>
-                  <Button size="small" id="cancel_btn" onClick={handleCloseDeleteDialog}>Cancel </Button>
+                 <Button size="small" outline color="secondary" id="btncancel" onClick={handleCloseDeleteDialog}>Cancel </Button>
+                
                 </div>
               </div>
             </div>

@@ -107,5 +107,12 @@
   }
   #button_zone{
     position: relative;
-    right: 30px;
+    right: 190px;
   }
+#btncancel{
+  border: 1.5px solid rgb(180, 178, 178);
+  color:rgb(109, 107, 107);
+}
+#delete_btn{
+  background-color:#CF2338;
+}
