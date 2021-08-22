@@ -31,7 +31,7 @@ const EditAssignment = () => {
   const [isFullNameCodeASC, setIsFullNameCodeASC] = useState(true);
   const [isTypeASC, setIsTypeASC] = useState(true);
   const [staffCodeSelected, setStaffCodeSelected] = useState("");
-  const [NameSelected, setNamelected] = useState("");
+  const [NameSelected, setNameSelected] = useState("");
   const [staffCode, setStaffCode] = useState("");
   const [assetCode, setAssetCode] = useState("");
   const [assetCodeSelected, setAssetCodeSelected] = useState("");
@@ -252,7 +252,7 @@ const EditAssignment = () => {
                       checked={staffCodeSelected===user.staffCode?true:false}
                       onChange={() => {
                         setStaffCodeSelected(user.staffCode);
-                        setNamelected(user.fullName);
+                        setNameSelected(user.fullName);
                       }}
                     />
                     <td>{user.staffCode}</td>
@@ -387,6 +387,7 @@ const EditAssignment = () => {
           <input disabled value={username} className="input-field-edit-assignment" />
           <SearchIcon id="search_icon-edit-assignment" onClick={() => {
             setStaffCodeSelected(staffCode)
+            setNameSelected(username)
             setIsOpenUserDialog(true)}} />
         </div>
         <div className="field-edit-assignment">
@@ -394,6 +395,7 @@ const EditAssignment = () => {
           <input value={asset} className="input-field-edit-assignment" disabled />
           <SearchIcon id="search_icon-edit-assignment" onClick={() => {
             setStaffCodeSelected(assetCode)
+            setAssetNameSelected(asset)
             setIsOpenAssetDialog(true)}} />
         </div>
         <div className="field-edit-assignment">
