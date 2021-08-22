@@ -48,7 +48,7 @@ export const DeleteAsset_No = (props) => {
             <div className="delete-asset-body">
                 <p>Cannot delete the asset because it belongs to one or more historical assignments.</p>
                 <div className="link-edit-asset">
-                    <p>If the asset is not able to be used anymore, please update its state in
+                    <p>If the asset is not able to be used anymore, please update its state in &nbsp;
                         <a href={`/editasset/${props.assetCode}`}>Edit Asset page</a>
                     </p>
                 </div>
