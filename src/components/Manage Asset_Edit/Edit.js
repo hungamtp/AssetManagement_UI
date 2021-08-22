@@ -150,9 +150,9 @@ const EditAsset = () => {
             <div id="Form_fsc">
                 <div id="Specification_fsd">
                     <FormGroup row>
-                        <Label htmlFor="specification" sm={2}>Specific</Label>
+                        <Label htmlFor="specification" sm={2}>Specification</Label>
                         <Col md={10}>
-                            <Input type="textarea" id="specification_textarea" name="text" style={{}} value={Specification}
+                            <Input id="input-specification" type="textarea" id="specification_textarea" name="text" style={{}} value={Specification}
                                 onChange={(event) => setSpecification(event.target.value)} />
                         </Col>
                     </FormGroup>
@@ -160,28 +160,28 @@ const EditAsset = () => {
                 <div id="State_fsh">
                     <FormGroup row>
                         <legend className="col-form-label col-sm-2" sm={2}>State</legend>
-                        <Col sm={10} id="lb">
-                            <FormGroup check>
+                        <Col sm={10} id="state-check" >
+                            <FormGroup  check>
                                 <Label check >
-                                    <Input type="radio" name="customRadio" value={"available"} 
+                                    <Input id="radiocheck" type="radio" name="customRadio" value={"available"} 
                                     onClick={handleChangeAvailable} checked={checkedAvailalbe} />{' '}Available
                                 </Label>
                             </FormGroup>
                             <FormGroup check>
                                 <Label check>
-                                    <Input type="radio" name="customRadio" value={"not available"} 
+                                    <Input id="radiocheck" type="radio" name="customRadio" value={"not available"} 
                                     onClick={handleChangeNotAvailable} checked={checkedNotAvailable} />{' '}Not available
                                 </Label>
                             </FormGroup>
                             <FormGroup check disabled>
                                 <Label check>
-                                    <Input type="radio" name="customRadio" value={"waiting for recycling"} 
+                                    <Input id="radiocheck" type="radio" name="customRadio" value={"waiting for recycling"} 
                                     onClick={handleChangeWaitingforrecycling} checked={checkedWaitingforrecycling}/>{' '}Waiting for recycling
                                 </Label>
                             </FormGroup>
                             <FormGroup check disabled>
                                 <Label check>
-                                    <Input type="radio" name="customRadio" value={"recycled"} 
+                                    <Input id="radiocheck" type="radio" name="customRadio" value={"recycled"} 
                                     onClick={handleChangeRecycled} checked={checkedRecycled}/>{' '}Recycled
                                 </Label>
                             </FormGroup>
@@ -190,9 +190,9 @@ const EditAsset = () => {
                 </div>
                 <div id="Installed_Date">
                     <FormGroup row>
-                        <Label htmlFor="date" sm={2}>Date</Label>
+                        <Label id="label-date" htmlFor="date" sm={2}>Installed Date</Label>
                         <Col sm={10}>
-                            <Input className={!validIDay ? "red-input" : "input"}
+                            <Input id="input-Installed_Date" className={!validIDay ? "red-input" : "input"}
                                 value={InstalledDate}
                                 type="date"
                                 name="date"
@@ -204,9 +204,9 @@ const EditAsset = () => {
                 </div>
                 <div id="Category_fs" className="Category">
                     <FormGroup row>
-                        <Label htmlFor="category" sm={2}>Category</Label>
+                        <Label  htmlFor="category" sm={2}>Category</Label>
                         <Col sm={10}>
-                            <Input type="select" name="select" value={Category} disabled>
+                            <Input id="input-category" type="select" name="select" value={Category} disabled>
                                 {categoryList.map(item => <option value={item.categoryName}>{item.categoryName}</option>)}
                             </Input>
                         </Col>
@@ -219,7 +219,7 @@ const EditAsset = () => {
                         <FormGroup row>
                             <Label htmlFor="name" sm={2}>Name </Label>
                             <Col sm={10}>
-                                <Input type="text" name="name" value={Name}
+                                <Input id="input-name" type="text" name="name" value={Name}
                                     onChange={(event) => setName(event.target.value)} />
                             </Col>
                         </FormGroup>
