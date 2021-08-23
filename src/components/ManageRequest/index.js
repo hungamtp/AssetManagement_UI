@@ -36,7 +36,7 @@ const Index = () => {
     // console.log(sortType);
     // console.log(currentPage);
     loadRequestTable();
-  }, [stateList, searchKeyWord, assignedDate, sortField, sortType, currentPage]);
+  }, [stateList, assignedDate, sortField, sortType, currentPage]);
 
   const loadRequestTable = async () => {
     let usingFilterSearchSortApi = stateList.length > 0 || searchKeyWord.trim() !== "" || assignedDate !== "" || sortField !== "" || sortType !== "";
@@ -173,6 +173,12 @@ const Index = () => {
     if (JSON.stringify(incomeStateList) !== JSON.stringify(stateList)) setStateList(incomeStateList);
   }, [stateWaitingForReturning, stateCompleted]);
 
+  const searchRequest = (e) => {
+    if (e.keyCode === 13) {
+      loadRequestTable();
+    }
+  };
+
   const handleCompleteRequest = (requestId) => {
     console.log("complete");
   };
@@ -232,14 +238,14 @@ const Index = () => {
         </div>
       </div>
       <div id="Search_bar-request">
-        <Input type="text" id="input-search-request" onChange={(e) => setSearchKeyWord(e.target.value)} />
+        <Input type="text" id="input-search-request" onChange={(e) => setSearchKeyWord(e.target.value)} onKeyUp={(e) => searchRequest(e)} />
         {/* <svg class="Rectangle_336-request">
           <rect id="Rectangle_336-request" rx="5" ry="5" x="0" y="0" width="255" height="35"></rect>
         </svg> */}
         <svg class="Line_5-request" viewBox="0 0 1 33">
           <path id="Line_5-request" d="M 0 0 L 0 33"></path>
         </svg>
-        <svg class="search-request" viewBox="-0.001 0.002 16.001 15.998">
+        <svg class="search-request" viewBox="-0.001 0.002 16.001 15.998" onClick={loadRequestTable}>
           <path
             id="search-request"
             d="M 11.74199962615967 10.3439998626709 C 13.75034236907959 7.603466033935547 13.3092155456543 3.77855372428894 10.72976493835449 1.567129611968994 C 8.150315284729004 -0.6442947387695313 4.30290412902832 -0.4960470199584961 1.90126895904541 1.907307624816895 C -0.5003666877746582 4.310660362243652 -0.6458611488342285 8.158176422119141 1.567407608032227 10.73604393005371 C 3.780675888061523 13.31391143798828 7.605902671813965 13.75230312347412 10.34499931335449 11.74200057983398 L 10.34399890899658 11.74199962615967 C 10.37399864196777 11.7819995880127 10.40599918365479 11.81999969482422 10.44199848175049 11.85699939727783 L 14.2919979095459 15.70699882507324 C 14.68246269226074 16.09774017333984 15.31575584411621 16.09796333312988 15.70649719238281 15.70749855041504 C 16.09723854064941 15.3170337677002 16.09746170043945 14.68374061584473 15.70699787139893 14.29299926757813 L 11.85699844360352 10.4429988861084 C 11.82124614715576 10.4068078994751 11.78280258178711 10.37337875366211 11.74199867248535 10.34299850463867 Z M 12 6.5 C 12 9.537567138671875 9.537566184997559 12 6.5 12 C 3.4624342918396 12 1.000000476837158 9.537566184997559 1.000000476837158 6.5 C 1.000000476837158 3.4624342918396 3.462434530258179 1.000000476837158 6.500000953674316 1.000000476837158 C 9.537567138671875 1.000000476837158 12 3.462434530258179 12 6.500000953674316 Z"
