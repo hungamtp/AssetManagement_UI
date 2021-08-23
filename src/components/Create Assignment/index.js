@@ -412,7 +412,7 @@ const CreateAssignment = () => {
         </div>
       </div>
       <div id="button-zone">
-        {username === "" || asset === "" || note === "" ? (
+        {username === "" || asset === "" ? (
           <Button
             variant="contained"
             color="secondary"
