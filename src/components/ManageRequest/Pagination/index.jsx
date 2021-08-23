@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Pagination from "@material-ui/lab/Pagination";
 import "./pagination.css";
+import { useEffect } from "react";
 
 const Paginations = ({ totalPages, setCurrentPage }) => {
   return (
@@ -10,7 +11,9 @@ const Paginations = ({ totalPages, setCurrentPage }) => {
         variant="text"
         shape="rounded"
         color="secondary"
-        onChange={(event, value) => setCurrentPage(value - 1)}
+        onChange={(event, value) => {
+          setCurrentPage(value - 1);
+        }}
       />
     </div>
   );

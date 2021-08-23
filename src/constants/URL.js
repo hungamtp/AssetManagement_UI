@@ -37,3 +37,9 @@ export const CREATE_CATEGORY = "category";
 
 //ASSET
 export const CREATE_ASSET_API = "asset";
+
+//CATEGORY
+export const GET_REQUEST_API = "request";
+export const COUNT_REQUEST_API = "request/count";
+export const GET_REQUEST_FILTER_SEARCH_SORT_API = "request/filter-search-sort";
+export const COUNT_REQUEST_FILTER_SEARCH_SORT_API = "request/count/filter-search-sort";

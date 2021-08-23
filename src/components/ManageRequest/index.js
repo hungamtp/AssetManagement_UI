@@ -7,12 +7,15 @@ import TickIcon from "../../images/tick-icon.svg";
 import XIcon from "../../images/x-icon.png";
 import Paginations from "./Pagination";
 import * as STATE from "../../constants/State";
+import * as URL from "../../constants/URL.js";
+import { getRequest, countRequest, getRequestFilterSearchSort, countRequestFilterSearchSort } from "../../services/RequestService";
 
 const Index = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen((prevState) => !prevState);
   const [currentPage, setCurrentPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(15);
+  const [totalPages, setTotalPages] = useState(1);
+  const [pageSize, setPageSize] = useState(15);
   const [searchKeyWord, setSearchKeyWord] = useState("");
   const [assignedDate, setAssignedDate] = useState("");
   const [stateAll, setStateAll] = useState(false);
@@ -22,24 +25,76 @@ const Index = () => {
   const [stateListTemp, setStateListTemp] = useState([]);
   const [sortField, setSortField] = useState("");
   const [sortType, setSortType] = useState("");
+  const [requestList, setRequestList] = useState([]);
+  const [reRenderPagination, setReRenderPagination] = useState(Math.random() + "abcxyz");
 
   useEffect(() => {
-    console.log(searchKeyWord);
-    console.log(assignedDate);
-  }, [searchKeyWord, assignedDate]);
+    // console.log(searchKeyWord);
+    // console.log(assignedDate);
+    // console.log(stateList);
+    // console.log(sortField);
+    // console.log(sortType);
+    // console.log(currentPage);
+    loadRequestTable();
+  }, [stateList, searchKeyWord, assignedDate, sortField, sortType, currentPage]);
 
-  useEffect(() => {
-    console.log(currentPage);
-  }, [currentPage]);
+  const loadRequestTable = async () => {
+    let usingFilterSearchSortApi = stateList.length > 0 || searchKeyWord.trim() !== "" || assignedDate !== "" || sortField !== "" || sortType !== "";
+    if (usingFilterSearchSortApi) {
+      let filterSearchSort = {
+        states: stateList,
+        localDateTime: assignedDate !== "" ? `${assignedDate}T00:00:00` : assignedDate,
+        sortField: sortField,
+        sortType: sortType,
+        searchKeyWord: searchKeyWord,
+      };
+      try {
+        let result = await countRequestFilterSearchSort(URL.COUNT_REQUEST_FILTER_SEARCH_SORT_API, filterSearchSort);
+        loadTotalPages(result.data.data.numberOfEntity);
+      } catch (error) {
+        alert(error.response.data.data.errorCode);
+        return;
+      }
+      try {
+        let result = await getRequestFilterSearchSort(`${URL.GET_REQUEST_FILTER_SEARCH_SORT_API}?page=${currentPage}&size=${pageSize}`, filterSearchSort);
+        setRequestList(result.data.data);
+      } catch (error) {
+        alert(error.response.data.data.errorCode);
+        return;
+      }
+    } else {
+      try {
+        let result = await countRequest(URL.COUNT_REQUEST_API);
+        loadTotalPages(result.data.data.numberOfEntity);
+      } catch (error) {
+        alert(error.response.data.data.errorCode);
+        return;
+      }
+      try {
+        let result = await getRequest(`${URL.GET_REQUEST_API}?page=${currentPage}&size=${pageSize}`);
+        setRequestList(result.data.data);
+      } catch (error) {
+        alert(error.response.data.data.errorCode);
+        return;
+      }
+    }
+  };
 
-  useEffect(() => {
-    console.log(stateList);
-  }, [stateList]);
-
-  useEffect(() => {
-    console.log(sortField);
-    console.log(sortType);
-  }, [sortField, sortType]);
+  const loadTotalPages = (numberOfObject) => {
+    let totalPages = 1;
+    if (numberOfObject / pageSize === 0) {
+      totalPages = 1;
+    } else if (numberOfObject % pageSize === 0) {
+      totalPages = numberOfObject / pageSize;
+    } else {
+      totalPages = Math.floor(numberOfObject / pageSize) + 1;
+    }
+    setTotalPages(totalPages);
+    if (currentPage + 1 > totalPages && currentPage + 1 !== 1) {
+      setCurrentPage(0);
+      setReRenderPagination(Math.random() + "abcxyz");
+    }
+  };
 
   const handleSort = (incomeSortField) => {
     if (sortField !== incomeSortField) {
@@ -88,17 +143,17 @@ const Index = () => {
   }, [stateAll]);
 
   useEffect(() => {
-    let stateList = [];
+    let incomeStateList = [];
     let stateListTemp = [];
     if (stateWaitingForReturning) {
-      stateList.push(STATE.WAITING_FOR_RETURNING);
+      incomeStateList.push(STATE.WAITING_FOR_RETURNING);
     } else {
       if (stateCompleted) {
         stateListTemp.push(STATE.COMPLETED);
       }
     }
     if (stateCompleted) {
-      stateList.push(STATE.COMPLETED);
+      incomeStateList.push(STATE.COMPLETED);
     } else {
       if (stateWaitingForReturning) {
         stateListTemp.push(STATE.WAITING_FOR_RETURNING);
@@ -115,8 +170,16 @@ const Index = () => {
       }
     }
     setStateListTemp(stateListTemp);
-    setStateList(stateList);
+    if (JSON.stringify(incomeStateList) !== JSON.stringify(stateList)) setStateList(incomeStateList);
   }, [stateWaitingForReturning, stateCompleted]);
+
+  const handleCompleteRequest = (requestId) => {
+    console.log("complete");
+  };
+
+  const handleCancelRequest = (requestId) => {
+    console.log("cancel");
+  };
 
   return (
     <div>
@@ -256,81 +319,46 @@ const Index = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>123423</td>
-            <td>123456</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Waiting for returning</td>
-            <td>
-              {" "}
-              <img src={TickIcon} width="16px" />
-            </td>
-            <td>
-              {" "}
-              <img src={XIcon} width="16px" />
-            </td>
-          </tr>
-          <tr>
-            <td>123423</td>
-            <td>123456</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Waiting for returning</td>
-            <td>
-              {" "}
-              <img src={TickIcon} width="16px" />
-            </td>
-            <td>
-              {" "}
-              <img src={XIcon} width="16px" />
-            </td>
-          </tr>
-          <tr>
-            <td>123423</td>
-            <td>123456</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Waiting for returning</td>
-            <td>
-              {" "}
-              <img src={TickIcon} width="16px" />
-            </td>
-            <td>
-              {" "}
-              <img src={XIcon} width="16px" />
-            </td>
-          </tr>
-          <tr>
-            <td>123423</td>
-            <td>123456</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Markdddddddddddddddddddddddddddddddddd</td>
-            <td>Waiting for returning</td>
-            <td>
-              {" "}
-              <img src={TickIcon} width="16px" />
-            </td>
-            <td>
-              {" "}
-              <img src={XIcon} width="16px" />
-            </td>
-          </tr>
+          {requestList.map((e) => (
+            <tr id={e.requestId} key={e.requestId + "-" + e.state}>
+              <td>{e.requestId}</td>
+              <td>{e.assignment.asset.assetCode}</td>
+              <td>{e.assignment.asset.assetName}</td>
+              <td>{e.requestedBy.username}</td>
+              <td>{e.assignment.assignedDate.split("T")[0]}</td>
+              <td>{e.acceptedBy !== null ? e.acceptedBy.username : ""}</td>
+              <td>{e.returnedDate !== null ? e.returnedDate.split("T")[0] : ""}</td>
+              <td>{e.state === STATE.WAITING_FOR_RETURNING ? "Waiting for returning" : e.state === STATE.COMPLETED ? "Completed" : ""}</td>
+
+              {e.state === STATE.WAITING_FOR_RETURNING ? (
+                <td onClick={() => handleCompleteRequest(e.requestId)}>
+                  <img src={TickIcon} width="16px" />
+                </td>
+              ) : (
+                <td>
+                  <img src={TickIcon} width="16px" style={{ opacity: "0.3" }} />
+                </td>
+              )}
+              {e.state === STATE.WAITING_FOR_RETURNING ? (
+                <td onClick={() => handleCancelRequest(e.requestId)}>
+                  <img src={XIcon} width="16px" />
+                </td>
+              ) : (
+                <td>
+                  <img src={XIcon} width="16px" style={{ opacity: "0.3" }} />
+                </td>
+              )}
+            </tr>
+          ))}
         </tbody>
         <br />
-        <Paginations totalPages={totalPages} setCurrentPage={(current) => setCurrentPage(current)} className="" />
+        <Paginations
+          key={reRenderPagination}
+          id={reRenderPagination}
+          totalPages={totalPages}
+          setCurrentPage={(current) => setCurrentPage(current)}
+          defaultPage={currentPage + 1}
+        />
       </Table>
     </div>
   );
