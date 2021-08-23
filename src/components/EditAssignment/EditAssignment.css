@@ -73,7 +73,7 @@ label {
 }
 #search_user_icon-edit-assignment {
   position: absolute;
-  left: 29.5rem;
+  right: 1rem;
   top: 1.75rem;
   cursor: pointer;
 }

@@ -84,11 +84,9 @@ export default class CreateCategoryModal extends Component {
 
   handleCategoryChange(e, key) {
     if (key === "categoryCode") {
-      if (isNaN(e.target.value)) {
         this.setState({ [key]: e.target.value.toUpperCase() }, () => {
           this.checktoEnabledButton();
         });
-      }
     } else {
       this.setState({ [key]: e.target.value }, () => {
         this.checktoEnabledButton();
