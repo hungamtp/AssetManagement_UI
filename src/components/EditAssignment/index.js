@@ -218,8 +218,8 @@ const EditAssignment = () => {
           <div id="name-dialog-edit-assignment">
             <b>Select User</b>
           </div>
-          <div className="field">
-            <input className="search_user" onChange={(e) => setBoxUserSearch(e.target.value)}  style={{"padding-right":"40px"}}/>
+          <div className="">
+            <input className="search-input-edit-assignment" onChange={(e) => setBoxUserSearch(e.target.value)} />
             <SearchIcon id="search_user_icon-edit-assignment" onClick={handleUserSearch} />
           </div>
         </div>
@@ -295,8 +295,8 @@ const EditAssignment = () => {
           <div id="name-dialog-edit-assignment">
             <b>Select Asset</b>
           </div>
-          <div className="field">
-            <input className="search_user" onChange={(e) => setAssetSearch(e.target.value)} style={{"padding-right":"40px"}}/>
+          <div className="">
+            <input className="search-input-edit-assignment" onChange={(e) => setAssetSearch(e.target.value)}/>
             <SearchIcon
               id="search_user_icon-edit-assignment"
               onClick={() => {
