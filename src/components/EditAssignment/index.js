@@ -441,7 +441,7 @@ const EditAssignment = () => {
         </div>
       </div>
       <div id="button-zone-edit-assignment">
-        {username === "" || asset === "" || note.trim() === "" || assignedDate === "" || loadNotDone ? (
+        {username === "" || asset === "" || assignedDate === "" || loadNotDone ? (
           <Button variant="contained" color="secondary" size="medium" id="bt_save-edit-assignment" disabled>
             Save
           </Button>
