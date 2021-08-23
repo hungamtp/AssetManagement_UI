@@ -731,15 +731,18 @@ class ManageAsset extends Component {
 					this.props.history.push(URL.LOGIN)
 				}
 				<Modal size="lg" isOpen={this.state.modal} toggle={() => this.toggleShow()}>
-					<ModalHeader style={{backgroundColor: 'lightgrey', color: 'red'}}>
+					<ModalHeader style={{backgroundColor: 'rgba(239,241,245,1)', color: 'red'}}>
 						Detailed Asset Information
+						<span 
+                            className="close-asset-detail"
+                            onClick={() => this.toggleShow()}
+                        >
+                            X
+                        </span>
 					</ModalHeader>
 					<ModalBody>
 						<AssetDetail id={this.state.assetId} />
 					</ModalBody>
-					<ModalFooter>
-						<Button color="danger" onClick={() => this.toggleShow()}>Close</Button>
-					</ModalFooter>
 				</Modal>
 				<DeleteAsset_Yes assetCode={this.state.deleteCode} handleDeleteAssetShow={this.handleDeleteAssetShow} deleteAssetYES={this.state.deleteAssetYES}/>
             	<DeleteAsset_No assetCode={this.state.deleteCode} handleDeleteAssetShow={this.handleDeleteAssetShow} deleteAssetNO={this.state.deleteAssetNO}/>

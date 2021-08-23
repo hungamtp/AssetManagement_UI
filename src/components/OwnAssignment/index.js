@@ -386,16 +386,17 @@ class index extends Component {
                 }
                 <Modal isOpen={this.state.modal} toggle={() => this.toggleShow()}>
                     <ModalHeader style={{backgroundColor: 'rgba(239,241,245,1)', color: 'red'}}>
-                        Detailed Assignment Information
+                        <span>Detailed Assignment Information</span>
+                        <span 
+                            className="close-own-assignment-detail"
+                            onClick={() => this.toggleShow()}
+                        >
+                            X
+                        </span>
                     </ModalHeader>
                     <ModalBody>
                         <OwnAssignmentDetail id={this.state.assignmentId}/>
                     </ModalBody>
-                    <ModalFooter>
-                        <Button color="danger" onClick={() => this.toggleShow()}>
-                            Close
-                        </Button>
-                    </ModalFooter>
                 </Modal>
                 <AcceptAssignment assignmentId={this.state.responseAssignmentId} isShowAcceptAssignment={this.state.isShowAcceptAssignment} handleAcceptAssignmentShow={this.handleAcceptAssignmentShow}/>
                 <DeclineAssignment assignmentId={this.state.responseAssignmentId} isShowDeclineAssignment={this.state.isShowDeclineAssignment} handleDeclineAssignmentShow={this.handleDeclineAssignmentShow}/>
