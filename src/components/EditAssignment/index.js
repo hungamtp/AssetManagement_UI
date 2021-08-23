@@ -136,7 +136,7 @@ const EditAssignment = () => {
     e.preventDefault();
     setCurrentPage(0);
     if (boxusersearch.toUpperCase().startsWith("SD")) {
-      setStaffCodeSearch(boxusersearch);
+      setStaffCodeSearch(boxusersearch.toUpperCase());
       setUsernameSearch("");
     } else {
       setUsernameSearch(boxusersearch);
@@ -196,7 +196,7 @@ const EditAssignment = () => {
         setAssetCode(assignment.asset.assetCode);
         setNote(assignment.note);
         setAssignedDate(assignment.assignedDate <= today ? date : assignment.assignedDate.split("T")[0]);
-        setLoadNotDone(false)
+        setLoadNotDone(false);
       }
     };
     fetchAssignment();
@@ -249,7 +249,7 @@ const EditAssignment = () => {
                     <input
                       type="radio"
                       name="user"
-                      checked={staffCodeSelected===user.staffCode?true:false}
+                      checked={staffCodeSelected === user.staffCode ? true : false}
                       onChange={() => {
                         setStaffCodeSelected(user.staffCode);
                         setNameSelected(user.fullName);
@@ -272,7 +272,14 @@ const EditAssignment = () => {
           className="pagination-edit-assignment"
         />
         <div id="button-zone1-edit-assignment">
-          <Button variant="contained" color="secondary" size="medium" id="bt_save-edit-assignment" onClick={handleSelectUser} disabled={staffCodeSelected===""?true:false}>
+          <Button
+            variant="contained"
+            color="secondary"
+            size="medium"
+            id="bt_save-edit-assignment"
+            onClick={handleSelectUser}
+            disabled={staffCodeSelected === "" ? true : false}
+          >
             Save
           </Button>
           <Button variant="outlined" color="secondary" size="medium" onClick={() => setIsOpenUserDialog(false)}>
@@ -296,11 +303,14 @@ const EditAssignment = () => {
             <b>Select Asset</b>
           </div>
           <div className="">
-            <input className="search-input-edit-assignment" onChange={(e) => setAssetSearch(e.target.value)}/>
+            <input className="search-input-edit-assignment" onChange={(e) => setAssetSearch(e.target.value)} />
             <SearchIcon
               id="search_user_icon-edit-assignment"
               onClick={() => {
-                if (!isNaN(assetSearch[2])) {
+                if (assetSearch.length <= 2) {
+                  setAssetCodeSearch(assetSearch.toUpperCase());
+                  setNameAssetSearch("");
+                } else if (!isNaN(assetSearch[2])) {
                   setAssetCodeSearch(assetSearch);
                   setNameAssetSearch("");
                 } else {
@@ -336,7 +346,7 @@ const EditAssignment = () => {
                   <input
                     type="radio"
                     name="asset"
-                    checked={assetCodeSelected===asset.code?true:false}
+                    checked={assetCodeSelected === asset.code ? true : false}
                     onChange={() => {
                       setAssetCodeSelected(asset.code);
                       setAssetNameSelected(asset.name);
@@ -369,7 +379,7 @@ const EditAssignment = () => {
               setAsset(assetNameSelected);
               setAssetCode(assetCodeSelected);
             }}
-            disabled={assetCodeSelected===""?true:false}
+            disabled={assetCodeSelected === "" ? true : false}
           >
             Save
           </Button>
@@ -385,18 +395,26 @@ const EditAssignment = () => {
         <div className="field-edit-assignment">
           <label className="edit-assignment-label">User</label>
           <input disabled value={username} className="input-field-edit-assignment" />
-          <SearchIcon id="search_icon-edit-assignment" onClick={() => {
-            setStaffCodeSelected(staffCode)
-            setNameSelected(username)
-            setIsOpenUserDialog(true)}} />
+          <SearchIcon
+            id="search_icon-edit-assignment"
+            onClick={() => {
+              setStaffCodeSelected(staffCode);
+              setNameSelected(username);
+              setIsOpenUserDialog(true);
+            }}
+          />
         </div>
         <div className="field-edit-assignment">
           <label className="edit-assignment-label">Asset</label>
           <input value={asset} className="input-field-edit-assignment" disabled />
-          <SearchIcon id="search_icon-edit-assignment" onClick={() => {
-            setAssetCodeSelected(assetCode)
-            setAssetNameSelected(asset)
-            setIsOpenAssetDialog(true)}} />
+          <SearchIcon
+            id="search_icon-edit-assignment"
+            onClick={() => {
+              setAssetCodeSelected(assetCode);
+              setAssetNameSelected(asset);
+              setIsOpenAssetDialog(true);
+            }}
+          />
         </div>
         <div className="field-edit-assignment">
           <label className="edit-assignment-label">Assigned Date</label>
