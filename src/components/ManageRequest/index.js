@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./ManageRequest.css";
 import { Table } from "reactstrap";
-import { Dropdown, DropdownMenu, DropdownToggle, Input, Label } from "reactstrap";
+import { Dropdown, 
+  DropdownMenu, DropdownToggle, Input, Label, 
+  Modal, ModalHeader, ModalBody, Button, Alert} 
+from "reactstrap";
 import DropdownIcon from "../../images/dropdown-icon.png";
 import TickIcon from "../../images/tick-icon.svg";
 import XIcon from "../../images/x-icon.png";
 import Paginations from "./Pagination";
 import * as STATE from "../../constants/State";
 import * as URL from "../../constants/URL.js";
+import {put} from "../../httpHelper";
 import { getRequest, countRequest, getRequestFilterSearchSort, countRequestFilterSearchSort } from "../../services/RequestService";
 
 const Index = () => {
@@ -27,6 +31,10 @@ const Index = () => {
   const [sortType, setSortType] = useState("");
   const [requestList, setRequestList] = useState([]);
   const [reRenderPagination, setReRenderPagination] = useState(Math.random() + "abcxyz");
+  const [modalComplete, setModalComplete] = useState(false);
+  const [requestId, setRequestId] = useState("");
+  const [isCompleteFail, setIsCompleteFail] = useState(false);
+  const [messageFail, setMessageFail] = useState("");
 
   useEffect(() => {
     // console.log(searchKeyWord);
@@ -179,8 +187,49 @@ const Index = () => {
     }
   };
 
-  const handleCompleteRequest = (requestId) => {
-    console.log("complete");
+  const toggleShowComplete = (requestId) => {
+    setModalComplete(!modalComplete);
+    setRequestId(requestId);
+  };
+
+  const toggleComplete = () => {
+    setModalComplete(!modalComplete);
+    setRequestId("");
+    setIsCompleteFail(false);
+  };
+
+  const handleCompleteRequest = () => {
+    let url = `request/complete/${requestId}`;
+    let body = {}
+    put(url, body)
+    .then((response) => {
+      if(response.status === 200){
+        if (response.data.successCode === "REQUEST_COMPLETE_SUCCESS") {
+          toggleComplete();
+          loadRequestTable();
+        }
+      }
+    })
+    .catch((err) => {
+      if(err.response){
+        if (err.response.data.errorCode === "ERR_REQUEST_NOT_FOUND") {
+          setMessageFail("Request not found.");
+        }
+        else if(err.response.data.errorCode === "ERR_REQUEST_ALREADY_COMPLETE"){
+          setMessageFail("Request already complete.");
+        }
+        else if(err.response.data.errorCode === "ERR_USER_NOT_FOUND"){
+          setMessageFail("User not found.");
+        }
+        else{
+          setMessageFail("Error to complete request.");
+        }
+      }
+      else{
+        setMessageFail("Fail to complete request.");
+      }
+      setIsCompleteFail(true);
+    })
   };
 
   const handleCancelRequest = (requestId) => {
@@ -337,7 +386,7 @@ const Index = () => {
               <td>{e.state === STATE.WAITING_FOR_RETURNING ? "Waiting for returning" : e.state === STATE.COMPLETED ? "Completed" : ""}</td>
 
               {e.state === STATE.WAITING_FOR_RETURNING ? (
-                <td onClick={() => handleCompleteRequest(e.requestId)}>
+                <td onClick={() => toggleShowComplete(e.requestId)}>
                   <img src={TickIcon} width="16px" />
                 </td>
               ) : (
@@ -366,6 +415,46 @@ const Index = () => {
           defaultPage={currentPage + 1}
         />
       </Table>
+      <Modal isOpen={modalComplete} toggle={toggleComplete}>
+        <ModalHeader
+          style={{
+            backgroundColor: 'rgba(239,241,245,1)',
+            color: 'rgba(207, 35, 56, 1)', 
+            paddingLeft: '50px',
+            borderBottom: '1px solid #000'
+          }}
+        >
+          Are you sure?
+        </ModalHeader>
+        <ModalBody>
+          <div style={{marginBottom: '20px', marginLeft: '8px'}}>
+            Do you want to mark this returning request as 'Completed'? {requestId}
+          </div>
+          <div style={{marginLeft: '8px'}}>
+            <Button 
+              color="danger"
+              onClick={handleCompleteRequest}
+            >
+              Yes
+            </Button>
+            <Button 
+              outline color="secondary" 
+              style={{marginLeft: '16px'}}
+              onClick={toggleComplete}
+            >
+              No
+            </Button>
+          </div>
+          {
+            isCompleteFail === true &&
+            <div style={{marginTop: '16px'}}>
+            <Alert color="danger">
+              {messageFail}
+            </Alert>
+          </div>
+          }
+        </ModalBody>
+      </Modal>
     </div>
   );
 };
