@@ -243,13 +243,28 @@ const Index = () => {
 
   const toggleCancel = () => {
     setModalCancel(!modalCancel);
+    setIsCompleteFail(false);
   };
   const handleCanceltoRequest = () => {
     let url = `request/cancel/${requestId}`;
     let body = {}
-    put(url,body)
-    toggleCancel();
-    loadRequestTable();
+    put(url, body)
+    .then((response) => {
+      if(response.status === 200){
+        if (response.data.successCode === "REQUEST_CANCEL_SUCCESS") {
+          toggleCancel();
+          loadRequestTable();
+        }
+      }
+    })
+    .catch((err) => {
+      if(err.response){
+        if (err.response.data.errorCode === "ERR_REQUEST_CANCEL_FAIL") {
+          setMessageFail("Cancel Request Fail!");
+        }
+      }
+      setIsCompleteFail(true);
+    })
   };
   return (
     <div>
@@ -483,6 +498,13 @@ const Index = () => {
             <Button  color="danger" onClick={handleCanceltoRequest}>Yes </Button>
             <Button outline color="secondary"  style={{marginLeft: '16px'}} onClick={toggleCancel}> No </Button>
           </div>
+          {  isCompleteFail === true &&
+            <div style={{marginTop: '16px'}}>
+            <Alert color="danger">
+              {messageFail}
+            </Alert>
+          </div>
+          }
         </ModalBody>
       </Modal>
     </div>
