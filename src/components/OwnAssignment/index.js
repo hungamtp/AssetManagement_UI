@@ -307,7 +307,7 @@ class index extends Component {
                                                         src={XIcon}
                                                         alt="x-icon"
                                                         className={assignment.state === 'Accepted' ? 'icon-disabled' : 'icon-normal'}
-                                                        width="14px"
+                                                        width="16px"
                                                     />
                                                 </button>
                                             </td>
@@ -318,6 +318,10 @@ class index extends Component {
                                                         src={RefreshIcon}
                                                         alt="refresh-icon"
                                                         width="14px"
+                                                        className={
+                                                            assignment.state !== 'Accepted' ? 'icon-disabled' :
+                                                            assignment.isReturnRequest === true ? 'icon-disabled' : 'icon-normal'
+                                                        }
                                                     />
                                                 </button>
                                             </td>
