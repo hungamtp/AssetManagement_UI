@@ -316,6 +316,7 @@ class index extends Component {
                                                     onClick={() => this.handleReturnRequestShow(assignment.assignmentId)}>
                                                     <img
                                                         src={RefreshIcon}
+                                                        className={assignment.state !== 'Accepted' || assignment.isReturnRequest ? 'icon-disabled' : 'icon-normal'}
                                                         alt="refresh-icon"
                                                         width="14px"
                                                     />

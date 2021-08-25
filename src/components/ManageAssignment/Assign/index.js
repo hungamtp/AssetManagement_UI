@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { useCookies } from 'react-cookie';
 import "./content.css";
 import useStyles from "./Style";
 import { useHistory } from "react-router";
 import { Dialog, Slide, Button } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import RefreshIcon from '../../../images/refresh-icon.jpg';
 import ReplayIcon from "@material-ui/icons/Replay";
 import {get, del } from "../../../httpHelper";
 import { red } from "@material-ui/core/colors";
+import { ContactSupportOutlined, LensTwoTone } from "@material-ui/icons";
+import { ReturnRequest } from "../../Return Request";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -16,7 +20,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Index = ({ assignment, currentPage, size, ReloadAssignment }) => {
   const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [isShowReturnRequest, setIsShowReturnRequest] = useState(false);
   const [isDisabled, setIsDisable] = useState(false);
+
+  const [cookies, setCookie] = useCookies(['user']);
 
   const [state, setState] = useState();
   const classes = useStyles();
@@ -25,7 +32,7 @@ const Index = ({ assignment, currentPage, size, ReloadAssignment }) => {
   useEffect(() => {
     switch (assignment.state) {
       case 1:
-        setState("Accept");
+        setState("Accepted");
         break;
       case 2:
         setState("Wating for acceptance");
@@ -76,6 +83,17 @@ const handleOpenFormDelete =() => {
     setIsDisable(false);
   }
 };
+
+  const handleReturnRequestShow = (assignmentId) => {
+    if (assignmentId === undefined) {
+      let url = `assignment?page=${currentPage}&size=${size}`;
+      get(url).then((response) => {
+        ReloadAssignment(response.data.data);
+        });
+    }
+    setIsShowReturnRequest(!isShowReturnRequest);
+  }
+
   return (
     <>
       <Dialog
@@ -167,10 +185,19 @@ const handleOpenFormDelete =() => {
             </div>
           </Dialog>    
           <div>
-            <ReplayIcon style={{ marginLeft: "15px", color: "blue" }} />
+           <button className="click-button" disabled={assignment.state !== 1 ? true : assignment.isReturnRequest}
+              onClick={() => handleReturnRequestShow(assignment.assignmentId)}>
+                <img
+                    src={RefreshIcon}
+                    className={assignment.state !== 1 || assignment.isReturnRequest ? 'icon-disabled' : ""}
+                    alt="refresh-icon"
+                    width="14px"
+                />
+            </button>
           </div>
         </td>
       </tr>
+      <ReturnRequest assignmentId={assignment.assignmentId} staffCode={cookies.user.staffCode} isShowReturnRequest={isShowReturnRequest} handleReturnRequestShow={handleReturnRequestShow}/>
     </>
   );
 };
