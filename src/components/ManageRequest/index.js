@@ -415,7 +415,7 @@ const Index = () => {
           defaultPage={currentPage + 1}
         />
       </Table>
-      <Modal isOpen={modalComplete} toggle={toggleComplete}>
+      <Modal isOpen={modalComplete} toggle={toggleComplete} style={{marginTop: '100px'}}>
         <ModalHeader
           style={{
             backgroundColor: 'rgba(239,241,245,1)',
@@ -428,7 +428,7 @@ const Index = () => {
         </ModalHeader>
         <ModalBody>
           <div style={{marginBottom: '20px', marginLeft: '8px'}}>
-            Do you want to mark this returning request as 'Completed'? {requestId}
+            Do you want to mark this returning request as 'Completed'?
           </div>
           <div style={{marginLeft: '8px'}}>
             <Button 
