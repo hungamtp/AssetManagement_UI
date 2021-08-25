@@ -35,6 +35,7 @@ const Index = () => {
   const [requestId, setRequestId] = useState("");
   const [isCompleteFail, setIsCompleteFail] = useState(false);
   const [messageFail, setMessageFail] = useState("");
+  const [modalCancel, setModalCancel] = useState(false);
 
   useEffect(() => {
     // console.log(searchKeyWord);
@@ -235,7 +236,45 @@ const Index = () => {
   const handleCancelRequest = (requestId) => {
     console.log("cancel");
   };
+  const toggleShowCancel = (requestId) => {
+    setModalCancel(!modalCancel);
+    setRequestId(requestId);
+  };
 
+  const toggleCancel = () => {
+    setModalCancel(!modalCancel);
+    setIsCompleteFail(false);
+  };
+  const handleCanceltoRequest = () => {
+    let url = `request/cancel/${requestId}`;
+    let body = {}
+    put(url, body)
+    .then((response) => {
+      if(response.status === 200){
+        if (response.data.successCode === "REQUEST_CANCEL_SUCCESS") {
+          toggleCancel();
+          loadRequestTable();
+        }
+      }
+    })
+    .catch((err) => {
+      if(err.response){
+        if (err.response.data.errorCode === "ERR_REQUEST_NOT_FOUND") {
+          setMessageFail("Request not found.");
+        }
+        else if(err.response.data.errorCode === "ERR_REQUEST_ALREADY_COMPLETE"){
+          setMessageFail("Request already complete.");
+        }
+        else if(err.response.data.errorCode === "ERR_USER_NOT_FOUND"){
+          setMessageFail("User not found.");
+        }
+      }
+      else{
+        setMessageFail("Fail to cancel request.");
+      }
+      setIsCompleteFail(true);
+    })
+  };
   return (
     <div>
       <div id="Request_List-request">
@@ -395,7 +434,7 @@ const Index = () => {
                 </td>
               )}
               {e.state === STATE.WAITING_FOR_RETURNING ? (
-                <td onClick={() => handleCancelRequest(e.requestId)}>
+                <td onClick={() => toggleShowCancel(e.requestId)}>
                   <img src={XIcon} width="16px" />
                 </td>
               ) : (
@@ -447,6 +486,28 @@ const Index = () => {
           </div>
           {
             isCompleteFail === true &&
+            <div style={{marginTop: '16px'}}>
+            <Alert color="danger">
+              {messageFail}
+            </Alert>
+          </div>
+          }
+        </ModalBody>
+      </Modal>
+      <Modal isOpen={modalCancel} toggle={toggleCancel}>
+        <ModalHeader
+          style={{ backgroundColor: 'rgba(239,241,245,1)', color: 'rgba(207, 35, 56, 1)',  paddingLeft: '50px', borderBottom: '1px solid #000'}}>
+         <b> Are you sure?</b>
+        </ModalHeader>
+        <ModalBody>
+          <div style={{marginBottom: '20px', marginLeft: '8px'}}>
+            Do you want to cancel this returning request? 
+          </div>
+          <div style={{marginLeft: '8px'}}>
+            <Button  color="danger" onClick={handleCanceltoRequest}>Yes </Button>
+            <Button outline color="secondary"  style={{marginLeft: '16px'}} onClick={toggleCancel}> No </Button>
+          </div>
+          {  isCompleteFail === true &&
             <div style={{marginTop: '16px'}}>
             <Alert color="danger">
               {messageFail}
