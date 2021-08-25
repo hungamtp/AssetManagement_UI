@@ -259,9 +259,18 @@ const Index = () => {
     })
     .catch((err) => {
       if(err.response){
-        if (err.response.data.errorCode === "ERR_REQUEST_CANCEL_FAIL") {
-          setMessageFail("Cancel Request Fail!");
+        if (err.response.data.errorCode === "ERR_REQUEST_NOT_FOUND") {
+          setMessageFail("Request not found.");
         }
+        else if(err.response.data.errorCode === "ERR_REQUEST_ALREADY_COMPLETE"){
+          setMessageFail("Request already complete.");
+        }
+        else if(err.response.data.errorCode === "ERR_USER_NOT_FOUND"){
+          setMessageFail("User not found.");
+        }
+      }
+      else{
+        setMessageFail("Fail to cancel request.");
       }
       setIsCompleteFail(true);
     })
