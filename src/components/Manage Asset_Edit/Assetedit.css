@@ -54,7 +54,7 @@
     font-size: 16px;
     color: rgba(33,37,41,1);
 }
-#Installed_Date {
+#Installed_Date-editAseset {
     position: absolute;
     width: 380px;
     height: 35px;
@@ -137,7 +137,7 @@
     font-size: 16px;
     color: rgba(255,255,255,1);
 }
-#Name {
+#Name-editAsset {
     position: absolute;
     width: 378px;
     height: 35px;
@@ -145,33 +145,33 @@
     top: 0px;
     overflow: visible;
 }
-#state-check{
+#state-check-editAsset{
     position:relative;
     left: 70px;
 }
 
-#specification_textarea{
+#specification_textarea-editAsset{
     resize: none;
     height: 4rem;
     position:relative;
     left:53px;
 }
-#input-Installed_Date{
+#input-Installed_Date-editAsset{
     position: relative;
     top:-35px;
     left: 120px;
 }
-#label-date{
+#label-date-editAsset{
     width: 125px;
 }
-#input-category{
+#input-category-editAsset{
     position: relative;
     left: 53px;
 }
-#input-name{
+#input-name-editAsset{
     position: relative;
     left: 53px;
 }
-#radiocheck:checked {
+#radiocheck-editAsset:checked {
 background-color: red;
 }

@@ -295,7 +295,10 @@ const CreateAssignment = () => {
             <SearchIcon
               id="search_user_icon2"
               onClick={() => {
-                if (!isNaN(assetSearch[2])) {
+                if (assetSearch.length <= 2) {
+                  setAssetCodeSearch(assetSearch.toUpperCase());
+                  setNameAssetSearch("");
+                } else if (!isNaN(assetSearch[2])) {
                   setAssetCodeSearch(assetSearch.toUpperCase());
                   setNameAssetSearch("");
                 } else {
@@ -423,7 +426,7 @@ const CreateAssignment = () => {
         </div>
       </div>
       <div id="button-zone">
-        {username === "" || asset === "" || note === "" ? (
+        {username === "" || asset === "" ? (
           <Button
             variant="contained"
             color="secondary"

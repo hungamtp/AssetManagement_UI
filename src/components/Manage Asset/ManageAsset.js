@@ -322,9 +322,7 @@ class ManageAsset extends Component {
 	}
 
 	handleEditAsset(assetCode, assetState) {
-		if(assetState !== 3){
-			this.props.history.push(`editasset/${assetCode}`);
-		}
+		this.props.history.push(`editasset/${assetCode}`);
 	}
 
 	handleDeleteAssetShow = () => {
@@ -640,17 +638,23 @@ class ManageAsset extends Component {
 												{asset.state === 4 && <span>Waiting for recycling</span>}
 												{asset.state === 5 && <span>Recycled</span>}
 											</td>
-											<td onClick={() => this.handleEditAsset(`${asset.assetCode}`, asset.state)}>
-												<img 
-													className={asset.state === 3 ? "disable-icon" : "edit-icon"}
-													src={EditIcon}
-													width="20px"/>
+											<td>
+												<button className="click-button" onClick={() => this.handleEditAsset(`${asset.assetCode}`, asset.state)}
+													disabled={asset.state === 3 ? true : false}>
+													<img 
+														className={asset.state === 3 ? "icon-disabled" : "edit-icon"}
+														src={EditIcon}
+														width="20px"/>
+												</button>
 											</td>
-											<td onClick={() => this.handleDeleteAsset(asset.assetCode)}>
-												<img
-													className="delete-icon"
-													src={DeleteIcon}
-													width="24px" />
+											<td>
+												<button className="click-button" onClick={() => this.handleDeleteAsset(asset.assetCode)}
+													disabled={asset.state === 3 ? true : false}>
+													<img
+														className={asset.state === 3 ? "icon-disabled" : "delete-icon"}
+														src={DeleteIcon}
+														width="24px" />
+												</button>
 											</td>
 										</tr>
 									)
@@ -727,15 +731,18 @@ class ManageAsset extends Component {
 					this.props.history.push(URL.LOGIN)
 				}
 				<Modal size="lg" isOpen={this.state.modal} toggle={() => this.toggleShow()}>
-					<ModalHeader style={{backgroundColor: 'lightgrey', color: 'red'}}>
+					<ModalHeader style={{backgroundColor: 'rgba(239,241,245,1)', color: 'red'}}>
 						Detailed Asset Information
+						<span 
+                            className="close-asset-detail"
+                            onClick={() => this.toggleShow()}
+                        >
+                            X
+                        </span>
 					</ModalHeader>
 					<ModalBody>
 						<AssetDetail id={this.state.assetId} />
 					</ModalBody>
-					<ModalFooter>
-						<Button color="danger" onClick={() => this.toggleShow()}>Close</Button>
-					</ModalFooter>
 				</Modal>
 				<DeleteAsset_Yes assetCode={this.state.deleteCode} handleDeleteAssetShow={this.handleDeleteAssetShow} deleteAssetYES={this.state.deleteAssetYES}/>
             	<DeleteAsset_No assetCode={this.state.deleteCode} handleDeleteAssetShow={this.handleDeleteAssetShow} deleteAssetNO={this.state.deleteAssetNO}/>
