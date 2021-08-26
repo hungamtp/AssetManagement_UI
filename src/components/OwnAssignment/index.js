@@ -290,33 +290,33 @@ class index extends Component {
                                             <td onClick={() => this.toggleShowButton(assignment.assignmentId)}>{assignment.assignedDate}</td>
                                             <td onClick={() => this.toggleShowButton(assignment.assignmentId)}>{assignment.state}</td>
                                             <td>
-                                                <button className="click-button" disabled={assignment.state === 'Accepted' ? true : false}
+                                                <button className="own-assignment-click-button" disabled={assignment.state === 'Accepted' ? true : false}
                                                         onClick={() => this.handleAcceptAssignmentShow(assignment.assignmentId)}>
                                                     <img 
                                                         src={TickIcon}
                                                         alt="tick-icon"
-                                                        className={assignment.state === 'Accepted' ? 'icon-disabled' : 'icon-normal'}
+                                                        className={assignment.state === 'Accepted' ? 'own-assignment-icon-disabled' : 'own-assignment-icon-normal'}
                                                         width="14px"
                                                     />
                                                 </button>
                                             </td>
                                             <td>
-                                                <button className="click-button" disabled={assignment.state === 'Accepted' ? true : false}
+                                                <button className="own-assignment-click-button" disabled={assignment.state === 'Accepted' ? true : false}
                                                     onClick={() => this.handleDeclineAssignmentShow(assignment.assignmentId)}>
                                                     <img
                                                         src={XIcon}
                                                         alt="x-icon"
-                                                        className={assignment.state === 'Accepted' ? 'icon-disabled' : 'icon-normal'}
+                                                        className={assignment.state === 'Accepted' ? 'own-assignment-icon-disabled' : 'own-assignment-icon-normal'}
                                                         width="14px"
                                                     />
                                                 </button>
                                             </td>
                                             <td>
-                                                <button className="click-button" disabled={assignment.state !== 'Accepted' ? true : assignment.isReturnRequest}
+                                                <button className="own-assignment-click-button" disabled={assignment.state !== 'Accepted' ? true : assignment.isReturnRequest}
                                                     onClick={() => this.handleReturnRequestShow(assignment.assignmentId)}>
                                                     <img
                                                         src={RefreshIcon}
-                                                        className={assignment.state !== 'Accepted' || assignment.isReturnRequest ? 'icon-disabled' : 'icon-normal'}
+                                                        className={assignment.state !== 'Accepted' || assignment.isReturnRequest ? 'own-assignment-icon-disabled' : 'own-assignment-icon-normal'}
                                                         alt="refresh-icon"
                                                         width="14px"
                                                     />

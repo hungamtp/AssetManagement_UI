@@ -186,11 +186,11 @@ const handleOpenFormDelete =() => {
             </div>
           </Dialog>    
           <div>
-           <button className="click-button" disabled={assignment.state !== 1 ? true : assignment.requests.length > 0 ? true : false}
+           <button className="assign-click-button" disabled={assignment.state !== 1 ? true : assignment.requests.length > 0 ? true : false}
               onClick={() => handleReturnRequestShow(assignment.assignmentId)}>
                 <img
                     src={RefreshIcon}
-                    className={assignment.state !== 1 || assignment.requests.length > 0 ? 'icon-disabled' : ""}
+                    className={assignment.state !== 1 || assignment.requests.length > 0 ? 'assign-icon-disabled' : ""}
                     alt="refresh-icon"
                     width="14px"
                 />

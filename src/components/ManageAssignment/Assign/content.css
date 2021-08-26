@@ -119,11 +119,11 @@
   background-color:#CF2338;
 }
 
-.icon-disabled {
+.assign-icon-disabled {
   opacity: 0.5;
 }
 
-.click-button {
+.assign-click-button {
   margin-left: 15px;
   background-color: transparent;
 }
