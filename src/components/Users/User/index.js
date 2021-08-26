@@ -121,9 +121,7 @@ const Index = ({ user, onDelete }) => {
         </td>
         <td>&nbsp;</td>
         <td onClick={showUserDetail} className="userItem">
-          {user.type.includes("USER")
-            ? "STAFF"
-            : user.type.replace("ROLE_", "")}
+          {user.type.includes("USER") ? "Staff" : "Admin"}
         </td>
         <td>&nbsp;</td>
         <td id="icon_zone" className="buttonUser">

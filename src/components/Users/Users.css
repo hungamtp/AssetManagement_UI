@@ -46,8 +46,9 @@ input {
 }
 
 #users .headerUser {
-  padding-bottom: 10px;
-  border-bottom: 1px solid lightgrey;
+  text-decoration: underline;
+  padding-bottom: 5px;
+  border-bottom: 1px solid black;
 }
 #filter_zone {
   position: relative;
