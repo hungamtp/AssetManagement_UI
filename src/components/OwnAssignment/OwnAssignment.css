@@ -47,15 +47,15 @@
     width: 50%;
 }
 
-.icon-normal {
+.own-assignment-icon-normal {
     cursor: pointer;
 }
 
-.icon-disabled {
-    opacity: 0.4;
+.own-assignment-icon-disabled {
+    opacity: 0.5;
 }
 
-.click-button {
+.own-assignment-click-button {
     background-color: transparent;
 }
 
