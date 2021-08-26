@@ -319,10 +319,6 @@ class index extends Component {
                                                         className={assignment.state !== 'Accepted' || assignment.isReturnRequest ? 'own-assignment-icon-disabled' : 'own-assignment-icon-normal'}
                                                         alt="refresh-icon"
                                                         width="14px"
-                                                        className={
-                                                            assignment.state !== 'Accepted' ? 'icon-disabled' :
-                                                            assignment.isReturnRequest === true ? 'icon-disabled' : 'icon-normal'
-                                                        }
                                                     />
                                                 </button>
                                             </td>
