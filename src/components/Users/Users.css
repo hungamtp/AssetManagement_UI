@@ -45,8 +45,7 @@ input {
   width: 100%;
 }
 
-#users th {
-  text-decoration: underline;
+#users .headerUser {
   padding-bottom: 10px;
   border-bottom: 1px solid lightgrey;
 }
@@ -167,4 +166,39 @@ input {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+#Line_5 {
+  fill: transparent;
+  stroke: rgba(112, 112, 112, 1);
+  stroke-width: 1px;
+  stroke-linejoin: miter;
+  stroke-linecap: butt;
+  stroke-miterlimit: 4;
+  shape-rendering: auto;
+}
+.Line_5 {
+  position: absolute;
+  width: 1px;
+  height: 33px;
+  left: 165px;
+  top: 0.5px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}
+#Line_6 {
+  fill: transparent;
+  stroke: rgba(112, 112, 112, 1);
+  stroke-width: 1px;
+  stroke-linejoin: miter;
+  stroke-linecap: butt;
+  stroke-miterlimit: 4;
+  shape-rendering: auto;
+}
+.Line_6 {
+  position: absolute;
+  width: 1px;
+  height: 33px;
+  left: 90px;
+  top: 0.5px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
 }

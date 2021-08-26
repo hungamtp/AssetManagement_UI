@@ -1,4 +1,4 @@
-#users td {
+#users .userItem {
   padding-bottom: 10px;
   padding-top: 10px;
   border-bottom: 0.5px solid lightgray;
@@ -107,4 +107,7 @@
   left: 0px;
   top: 0px;
   transform: matrix(1, 0, 0, 1, 0, 0);
+}
+.buttonUser {
+  margin-top: 10px;
 }

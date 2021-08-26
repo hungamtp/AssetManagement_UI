@@ -169,6 +169,9 @@ const Index = () => {
       <div id="Search_bar">
         <div id="filter_zone">
           <input id="type-input" placeholder="Type" disabled />
+          <svg class="Line_6" viewBox="0 0 1 33">
+            <path id="Line_6" d="M 0 0 L 0 33"></path>
+          </svg>
           <svg
             class="funnel-fill"
             viewBox="1.5 1 15 15"
@@ -326,6 +329,9 @@ const Index = () => {
             id="name_search_zone"
             onChange={(e) => setNameSearch(e.target.value)}
           />
+          <svg class="Line_5" viewBox="0 0 1 33">
+            <path id="Line_5" d="M 0 0 L 0 33"></path>
+          </svg>
           <SearchIcon id="search_icon1" onClick={handleOnClickSearchButton} />
           <button id="create_button1" onClick={handleClickCreateNew}>
             Create new user
@@ -336,27 +342,31 @@ const Index = () => {
       <table>
         <thead>
           <tr>
-            <th onClick={handleSortByStaffCode}>
+            <th onClick={handleSortByStaffCode} className="headerUser">
               Staff Code
               {isStaffCodeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
             </th>
-            <th onClick={handleSortByFullName}>
+            <th> </th>
+            <th onClick={handleSortByFullName} className="headerUser">
               Full Name
               {isFullNameCodeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
             </th>
-            <th onClick={handleSortByUserName}>
+            <th> </th>
+            <th onClick={handleSortByUserName} className="headerUser">
               Username
               {isUserNameASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
             </th>
-            <th onClick={handleSortByJoinedDate}>
+            <th> </th>
+            <th onClick={handleSortByJoinedDate} className="headerUser">
               Joined Date
               {isJoinedDateASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
             </th>
-            <th onClick={handleSortType}>
+            <th> </th>
+            <th onClick={handleSortType} className="headerUser">
               Type
               {isTypeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
             </th>
-            <th></th>
+            <th> </th>
           </tr>
         </thead>
         <tbody>
