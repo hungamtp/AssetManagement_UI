@@ -30,6 +30,7 @@ const Index = ({ assignment, currentPage, size, ReloadAssignment }) => {
   const history = useHistory();
 
   useEffect(() => {
+    console.log(assignment);
     switch (assignment.state) {
       case 1:
         setState("Accepted");
@@ -185,11 +186,11 @@ const handleOpenFormDelete =() => {
             </div>
           </Dialog>    
           <div>
-           <button className="click-button" disabled={assignment.state !== 1 ? true : assignment.isReturnRequest}
+           <button className="click-button" disabled={assignment.state !== 1 ? true : assignment.requests.length > 0 ? true : false}
               onClick={() => handleReturnRequestShow(assignment.assignmentId)}>
                 <img
                     src={RefreshIcon}
-                    className={assignment.state !== 1 || assignment.isReturnRequest ? 'icon-disabled' : ""}
+                    className={assignment.state !== 1 || assignment.requests.length > 0 ? 'icon-disabled' : ""}
                     alt="refresh-icon"
                     width="14px"
                 />
