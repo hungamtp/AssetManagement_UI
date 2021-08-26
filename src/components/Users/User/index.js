@@ -104,16 +104,27 @@ const Index = ({ user, onDelete }) => {
         </div>
       </Dialog>
       <tr id={user.staffCode}>
-        <td onClick={showUserDetail}>{user.staffCode}</td>
-        <td onClick={showUserDetail}>{user.fullName}</td>
-        <td onClick={showUserDetail}>{user.username}</td>
-        <td onClick={showUserDetail}>{user.joinedDate}</td>
-        <td onClick={showUserDetail}>
-          {user.type.includes("USER")
-            ? "STAFF"
-            : user.type.replace("ROLE_", "")}
+        <td onClick={showUserDetail} className="userItem">
+          {user.staffCode}
         </td>
-        <td id="icon_zone">
+        <td>&nbsp;</td>
+        <td onClick={showUserDetail} className="userItem">
+          {user.fullName}
+        </td>
+        <td>&nbsp;</td>
+        <td onClick={showUserDetail} className="userItem">
+          {user.username}
+        </td>
+        <td>&nbsp;</td>
+        <td onClick={showUserDetail} className="userItem">
+          {user.joinedDate}
+        </td>
+        <td>&nbsp;</td>
+        <td onClick={showUserDetail} className="userItem">
+          {user.type.includes("USER") ? "Staff" : "Admin"}
+        </td>
+        <td>&nbsp;</td>
+        <td id="icon_zone" className="buttonUser">
           <div id="edit_icon" class="edit_icon" onClick={handleEditIconClick}>
             <svg class="edit_icon_kh" viewBox="0 0 16.001 16">
               <path
