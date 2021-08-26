@@ -642,7 +642,7 @@ class ManageAsset extends Component {
 												<button className="click-button" onClick={() => this.handleEditAsset(`${asset.assetCode}`, asset.state)}
 													disabled={asset.state === 3 ? true : false}>
 													<img 
-														className={asset.state === 3 ? "icon-disabled" : "edit-icon"}
+														className={asset.state === 3 ? "asset-disable-icon" : "edit-icon"}
 														src={EditIcon}
 														width="20px"/>
 												</button>
@@ -651,7 +651,7 @@ class ManageAsset extends Component {
 												<button className="click-button" onClick={() => this.handleDeleteAsset(asset.assetCode)}
 													disabled={asset.state === 3 ? true : false}>
 													<img
-														className={asset.state === 3 ? "icon-disabled" : "delete-icon"}
+														className={asset.state === 3 ? "asset-disable-icon" : "delete-icon"}
 														src={DeleteIcon}
 														width="24px" />
 												</button>
