@@ -186,10 +186,14 @@ const Index = () => {
   };
 
   const removeDatePickerValue = (e) => {
-    console.log(e.keyCode)
     if (e.keyCode === 27) {
       if (assignedDate !== "") setAssignedDate("");
     }
+  };
+
+  const removeDatePickerRightClick = (e) => {
+    e.preventDefault();
+    if (assignedDate !== "") setAssignedDate("");
   };
 
   const toggleShowComplete = (requestId) => {
@@ -326,6 +330,7 @@ const Index = () => {
             value={assignedDate}
             onChange={(e) => setAssignedDate(e.target.value)}
             onKeyUp={(e) => removeDatePickerValue(e)}
+            onContextMenu={(e) => removeDatePickerRightClick(e)}
           />
         </div>
       </div>
