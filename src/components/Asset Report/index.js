@@ -233,9 +233,7 @@ const Reports = () => {
         <b>Report</b>
       </h4>
       <div id="button_zone">
-        <Export csvData={reports} fileName={"AssetReport"}>
-          Export
-        </Export>
+        <Export csvData={reports} fileName={"AssetReport"} />
       </div>
       <table>
         <thead>
