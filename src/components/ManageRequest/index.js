@@ -185,6 +185,13 @@ const Index = () => {
     }
   };
 
+  const removeDatePickerValue = (e) => {
+    console.log(e.keyCode)
+    if (e.keyCode === 27) {
+      if (assignedDate !== "") setAssignedDate("");
+    }
+  };
+
   const toggleShowComplete = (requestId) => {
     setModalComplete(!modalComplete);
     setRequestId(requestId);
@@ -313,7 +320,13 @@ const Index = () => {
       <div id="Filter_assigned_date-request" class="Filter_assigned_date-request">
         <div id="Group_199_h-request">
           <label>Returned Date</label>
-          <Input type="date" id="input-date-request" onChange={(e) => setAssignedDate(e.target.value)} />
+          <Input
+            type="date"
+            id="input-date-request"
+            value={assignedDate}
+            onChange={(e) => setAssignedDate(e.target.value)}
+            onKeyUp={(e) => removeDatePickerValue(e)}
+          />
         </div>
       </div>
       <div id="Search_bar-request">
@@ -410,9 +423,9 @@ const Index = () => {
               <td>{e.assignment.asset.assetCode}</td>
               <td>{e.assignment.asset.assetName}</td>
               <td>{e.requestedBy.username}</td>
-              <td>{new Intl.DateTimeFormat('en-GB').format(new Date(e.assignment.assignedDate.split("T")[0]))}</td>
+              <td>{new Intl.DateTimeFormat("en-GB").format(new Date(e.assignment.assignedDate.split("T")[0]))}</td>
               <td>{e.acceptedBy !== null ? e.acceptedBy.username : ""}</td>
-              <td>{e.returnedDate !== null ? new Intl.DateTimeFormat('en-GB').format(new Date(e.returnedDate.split("T")[0])) : ""}</td>
+              <td>{e.returnedDate !== null ? new Intl.DateTimeFormat("en-GB").format(new Date(e.returnedDate.split("T")[0])) : ""}</td>
               <td>{e.state === STATE.WAITING_FOR_RETURNING ? "Waiting for returning" : e.state === STATE.COMPLETED ? "Completed" : ""}</td>
 
               {e.state === STATE.WAITING_FOR_RETURNING ? (
