@@ -1,11 +1,12 @@
 import React from "react";
-import { Button } from "@material-ui/core";
+import "./export.css";
 import * as FileSaver from "file-saver";
 
 import * as XLSX from "xlsx";
 
 const Export = ({ csvData, fileName }) => {
-  const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+  const fileType =
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
 
   const fileExtension = ".xlsx";
 
@@ -21,9 +22,17 @@ const Export = ({ csvData, fileName }) => {
     FileSaver.saveAs(data, fileName + fileExtension);
   };
   return (
-    <Button color="secondary" variant="contained" size="medium" onClick={(e) => exportToCSV(csvData, fileName)}>
-      Export
-    </Button>
+    <>
+      <button
+        id="export-button"
+        color="secondary"
+        variant="contained"
+        size="medium"
+        onClick={(e) => exportToCSV(csvData, fileName)}
+      >
+        Export
+      </button>
+    </>
   );
 };
 
