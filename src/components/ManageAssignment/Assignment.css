@@ -187,7 +187,7 @@ input {
 }
 #date-manageAssingment{
   position: relative;
-  left: 60px;
+  left: 70px;
   border-color: gainsboro;
   overflow: visible;
 }
@@ -198,4 +198,31 @@ input {
   left: 992px;
   top: 275px;
   overflow: visible;
+}
+#manageAssignment-no{
+  width: 100px;
+}
+#manageAssignment-code{
+  width: 150px;
+}
+#manageAssignment-to{
+  width: 150px;
+}
+#manageAssignment-name{
+  width: 250px;
+}
+#manageAssignment-date{
+  width: 180px;
+}
+#manageAssignment-by{
+  width: 160px;
+}
+#create_button-manageAssignment{
+  position: relative;
+  top: -50px;
+  left:700px;
+}
+#assgignemts table{
+position: relative;
+top: -30px;
 }
