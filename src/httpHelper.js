@@ -39,15 +39,15 @@ function handleError(error) {
         error.response.data.errorCode === errorCode.ERR_ACCESS_IS_DENIED ||
         error.response.data.errorCode === errorCode.ERR_BAD_CREDENTIALS
       ) {
-        console.log(error.response.data.error);
         if (getCookie("user") !== "") {
           setCookie("user", "", 0);
-          window.location = URL.LOGIN;
         }
+        window.location = URL.LOGIN;
       }
     }
   }
   console.log("Fail to call api");
+  console.log(error)
 }
 
 export function get(url) {
