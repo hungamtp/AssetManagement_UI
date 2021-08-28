@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./ManageRequest.css";
 import { Table } from "reactstrap";
-import { Dropdown, 
-  DropdownMenu, DropdownToggle, Input, Label, 
-  Modal, ModalHeader, ModalBody, Button, Alert} 
-from "reactstrap";
+import { Dropdown, DropdownMenu, DropdownToggle, Input, Label, Modal, ModalHeader, ModalBody, Button, Alert } from "reactstrap";
 import DropdownIcon from "../../images/dropdown-icon.png";
 import TickIcon from "../../images/tick-icon.svg";
 import XIcon from "../../images/x-icon.png";
 import Paginations from "./Pagination";
 import * as STATE from "../../constants/State";
 import * as URL from "../../constants/URL.js";
-import {put} from "../../httpHelper";
+import { put } from "../../httpHelper";
 import { getRequest, countRequest, getRequestFilterSearchSort, countRequestFilterSearchSort } from "../../services/RequestService";
 
 const Index = () => {
@@ -188,6 +185,17 @@ const Index = () => {
     }
   };
 
+  const removeDatePickerValue = (e) => {
+    if (e.keyCode === 27) {
+      if (assignedDate !== "") setAssignedDate("");
+    }
+  };
+
+  const removeDatePickerRightClick = (e) => {
+    e.preventDefault();
+    if (assignedDate !== "") setAssignedDate("");
+  };
+
   const toggleShowComplete = (requestId) => {
     setModalComplete(!modalComplete);
     setRequestId(requestId);
@@ -201,36 +209,32 @@ const Index = () => {
 
   const handleCompleteRequest = () => {
     let url = `request/complete/${requestId}`;
-    let body = {}
+    let body = {};
     put(url, body)
-    .then((response) => {
-      if(response.status === 200){
-        if (response.data.successCode === "REQUEST_COMPLETE_SUCCESS") {
-          toggleComplete();
-          loadRequestTable();
+      .then((response) => {
+        if (response.status === 200) {
+          if (response.data.successCode === "REQUEST_COMPLETE_SUCCESS") {
+            toggleComplete();
+            loadRequestTable();
+          }
         }
-      }
-    })
-    .catch((err) => {
-      if(err.response){
-        if (err.response.data.errorCode === "ERR_REQUEST_NOT_FOUND") {
-          setMessageFail("Request not found.");
+      })
+      .catch((err) => {
+        if (err.response) {
+          if (err.response.data.errorCode === "ERR_REQUEST_NOT_FOUND") {
+            setMessageFail("Request not found.");
+          } else if (err.response.data.errorCode === "ERR_REQUEST_ALREADY_COMPLETE") {
+            setMessageFail("Request already complete.");
+          } else if (err.response.data.errorCode === "ERR_USER_NOT_FOUND") {
+            setMessageFail("User not found.");
+          } else {
+            setMessageFail("Error to complete request.");
+          }
+        } else {
+          setMessageFail("Fail to complete request.");
         }
-        else if(err.response.data.errorCode === "ERR_REQUEST_ALREADY_COMPLETE"){
-          setMessageFail("Request already complete.");
-        }
-        else if(err.response.data.errorCode === "ERR_USER_NOT_FOUND"){
-          setMessageFail("User not found.");
-        }
-        else{
-          setMessageFail("Error to complete request.");
-        }
-      }
-      else{
-        setMessageFail("Fail to complete request.");
-      }
-      setIsCompleteFail(true);
-    })
+        setIsCompleteFail(true);
+      });
   };
 
   const handleCancelRequest = (requestId) => {
@@ -247,33 +251,30 @@ const Index = () => {
   };
   const handleCanceltoRequest = () => {
     let url = `request/cancel/${requestId}`;
-    let body = {}
+    let body = {};
     put(url, body)
-    .then((response) => {
-      if(response.status === 200){
-        if (response.data.successCode === "REQUEST_CANCEL_SUCCESS") {
-          toggleCancel();
-          loadRequestTable();
+      .then((response) => {
+        if (response.status === 200) {
+          if (response.data.successCode === "REQUEST_CANCEL_SUCCESS") {
+            toggleCancel();
+            loadRequestTable();
+          }
         }
-      }
-    })
-    .catch((err) => {
-      if(err.response){
-        if (err.response.data.errorCode === "ERR_REQUEST_NOT_FOUND") {
-          setMessageFail("Request not found.");
+      })
+      .catch((err) => {
+        if (err.response) {
+          if (err.response.data.errorCode === "ERR_REQUEST_NOT_FOUND") {
+            setMessageFail("Request not found.");
+          } else if (err.response.data.errorCode === "ERR_REQUEST_ALREADY_COMPLETE") {
+            setMessageFail("Request already complete.");
+          } else if (err.response.data.errorCode === "ERR_USER_NOT_FOUND") {
+            setMessageFail("User not found.");
+          }
+        } else {
+          setMessageFail("Fail to cancel request.");
         }
-        else if(err.response.data.errorCode === "ERR_REQUEST_ALREADY_COMPLETE"){
-          setMessageFail("Request already complete.");
-        }
-        else if(err.response.data.errorCode === "ERR_USER_NOT_FOUND"){
-          setMessageFail("User not found.");
-        }
-      }
-      else{
-        setMessageFail("Fail to cancel request.");
-      }
-      setIsCompleteFail(true);
-    })
+        setIsCompleteFail(true);
+      });
   };
   return (
     <div>
@@ -323,7 +324,14 @@ const Index = () => {
       <div id="Filter_assigned_date-request" class="Filter_assigned_date-request">
         <div id="Group_199_h-request">
           <label>Returned Date</label>
-          <Input type="date" id="input-date-request" onChange={(e) => setAssignedDate(e.target.value)} />
+          <Input
+            type="date"
+            id="input-date-request"
+            value={assignedDate}
+            onChange={(e) => setAssignedDate(e.target.value)}
+            onKeyUp={(e) => removeDatePickerValue(e)}
+            onContextMenu={(e) => removeDatePickerRightClick(e)}
+          />
         </div>
       </div>
       <div id="Search_bar-request">
@@ -420,9 +428,9 @@ const Index = () => {
               <td>{e.assignment.asset.assetCode}</td>
               <td>{e.assignment.asset.assetName}</td>
               <td>{e.requestedBy.username}</td>
-              <td>{e.assignment.assignedDate.split("T")[0]}</td>
+              <td>{new Intl.DateTimeFormat("en-GB").format(new Date(e.assignment.assignedDate.split("T")[0]))}</td>
               <td>{e.acceptedBy !== null ? e.acceptedBy.username : ""}</td>
-              <td>{e.returnedDate !== null ? e.returnedDate.split("T")[0] : ""}</td>
+              <td>{e.returnedDate !== null ? new Intl.DateTimeFormat("en-GB").format(new Date(e.returnedDate.split("T")[0])) : ""}</td>
               <td>{e.state === STATE.WAITING_FOR_RETURNING ? "Waiting for returning" : e.state === STATE.COMPLETED ? "Completed" : ""}</td>
 
               {e.state === STATE.WAITING_FOR_RETURNING ? (
@@ -455,66 +463,54 @@ const Index = () => {
           defaultPage={currentPage + 1}
         />
       </Table>
-      <Modal isOpen={modalComplete} toggle={toggleComplete} style={{marginTop: '100px'}}>
+      <Modal isOpen={modalComplete} toggle={toggleComplete} style={{ marginTop: "100px" }}>
         <ModalHeader
           style={{
-            backgroundColor: 'rgba(239,241,245,1)',
-            color: 'rgba(207, 35, 56, 1)', 
-            paddingLeft: '50px',
-            borderBottom: '1px solid #000'
+            backgroundColor: "rgba(239,241,245,1)",
+            color: "rgba(207, 35, 56, 1)",
+            paddingLeft: "50px",
+            borderBottom: "1px solid #000",
           }}
         >
           Are you sure?
         </ModalHeader>
         <ModalBody>
-          <div style={{marginBottom: '20px', marginLeft: '8px'}}>
-            Do you want to mark this returning request as 'Completed'?
-          </div>
-          <div style={{marginLeft: '8px'}}>
-            <Button 
-              color="danger"
-              onClick={handleCompleteRequest}
-            >
+          <div style={{ marginBottom: "20px", marginLeft: "8px" }}>Do you want to mark this returning request as 'Completed'?</div>
+          <div style={{ marginLeft: "8px" }}>
+            <Button color="danger" onClick={handleCompleteRequest}>
               Yes
             </Button>
-            <Button 
-              outline color="secondary" 
-              style={{marginLeft: '16px'}}
-              onClick={toggleComplete}
-            >
+            <Button outline color="secondary" style={{ marginLeft: "16px" }} onClick={toggleComplete}>
               No
             </Button>
           </div>
-          {
-            isCompleteFail === true &&
-            <div style={{marginTop: '16px'}}>
-            <Alert color="danger">
-              {messageFail}
-            </Alert>
-          </div>
-          }
+          {isCompleteFail === true && (
+            <div style={{ marginTop: "16px" }}>
+              <Alert color="danger">{messageFail}</Alert>
+            </div>
+          )}
         </ModalBody>
       </Modal>
       <Modal isOpen={modalCancel} toggle={toggleCancel}>
-        <ModalHeader
-          style={{ backgroundColor: 'rgba(239,241,245,1)', color: 'rgba(207, 35, 56, 1)',  paddingLeft: '50px', borderBottom: '1px solid #000'}}>
-         <b> Are you sure?</b>
+        <ModalHeader style={{ backgroundColor: "rgba(239,241,245,1)", color: "rgba(207, 35, 56, 1)", paddingLeft: "50px", borderBottom: "1px solid #000" }}>
+          <b> Are you sure?</b>
         </ModalHeader>
         <ModalBody>
-          <div style={{marginBottom: '20px', marginLeft: '8px'}}>
-            Do you want to cancel this returning request? 
+          <div style={{ marginBottom: "20px", marginLeft: "8px" }}>Do you want to cancel this returning request?</div>
+          <div style={{ marginLeft: "8px" }}>
+            <Button color="danger" onClick={handleCanceltoRequest}>
+              Yes{" "}
+            </Button>
+            <Button outline color="secondary" style={{ marginLeft: "16px" }} onClick={toggleCancel}>
+              {" "}
+              No{" "}
+            </Button>
           </div>
-          <div style={{marginLeft: '8px'}}>
-            <Button  color="danger" onClick={handleCanceltoRequest}>Yes </Button>
-            <Button outline color="secondary"  style={{marginLeft: '16px'}} onClick={toggleCancel}> No </Button>
-          </div>
-          {  isCompleteFail === true &&
-            <div style={{marginTop: '16px'}}>
-            <Alert color="danger">
-              {messageFail}
-            </Alert>
-          </div>
-          }
+          {isCompleteFail === true && (
+            <div style={{ marginTop: "16px" }}>
+              <Alert color="danger">{messageFail}</Alert>
+            </div>
+          )}
         </ModalBody>
       </Modal>
     </div>
