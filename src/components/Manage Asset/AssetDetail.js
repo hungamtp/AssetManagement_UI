@@ -118,7 +118,7 @@ export default class AssetDetail extends Component {
                             <Col xs="9" style={{fontSize: '16px'}}>
                                 {this.state.assignmentList.length === 0 && <span>No History</span>}
                                 {this.state.assignmentList.length > 0 &&
-                                    <Table hover>
+                                    <Table hover style={{marginLeft: '0px'}}>
                                         <thead>
                                             <tr>
                                                 <th>Date</th>
@@ -137,7 +137,8 @@ export default class AssetDetail extends Component {
                                                                 <td>{assignment.assignedTo.username}</td>
                                                                 <td>{assignment.assignedBy.username}</td>
                                                                 <td>
-                                                                    {assignment.requests[0].returnedDate ? assignment.requests[0].returnedDate.split('T')[0] : "null"}
+                                                                    {assignment.requests[0].returnedDate === null && <span>Waiting for returning</span>}
+                                                                    {assignment.requests[0].returnedDate !== null && <span>{assignment.requests[0].returnedDate.split('T')[0]}</span>}
                                                                 </td>
                                                             </tr>
                                                         )
@@ -148,7 +149,11 @@ export default class AssetDetail extends Component {
                                                                 <td>{assignment.assignedDate.split('T')[0]}</td>
                                                                 <td>{assignment.assignedTo.username}</td>
                                                                 <td>{assignment.assignedBy.username}</td>
-                                                                <td>not yet</td>
+                                                                <td>
+                                                                    {assignment.state === 1 && <span>Accepted</span>}
+                                                                    {assignment.state === 2 && <span>Waiting for acceptance</span>}
+                                                                    {assignment.state === 3 && <span>Declined</span>}
+                                                                </td>
                                                             </tr>
                                                         )
                                                     }
