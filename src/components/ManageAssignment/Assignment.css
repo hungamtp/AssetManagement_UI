@@ -199,30 +199,14 @@ input {
   top: 275px;
   overflow: visible;
 }
-#manageAssignment-no{
-  width: 100px;
-}
-#manageAssignment-code{
-  width: 150px;
-}
-#manageAssignment-to{
-  width: 150px;
-}
-#manageAssignment-name{
-  width: 250px;
-}
-#manageAssignment-date{
-  width: 180px;
-}
-#manageAssignment-by{
-  width: 160px;
-}
 #create_button-manageAssignment{
   position: relative;
   top: -50px;
-  left:700px;
+  left:750px;
 }
 #assgignemts table{
 position: relative;
-top: -30px;
+top: -20px;
+left: -25px;
+width: 1100px;
 }

@@ -359,31 +359,31 @@ const Assignment = () => {
     <Table>
       <thead>
         <tr>
-          <th id="manageAssignment-no" onClick={handleSortByNo}>
+          <th onClick={handleSortByNo}>
             No.
             {isNoASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
           </th>
-          <th id="manageAssignment-code" onClick={handleSortByAssetCode}>
+          <th  onClick={handleSortByAssetCode}>
             Asset Code
             {isAssetCodeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
           </th>
-          <th id="manageAssignment-name" onClick={handleSortByAssetName}>
+          <th onClick={handleSortByAssetName}>
             Asset Name
             {isAssetNameASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
           </th>
-          <th id="manageAssignment-to" onClick={handleSortByAssignedto}>
+          <th onClick={handleSortByAssignedto}>
             Assigned to
             {isAssignedtoASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
           </th>
-          <th id="manageAssignment-by" onClick={handleSortByAssignedby}>
+          <th onClick={handleSortByAssignedby}>
             Assigned by
             {isAssignedbyASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
           </th>
-          <th id="manageAssignment-date" onClick={handleSortByAssignedDate}>
+          <th onClick={handleSortByAssignedDate}>
             Assigned Date
             {isAssignedDateASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
           </th>
-          <th id="manageAssignment-state" onClick={handleSortByState}>
+          <th onClick={handleSortByState}>
             State
             {isStateASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
           </th>
