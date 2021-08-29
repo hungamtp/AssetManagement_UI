@@ -40,9 +40,13 @@ const EditUser = () => {
   let { staffCode } = useParams();
 
   useEffect(() => {
-    //get user
-    setUser(cookies.user);
-    setLocation(cookies.user.idLocation);
+    try {
+      //get user
+      setUser(cookies.user);
+      setLocation(cookies.user.idLocation);
+    } catch (error) {
+      history.push(URL.LOGIN);
+    }
     //get info
     let Url = "user/" + staffCode.trim();
     get(Url)
