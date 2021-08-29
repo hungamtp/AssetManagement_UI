@@ -42,12 +42,12 @@ function handleError(error) {
         if (getCookie("user") !== "") {
           setCookie("user", "", 0);
         }
-        window.location = URL.LOGIN;
+        if (window.location.pathname !== URL.LOGIN) window.location = URL.LOGIN;
       }
     }
   }
   console.log("Fail to call api");
-  console.log(error)
+  console.log(error);
 }
 
 export function get(url) {
