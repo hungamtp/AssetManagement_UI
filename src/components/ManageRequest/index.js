@@ -58,14 +58,14 @@ const Index = () => {
         let result = await countRequestFilterSearchSort(URL.COUNT_REQUEST_FILTER_SEARCH_SORT_API, filterSearchSort);
         loadTotalPages(result.data.data.numberOfEntity);
       } catch (error) {
-        alert(error.response.data.data.errorCode);
+        alert(error.response.data.errorCode);
         return;
       }
       try {
         let result = await getRequestFilterSearchSort(`${URL.GET_REQUEST_FILTER_SEARCH_SORT_API}?page=${currentPage}&size=${pageSize}`, filterSearchSort);
         setRequestList(result.data.data);
       } catch (error) {
-        alert(error.response.data.data.errorCode);
+        alert(error.response.data.errorCode);
         return;
       }
     } else {
@@ -73,14 +73,14 @@ const Index = () => {
         let result = await countRequest(URL.COUNT_REQUEST_API);
         loadTotalPages(result.data.data.numberOfEntity);
       } catch (error) {
-        alert(error.response.data.data.errorCode);
+        alert(error.response.data.errorCode);
         return;
       }
       try {
         let result = await getRequest(`${URL.GET_REQUEST_API}?page=${currentPage}&size=${pageSize}`);
         setRequestList(result.data.data);
       } catch (error) {
-        alert(error.response.data.data.errorCode);
+        alert(error.response.data.errorCode);
         return;
       }
     }

@@ -37,10 +37,14 @@ const CreateNewUser = () => {
     let history = useHistory();
 
     useEffect(() => {
+      try {
         //get user
         setUser(cookies.user);
         setLocation(cookies.user.idLocation);
-    }, [])
+      } catch (error) {
+        history.push(URL.LOGIN);
+      }
+    }, []);
 
     useEffect(() => {
         //do something
