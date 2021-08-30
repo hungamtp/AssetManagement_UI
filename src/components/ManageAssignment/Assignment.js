@@ -10,11 +10,15 @@ import "./Assignment.css";
 import Assign from "./Assign";
 import Paginations from "./Pagination/Pagination";
 import * as STATE from "../../constants/State";
+import { Dropdown, DropdownMenu, DropdownToggle, Input, Label, } from "reactstrap";
+  import { Table } from 'reactstrap';
 
 let timeOfCallUseEffect = 0;
 const Assignment = () => {
   const history = useHistory();
 
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggle = () => setDropdownOpen((prevState) => !prevState);
   const [assignments, setAssignments] = useState([]);
   const [size, setSize] = useState(15);
   const [currentPage, setCurrentPage] = useState(0);
@@ -290,80 +294,107 @@ const Assignment = () => {
 
   return (
     <div id="assgignemts">
-      <p className="title">Assignment List</p>
-      <div id="Search_bar">
-        <FormControl>
-          <InputLabel id="label-type">State</InputLabel>
-          <Select labelId="label-type" labelId="demo-simple-select-label" id="simple-select" className="state">
-            <MenuItem>
-              <input type="checkbox" value="all" checked={stateAll} onChange={() => setStateAll(!stateAll)} />
-              All
-            </MenuItem>
-            <MenuItem>
-              <input type="checkbox" value="accepted" checked={stateAccepted} onChange={() => setStateAccepted(!stateAccepted)} />
-              Accepted
-            </MenuItem>
-            <MenuItem>
-              <input type="checkbox" value="wating for acceptance" checked={stateWaiting} onChange={() => setStateWaiting(!stateWaiting)} />
-              Waiting for acceptance
-            </MenuItem>
-            <MenuItem>
-              <input type="checkbox" value="declined" checked={stateDeclined} onChange={() => setStateDeclined(!stateDeclined)} />
-              Declined
-            </MenuItem>
-          </Select>
-        </FormControl>
-        <input type="date" className="date" value={localDateTime} onChange={(e) => setLocalDateTime(e.target.value)} />
-        <div id="right_search_bar">
-          <input type="text" placeholder="search" value={searchKeyWord} onChange={(e) => setSearchKeyWord(e.target.value)} />
-          <button id="searchbtn">
-            <img id="btn-search" src={searchIcon} onClick={handleSeachKeyWord} />
-          </button>
-          <button id="create_button" onClick={handleClickCreateNew}>
-            Create new Assignment
-          </button>
+    <p className="title">Assignment List</p>
+    <Dropdown isOpen={dropdownOpen} toggle={toggle} id="Filter_state-manageAssignment" class="Filter_state-manageAssignment">
+      <DropdownToggle tag="span" data-toggle="dropdown" aria-expanded={dropdownOpen} id="Group_199-manageAssignment">
+        <div>
+          <svg class="Rectangle_336_hh-request">
+            <rect id="Rectangle_336_hh-request" rx="5" ry="5" x="0" y="0" width="210" height="35"></rect>
+          </svg>
+          <svg class="Line_5_hi-request" viewBox="0 0 1 33">
+            <path id="Line_5_hi-request" d="M 0 0 L 0 33"></path>
+          </svg>
         </div>
-      </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th onClick={handleSortByNo}>
-              No.
-              {isNoASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
-            </th>
-            <th onClick={handleSortByAssetCode}>
-              Asset Code
-              {isAssetCodeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
-            </th>
-            <th onClick={handleSortByAssetName}>
-              Asset Name
-              {isAssetNameASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
-            </th>
-            <th onClick={handleSortByAssignedto}>
-              Assigned to
-              {isAssignedtoASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
-            </th>
-            <th onClick={handleSortByAssignedby}>
-              Assigned by
-              {isAssignedbyASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
-            </th>
-            <th onClick={handleSortByAssignedDate}>
-              Assigned Date
-              {isAssignedDateASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
-            </th>
-            <th onClick={handleSortByState}>
-              State
-              {isStateASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
-            </th>
-          </tr>
-        </thead>
+        <svg class="funnel-fill-request" viewBox="1.5 1 13 13">
+          <path
+            id="funnel-fill-request"
+            d="M 1.49999988079071 1.464298129081726 C 1.49999988079071 1.207873582839966 1.723857641220093 0.9999999403953552 2.000000238418579 1 L 14.00000286102295 1 C 14.27614307403564 1 14.5 1.207873582839966 14.5 1.464298129081726 L 14.5 3.32149076461792 C 14.5 3.43591046333313 14.45443630218506 3.546375513076782 14.37205982208252 3.631580114364624 L 10.00000190734863 8.142763137817383 L 10.00000190734863 12.60745429992676 C 9.999837875366211 12.80721282958984 9.86209774017334 12.98448371887207 9.658001899719238 13.047607421875 L 6.658000946044922 13.97620391845703 C 6.505598545074463 14.02334022521973 6.338087558746338 13.99961280822754 6.207751274108887 13.91242599487305 C 6.077413558959961 13.82524013519287 6.000123023986816 13.68521404266357 6.000000476837158 13.53604984283447 L 6.000000476837158 8.142763137817383 L 1.628000020980835 3.63164210319519 C 1.545608043670654 3.546451568603516 1.500022053718567 3.435994148254395 1.49999988079071 3.32149076461792 L 1.49999988079071 1.464298129081726 Z"
+          ></path>
+        </svg>
+        <div id="State_hk-request">
+          <span>State</span>
+        </div>
+      </DropdownToggle>
+      <DropdownMenu>
+        <div className="state-option-manageAssignment">
+          <Label check>
+            <input id="state-check-manageAssignment"  type="checkbox" checked={stateAll} onChange={() => setStateAll(!stateAll)} /> All
+          </Label>
+        </div>
+        <div className="state-option-manageAssignment">
+          <Label check>
+          <input id="state-check-manageAssignment" type="checkbox"  checked={stateAccepted} onChange={() => setStateAccepted(!stateAccepted)} /> Accepted
+          </Label>
+        </div>
+        <div className="state-option-manageAssignment">
+          <Label check>
+          <input id="state-check-manageAssignment" type="checkbox"  checked={stateWaiting} onChange={() => setStateWaiting(!stateWaiting)} /> Waiting for acceptance
+          </Label>
+        </div>
+        <div className="state-option-manageAssignment">
+          <Label check>
+          <input id="state-check-manageAssignment" type="checkbox"  checked={stateDeclined} onChange={() => setStateDeclined(!stateDeclined)} /> Declined
+          </Label>
+        </div>
+      </DropdownMenu>
+    </Dropdown>
+      <input id="date-manageAssingment" type="date" className="date" value={localDateTime} onChange={(e) => setLocalDateTime(e.target.value)} />
+      <div id="Search_bar-manageAssingment">
+      <Input type="text" id="input-search-request" value={searchKeyWord} onChange={(e) => setSearchKeyWord(e.target.value)} />
+      <svg class="Line_5-request" viewBox="0 0 1 33">
+        <path id="Line_5-request" d="M 0 0 L 0 33"></path>
+      </svg>
+      <svg class="search-request" viewBox="-0.001 0.002 16.001 15.998" onClick={handleSeachKeyWord}>
+        <path
+          id="search-request"
+          d="M 11.74199962615967 10.3439998626709 C 13.75034236907959 7.603466033935547 13.3092155456543 3.77855372428894 10.72976493835449 1.567129611968994 C 8.150315284729004 -0.6442947387695313 4.30290412902832 -0.4960470199584961 1.90126895904541 1.907307624816895 C -0.5003666877746582 4.310660362243652 -0.6458611488342285 8.158176422119141 1.567407608032227 10.73604393005371 C 3.780675888061523 13.31391143798828 7.605902671813965 13.75230312347412 10.34499931335449 11.74200057983398 L 10.34399890899658 11.74199962615967 C 10.37399864196777 11.7819995880127 10.40599918365479 11.81999969482422 10.44199848175049 11.85699939727783 L 14.2919979095459 15.70699882507324 C 14.68246269226074 16.09774017333984 15.31575584411621 16.09796333312988 15.70649719238281 15.70749855041504 C 16.09723854064941 15.3170337677002 16.09746170043945 14.68374061584473 15.70699787139893 14.29299926757813 L 11.85699844360352 10.4429988861084 C 11.82124614715576 10.4068078994751 11.78280258178711 10.37337875366211 11.74199867248535 10.34299850463867 Z M 12 6.5 C 12 9.537567138671875 9.537566184997559 12 6.5 12 C 3.4624342918396 12 1.000000476837158 9.537566184997559 1.000000476837158 6.5 C 1.000000476837158 3.4624342918396 3.462434530258179 1.000000476837158 6.500000953674316 1.000000476837158 C 9.537567138671875 1.000000476837158 12 3.462434530258179 12 6.500000953674316 Z"
+        ></path>
+      </svg>
+    </div>
+      <div id="right_search_bar">
+        <button id="create_button-manageAssignment" onClick={handleClickCreateNew}>
+          Create new Assignment
+        </button>
+    </div>
+    <Table>
+      <thead>
+        <tr>
+          <th onClick={handleSortByNo}>
+            No.
+            {isNoASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+          </th>
+          <th  onClick={handleSortByAssetCode}>
+            Asset Code
+            {isAssetCodeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+          </th>
+          <th onClick={handleSortByAssetName}>
+            Asset Name
+            {isAssetNameASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+          </th>
+          <th onClick={handleSortByAssignedto}>
+            Assigned to
+            {isAssignedtoASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+          </th>
+          <th onClick={handleSortByAssignedby}>
+            Assigned by
+            {isAssignedbyASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+          </th>
+          <th onClick={handleSortByAssignedDate}>
+            Assigned Date
+            {isAssignedDateASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+          </th>
+          <th onClick={handleSortByState}>
+            State
+            {isStateASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+          </th>
+        </tr>
+      </thead>
         <tbody>
           {assignments.map((assignment) => {
             return <Assign ReloadAssignment={ReloadAssignment} currentPage={currentPage} size={size} assignment={assignment} />;
           })}
         </tbody>
-      </table>
+      </Table>
       <Paginations setCurrentPage={(current) => setCurrentPage(current)} className="pagination" />
     </div>
   );

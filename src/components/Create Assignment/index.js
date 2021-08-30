@@ -201,12 +201,13 @@ const CreateAssignment = () => {
           <table id="users-table">
             <thead>
               <tr>
-                <th></th>
-                <th onClick={handleSortByStaffCode}>
+                <th> </th>
+                <th onClick={handleSortByStaffCode} className="users-header">
                   Staff Code
                   {isStaffCodeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
                 </th>
-                <th onClick={handleSortByFullName}>
+                <th> </th>
+                <th onClick={handleSortByFullName} className="users-header">
                   Full Name
                   {isFullNameCodeASC ? (
                     <ArrowDropDownIcon />
@@ -214,7 +215,8 @@ const CreateAssignment = () => {
                     <ArrowDropUpIcon />
                   )}
                 </th>
-                <th onClick={handleSortType}>
+                <th> </th>
+                <th onClick={handleSortType} className="users-header">
                   Type
                   {isTypeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
                 </th>
@@ -235,10 +237,13 @@ const CreateAssignment = () => {
                       />
                       <span class="checkmark"></span>
                     </label>
-
-                    <td>{user.staffCode}</td>
-                    <td>{user.fullName}</td>
-                    <td>{user.role}</td>
+                    <td className="user-item">{user.staffCode}</td>
+                    <td>&nbsp;</td>
+                    <td className="user-item">{user.fullName}</td>
+                    <td>&nbsp;</td>
+                    <td className="user-item">
+                      {user.role.includes("ADMIN") ? "Admin" : "Staff"}
+                    </td>
                   </tr>
                 );
               })}
@@ -309,19 +314,21 @@ const CreateAssignment = () => {
             />
           </div>
         </div>
-        <table id="users-table">
+        <table id="asset-table">
           <thead>
             <tr>
               <th></th>
-              <th onClick={handleSortByAssetCode}>
+              <th onClick={handleSortByAssetCode} className="asset-header">
                 Asset Code
                 {isAssetCodeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
               </th>
-              <th onClick={handleSortByAssetName}>
+              <th></th>
+              <th onClick={handleSortByAssetName} className="asset-header">
                 Asset Name
                 {isAssetNameASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
               </th>
-              <th onClick={handleSortByCategory}>
+              <th></th>
+              <th onClick={handleSortByCategory} className="asset-header">
                 Category
                 {isCategoryASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
               </th>
@@ -342,9 +349,11 @@ const CreateAssignment = () => {
                     />
                     <span class="checkmark"></span>
                   </label>
-                  <td>{asset.code}</td>
-                  <td>{asset.name}</td>
-                  <td>{asset.category}</td>
+                  <td className="asset-item">{asset.code}</td>
+                  <td>&nbsp;</td>
+                  <td className="asset-item">{asset.name}</td>
+                  <td>&nbsp;</td>
+                  <td className="asset-item">{asset.category}</td>
                 </tr>
               );
             })}

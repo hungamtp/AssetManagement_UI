@@ -146,7 +146,7 @@ const handleOpenFormDelete =() => {
         <td onClick={showAssignmentDetail}>{assignment.assignedDate.slice(0, 10)}</td>
         <td onClick={showAssignmentDetail}>{state}</td>
 
-        <td id="icon_zone">
+        <div id="icon_zone">
           <div id="edit_icon">
             {assignment.state === 2 ? (
               <svg class="edit_icon_xp" viewBox="0 0 16.001 16" onClick={() => handleEditIconClick()}>
@@ -196,7 +196,7 @@ const handleOpenFormDelete =() => {
                 />
             </button>
           </div>
-        </td>
+        </div>
       </tr>
       <ReturnRequest assignmentId={assignment.assignmentId} staffCode={cookies.user.staffCode} isShowReturnRequest={isShowReturnRequest} handleReturnRequestShow={handleReturnRequestShow}/>
     </>

@@ -106,7 +106,7 @@
   width: 230px;
   height: 35px;
   left: 0px;
-  top: 0px;
+  top: -1.5rem;
   overflow: visible;
 }
 #Rectangle_336_h-request {
@@ -319,10 +319,10 @@
   width: 12.5rem;
 }
 #input-date-request {
-  border: 2px solid #939699;
+  border: 1px solid black;
 }
 #input-search-request {
-  border: 2px solid #939699;
+  border: 1px solid black;
   width: 16rem;
   padding-right: 40px;
 }

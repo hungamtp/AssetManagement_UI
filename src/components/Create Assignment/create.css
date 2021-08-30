@@ -50,15 +50,25 @@ label {
 #name-dialog {
   color: red;
 }
+#users-table .users-header {
+  border-bottom: 1px solid black;
+}
+.user-item {
+  border-bottom: 1px solid lightgray;
+}
+#asset-table .asset-header {
+  border-bottom: 1px solid black;
+}
+.asset-item {
+  border-bottom: 1px solid lightgray;
+}
 table {
   width: 500px;
   padding: 20px;
   margin-left: 20px;
   margin-right: 20px;
 }
-th {
-  text-decoration: underline;
-}
+
 tr {
   margin-top: 20px;
 }

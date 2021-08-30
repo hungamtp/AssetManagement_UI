@@ -16,14 +16,11 @@ const EditAsset = () => {
     const [State, setState] = useState("");
     const [categoryList, setCategoryList] = useState([]);
 
-    const [checkedAvailalbe, setCheckedAvailalbe] = useState(true);
-    const [checkedNotAvailable, setCheckedNotAvailable] = useState(true);
-    const [checkedWaitingforrecycling, setCheckedWaitingforrecycling] = useState(true);
+    const [checkedAvailalbe, setCheckedAvailalbe] = useState(false);
+    const [checkedNotAvailable, setCheckedNotAvailable] = useState(false);
+    const [checkedWaitingforrecycling, setCheckedWaitingforrecycling] = useState(false);
     const [checkedRecycled, setCheckedRecycled] = useState(false);
-    const [role, setRole] = useState("ROLE_ADMIN");
     
-
-    const [valid, setValid] = useState("");
     const [validIDay, setValidIDay] = useState(true);
     const [isDisabled, setIsDisable] = useState(true);
 
@@ -48,12 +45,7 @@ const EditAsset = () => {
             .then(response => setCategoryList(response.data.data))
             .catch(err => console.log(err))
     }, [])
-
-    useEffect(() => {
-        //do something
-    }, [valid])
-
-    
+   
     useEffect(() => {
         console.log(AssetInfo);
         if (AssetInfo !== null) {
@@ -86,13 +78,6 @@ const EditAsset = () => {
             setIsDisable(false)
         else setIsDisable(true);
     }, [Name, Category, Specification, InstalledDate, State])
-
-    const handleValid = (mes, type) => {
-        setValid(mes);
-        if (!type)
-            setValidIDay(false)
-        else setValidIDay(true);
-    }
 
     const handleEdit = () => {
         let Url = "asset/edit/" + assetCode;
@@ -158,30 +143,30 @@ const EditAsset = () => {
                     </FormGroup>
                 </div>
                 <div id="State_fsh">
-                    <FormGroup row>
+                    <FormGroup row className="mt-2">
                         <legend className="col-form-label col-sm-2" sm={2}>State</legend>
                         <Col sm={10} id="state-check-editAsset" >
                             <FormGroup  check>
-                                <Label check >
+                                <Label>
                                     <Input id="radiocheck-editAsset" type="radio" name="customRadio" value={"available"} 
                                     onClick={handleChangeAvailable} checked={checkedAvailalbe} />{' '}Available
                                 </Label>
                             </FormGroup>
                             <FormGroup check>
-                                <Label check>
+                                <Label>
                                     <Input id="radiocheck-editAsset" type="radio" name="customRadio" value={"not available"} 
                                     onClick={handleChangeNotAvailable} checked={checkedNotAvailable} />{' '}Not available
                                 </Label>
                             </FormGroup>
-                            <FormGroup check disabled>
-                                <Label check>
+                            <FormGroup check>
+                                <Label>
                                     <Input id="radiocheck-editAsset" type="radio" name="customRadio" value={"waiting for recycling"} 
                                     onClick={handleChangeWaitingforrecycling} checked={checkedWaitingforrecycling}/>{' '}Waiting for recycling
                                 </Label>
                             </FormGroup>
-                            <FormGroup check disabled>
-                                <Label check>
-                                    <Input id="radiocheck" type="radio" name="customRadio" value={"recycled"} 
+                            <FormGroup check>
+                                <Label>
+                                    <Input id="radiocheck-editAsset" type="radio" name="customRadio" value={"recycled"} 
                                     onClick={handleChangeRecycled} checked={checkedRecycled}/>{' '}Recycled
                                 </Label>
                             </FormGroup>

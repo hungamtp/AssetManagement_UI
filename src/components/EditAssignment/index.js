@@ -228,15 +228,15 @@ const EditAssignment = () => {
             <thead>
               <tr className="tr-edit-assignment">
                 <th className="th-edit-assignment"></th>
-                <th className="th-edit-assignment" onClick={handleSortByStaffCode}>
+                <th className="th-edit-assignment" onClick={handleSortByStaffCode} className="users-header">
                   Staff Code
                   {isStaffCodeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
                 </th>
-                <th className="th-edit-assignment" onClick={handleSortByFullName}>
+                <th className="th-edit-assignment" onClick={handleSortByFullName} className="users-header">
                   Full Name
                   {isFullNameCodeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
                 </th>
-                <th className="th-edit-assignment" onClick={handleSortType}>
+                <th className="th-edit-assignment" onClick={handleSortType} className="users-header">
                   Type
                   {isTypeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
                 </th>
@@ -255,9 +255,9 @@ const EditAssignment = () => {
                         setNameSelected(user.fullName);
                       }}
                     />
-                    <td>{user.staffCode}</td>
-                    <td>{user.fullName}</td>
-                    <td>{user.role}</td>
+                    <td className="user-item">{user.staffCode}</td>
+                    <td className="user-item">{user.fullName}</td>
+                    <td className="user-item">{user.role.includes("ADMIN") ? "Admin" : "Staff"}</td>
                   </tr>
                 );
               })}
@@ -321,19 +321,19 @@ const EditAssignment = () => {
             />
           </div>
         </div>
-        <table id="users-table" className="table-edit-assignment">
+        <table id="asset-table" className="table-edit-assignment">
           <thead>
             <tr className="tr-edit-assignment">
               <th className="th-edit-assignment"></th>
-              <th className="th-edit-assignment" onClick={handleSortByAssetCode}>
+              <th className="th-edit-assignment" onClick={handleSortByAssetCode} className="asset-header">
                 Asset Code
                 {isAssetCodeASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
               </th>
-              <th className="th-edit-assignment" onClick={handleSortByAssetName}>
+              <th className="th-edit-assignment" onClick={handleSortByAssetName} className="asset-header">
                 Asset Name
                 {isAssetNameASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
               </th>
-              <th className="th-edit-assignment" onClick={handleSortByCategory}>
+              <th className="th-edit-assignment" onClick={handleSortByCategory} className="asset-header">
                 Category
                 {isCategoryASC ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
               </th>
@@ -352,9 +352,9 @@ const EditAssignment = () => {
                       setAssetNameSelected(asset.name);
                     }}
                   />
-                  <td>{asset.code}</td>
-                  <td>{asset.name}</td>
-                  <td>{asset.category}</td>
+                  <td className="asset-item">{asset.code}</td>
+                  <td className="asset-item">{asset.name}</td>
+                  <td className="asset-item">{asset.category}</td>
                 </tr>
               );
             })}

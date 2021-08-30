@@ -16,13 +16,17 @@ const Navbar = (props) => {
   const [isShowChangePass, setIsShowChangePass] = useState(false);
 
   useEffect(() => {
-    setUser(cookies.user);
-    //change password
-    if (cookies.user.firstLogin) setDisabledPass(false);
-    else setDisabledPass(false);
-    //logout
-    if (window.location.pathname === "/first") setDisabledLogout(true);
-    else setDisabledLogout(false);
+    try {
+      setUser(cookies.user);
+      //change password
+      if (cookies.user.firstLogin) setDisabledPass(false);
+      else setDisabledPass(false);
+      //logout
+      if (window.location.pathname === "/first") setDisabledLogout(true);
+      else setDisabledLogout(false);
+    } catch (e) {
+      history.push(URL.LOGIN);
+    }
   }, []);
 
   const handleLogoutShow = () => {
